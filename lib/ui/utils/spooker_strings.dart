@@ -1,0 +1,9 @@
+import 'package:flutter/cupertino.dart';
+
+@immutable
+class SpookerStrings {
+  static const spookerAppName = 'Spooker';
+  static const emailAddressText = 'Email Address';
+  static const GoogleButtonText = 'Sign in with Google';
+  static const ContinueButtonText = 'Continue';
+}
