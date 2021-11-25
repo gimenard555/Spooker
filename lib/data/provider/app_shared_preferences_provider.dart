@@ -1,5 +1,6 @@
-import 'package:hooks_riverpod/all.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/data/local/app_shared_preferences.dart';
 
-final preferencesProvider =
-    Provider<AppSharedPreferences>((ref) => AppSharedPreferences());
+final preferencesProvider = Provider((ref) {
+  return AppSharedPreferences();
+});

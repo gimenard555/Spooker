@@ -8,7 +8,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-  flutter: '>=2.0.0'
+  flutter: '>=2.5.3'
 
 dependencies:
   flutter:
@@ -26,15 +26,15 @@ dependencies:
   
   #For architecture
   flutter_hooks: ^0.18.0
-  hooks_riverpod: ^0.14.0+5
+  hooks_riverpod: ^1.0.0
 
   #For networking
   dio: ^4.0.0
   ua_client_hints: ^1.1.0
 
   #For model
-  json_serializable: ^4.1.4
-  freezed_annotation: ^0.14.2
+  json_serializable: ^6.0.1
+  freezed_annotation: ^0.14.0
   
   #For DateTime
   intl: ^0.17.0
@@ -48,7 +48,6 @@ dependencies:
   gap: ^2.0.0
   flutter_svg: ^0.23.0+1
   get: ^4.3.8
-  glassmorphism: ^3.0.0
   lottie: ^1.2.1
   
 dev_dependencies:
@@ -56,8 +55,8 @@ dev_dependencies:
     sdk: flutter
 
   build_runner: ^2.1.2
-  flutter_gen_runner: ^3.1.1
-  freezed: ^0.14.2
+  flutter_gen_runner: ^4.1.2
+  freezed: ^0.14.0
   effective_dart: ^1.3.2
   mocktail: ^0.2.0
   mocktail_image_network: ^0.2.0
@@ -75,9 +74,9 @@ flutter:
   #generate: true
 
   assets:
-    - assets/images
-    - assets/svgs
-    - assets/animations
+    - assets/images/
+    - assets/svgs/
+    - assets/animations/
 
   fonts:
     - family: Montserrat

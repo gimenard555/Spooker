@@ -1,5 +1,5 @@
 import 'package:enum_to_string/enum_to_string.dart';
-import 'package:flutter/src/material/app.dart';
+import 'package:flutter/material.dart';
 import 'package:spooker/data/local/app_shared_preferences.dart';
 import 'package:spooker/data/local/theme_data_source.dart';
 

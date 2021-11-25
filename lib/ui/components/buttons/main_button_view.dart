@@ -1,13 +1,44 @@
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
-import 'package:spooker/ui/utils/spooker_sizes.dart';
+import 'package:spooker/ui/utils/spooker_fonts.dart';
 
-class MainButtonView extends HookWidget {
+class MainButtonView extends HookConsumerWidget {
   MainButtonView({required this.buttonText});
 
-  String buttonText;
+  final String buttonText;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Container(
+      child: Align(
+        alignment: Alignment.center,
+        child: Padding(
+            padding: EdgeInsets.all(5),
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    buttonText,
+                    style: SpookerFonts.textFormNormal,
+                  )),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      SpookerColors.completeLight),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                          side:
+                              BorderSide(color: SpookerColors.completeLight)))),
+            )),
+      ),
+      height: 60,
+      width: MediaQuery.of(context).size.width,
+      decoration: okBorderButton,
+    );
+  }
 
   final okBorderButton = BoxDecoration(
     gradient: SpookerColors.rightGradient,
@@ -17,22 +48,9 @@ class MainButtonView extends HookWidget {
     borderRadius: BorderRadius.circular(30),
   );
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(5),
-        child: Container(
-          child: Text(buttonText),
-          decoration: BoxDecoration(
-            color: SpookerColors.completeLight,
-            border: Border.all(color: SpookerColors.completeLight),
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ),
-      ),
-      height: SpookerSize.buttonHeight,
-      decoration: okBorderButton,
-    );
-  }
+  final innerButton = BoxDecoration(
+    color: SpookerColors.completeLight,
+    border: Border.all(color: SpookerColors.completeLight),
+    borderRadius: BorderRadius.circular(60),
+  );
 }

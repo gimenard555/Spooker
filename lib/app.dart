@@ -1,12 +1,16 @@
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:get/route_manager.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:spooker/ui/components/screen/main_screen.dart';
 
-class App extends HookWidget {
+void main() => runApp(ProviderScope(child: SpookerApp()));
+
+class SpookerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp(
       title: 'Spooker',
+      home: MainScreen([Container()]),
     );
   }
 }

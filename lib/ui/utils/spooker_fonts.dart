@@ -26,4 +26,10 @@ class SpookerFonts {
       fontSize: common18,
       fontWeight: regular,
       color: SpookerColors.completeDark);
+
+  static const TextStyle titleText = TextStyle(
+      fontFamily: font,
+      fontSize: common18,
+      fontWeight: bold,
+      color: SpookerColors.darkBlue);
 }

@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/components/Inputs/text_form_state.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
+import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/strings_types.dart';
 
-class TextFormView extends HookWidget {
+class TextFormView extends HookConsumerWidget {
   TextFormView(
       {required this.textController,
       required this.textHint,
@@ -18,10 +17,9 @@ class TextFormView extends HookWidget {
   final String textHint;
   bool? autofocus = false;
   TextType? textType = TextType.IS_NORMAL_TEXT;
-
   @override
-  Widget build(BuildContext context) {
-    final state = useProvider(textFormStateProvider);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(textFormStateProvider);
     state.textType = this.textType ??= TextType.IS_NORMAL_TEXT;
     return TextFormField(
       autofocus: this.autofocus ??= false,
@@ -52,13 +50,13 @@ class TextFormView extends HookWidget {
       labelText: this.textHint,
       fillColor: borderColor,
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
         borderSide: BorderSide(
           color: borderColor,
         ),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
         borderSide: BorderSide(
           color: borderColor,
           width: 2.0,
