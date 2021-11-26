@@ -4,7 +4,7 @@ import 'package:spooker/ui/utils/spooker_colors.dart';
 class CircleButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double size = 80.0;
+    double size = MediaQuery.of(context).size.width / 5;
     return new InkResponse(
       child: new Container(
         width: size,
