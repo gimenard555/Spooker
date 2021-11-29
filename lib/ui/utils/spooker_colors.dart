@@ -11,6 +11,7 @@ class SpookerColors {
   static const Color spookerMainGreen = Color(0xFFD4FF2A);
   static const Color errorRed = Color(0xFFFF795D);
   static const Color lightGray = Color(0xFFF1F1F1);
+  static const Color darkGray = Color(0xFF686464);
   static const Color darkBlue = Color(0xFF1B4F72);
   static const Color hintGray = Color(0xFFB0B0B0);
   static const Color completeDark = Color(0xFF000000);

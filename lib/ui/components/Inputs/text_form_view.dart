@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/components/Inputs/text_form_state.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
@@ -13,20 +14,39 @@ class TextFormView extends HookConsumerWidget {
       this.autofocus,
       this.textType});
 
-  final TextEditingController textController;
-  final String textHint;
+  TextEditingController textController;
+  String textHint;
   bool? autofocus = false;
   TextType? textType = TextType.IS_NORMAL_TEXT;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(textFormStateProvider);
     state.textType = this.textType ??= TextType.IS_NORMAL_TEXT;
-    return TextFormField(
-      autofocus: this.autofocus ??= false,
-      decoration: getDecorationByText(state.error),
-      style: getTextStyleByText(state.error),
-      controller: textController,
-      onChanged: (text) => state.validateTypeError(text),
+    return Column(
+      children: [
+        TextFormField(
+          autofocus: this.autofocus ??= false,
+          decoration: getDecorationByText(state.error),
+          style: getTextStyleByText(state.error),
+          controller: textController,
+          onChanged: (text) => state.validateTypeError(text),
+        ),
+        SizedBox(width: SpookerSize.sizedBoxSpace),
+        Row(
+          children: [
+            SvgPicture.asset('svgs/alert_icon.svg',
+                height: 20, width: 20, color: Colors.red),
+            SizedBox(height: SpookerSize.miniSizedBox),
+            Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  'Try entering a valid email',
+                  textAlign: TextAlign.center,
+                  style: SpookerFonts.titleText,
+                )),
+          ],
+        )
+      ],
     );
   }
 
@@ -43,7 +63,7 @@ class TextFormView extends HookConsumerWidget {
         borderColor = SpookerColors.lightGray;
         break;
       case TextFormError.EMPTY:
-        borderColor = SpookerColors.lightGray;
+        borderColor = SpookerColors.darkGray;
         break;
     }
     return InputDecoration(

@@ -4,6 +4,7 @@ import 'package:spooker/ui/utils/spooker_colors.dart';
 class SpookerFonts {
   static const String font = "Montserrat";
   static const double common18 = 18.0;
+  static const double common16 = 16.0;
 
   static const FontWeight regular = FontWeight.w400;
   static const FontWeight medium = FontWeight.w500;
@@ -32,4 +33,10 @@ class SpookerFonts {
       fontSize: common18,
       fontWeight: bold,
       color: SpookerColors.darkBlue);
+
+  static const TextStyle errorText = TextStyle(
+      fontFamily: font,
+      fontSize: common16,
+      fontWeight: regular,
+      color: SpookerColors.errorRed);
 }

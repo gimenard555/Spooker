@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 
@@ -6,14 +8,16 @@ class CircleButton extends StatelessWidget {
   Widget build(BuildContext context) {
     double size = MediaQuery.of(context).size.width / 5;
     return new InkResponse(
-      child: new Container(
+        child: BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+      child: Container(
         width: size,
         height: size,
-        decoration: new BoxDecoration(
+        decoration: BoxDecoration(
           gradient: SpookerColors.rightGradient,
           shape: BoxShape.circle,
         ),
       ),
-    );
+    ));
   }
 }

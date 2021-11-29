@@ -6,6 +6,8 @@ import 'package:spooker/ui/components/buttons/main_button_view.dart';
 import 'package:spooker/ui/components/screen/authentication_background_screen.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
+import 'package:spooker/ui/utils/spooker_strings.dart';
+import 'package:spooker/ui/utils/strings_types.dart';
 
 class LoginScreen extends HookConsumerWidget {
   @override
@@ -18,25 +20,21 @@ class LoginScreen extends HookConsumerWidget {
         Align(
             alignment: Alignment.topCenter,
             child: Text(
-              'WELCOME BACK',
+              SpookerStrings.welcomeText,
               textAlign: TextAlign.center,
               style: SpookerFonts.titleText,
             )),
         SizedBox(height: SpookerSize.sizedBoxSpace),
         Align(
-            alignment: Alignment.topCenter,
+            alignment: Alignment.center,
             child: TextFormView(
-                textController: _emailFieldController,
-                textHint: 'Ingrese su nombre')),
-        SizedBox(height: SpookerSize.sizedBoxSpace),
-        Align(
-            alignment: Alignment.topCenter,
-            child: TextFormView(
-                textController: _emailFieldController,
-                textHint: 'Ingrese su correo')),
+              textController: _emailFieldController,
+              textType: TextType.IS_EMAIL,
+              textHint: SpookerStrings.emailAddressText,
+            )),
         SizedBox(height: SpookerSize.sizedBoxSpace),
         MainButtonView(
-          buttonText: 'CONTINUAR',
+          buttonText: SpookerStrings.ContinueButtonText,
         )
       ]),
     );
