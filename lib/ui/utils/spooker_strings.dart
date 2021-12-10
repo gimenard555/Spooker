@@ -8,3 +8,8 @@ class SpookerStrings {
   static const GoogleButtonText = 'Sign in with Google';
   static const ContinueButtonText = 'Continue';
 }
+
+@immutable
+class SpookerErrorStrings {
+  static const emailErrorText = 'Enter a Valid email';
+}

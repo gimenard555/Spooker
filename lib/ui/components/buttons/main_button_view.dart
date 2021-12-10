@@ -5,9 +5,10 @@ import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 
 class MainButtonView extends HookConsumerWidget {
-  MainButtonView({required this.buttonText});
+  MainButtonView({required this.buttonText, required this.isEnable});
 
   final String buttonText;
+  final bool isEnable;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,13 +26,11 @@ class MainButtonView extends HookConsumerWidget {
                     style: SpookerFonts.textFormNormal,
                   )),
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      SpookerColors.completeLight),
+                  backgroundColor: MaterialStateProperty.all<Color>(getColor()),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
-                          side:
-                              BorderSide(color: SpookerColors.completeLight)))),
+                          side: BorderSide(color: getColor())))),
             )),
       ),
       height: 60,
@@ -53,4 +52,12 @@ class MainButtonView extends HookConsumerWidget {
     border: Border.all(color: SpookerColors.completeLight),
     borderRadius: BorderRadius.circular(60),
   );
+
+  Color getColor() {
+    if (isEnable) {
+      return SpookerColors.completeLight;
+    } else {
+      return SpookerColors.errorRed;
+    }
+  }
 }

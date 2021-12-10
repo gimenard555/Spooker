@@ -7,11 +7,13 @@ import 'package:spooker/ui/components/screen/authentication_background_screen.da
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
+import 'package:spooker/ui/utils/strings_extensions.dart';
 import 'package:spooker/ui/utils/strings_types.dart';
 
 class LoginScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final textType = TextType.IS_EMAIL;
     final _emailFieldController =
         useTextEditingController.fromValue(TextEditingValue.empty);
 
@@ -29,13 +31,14 @@ class LoginScreen extends HookConsumerWidget {
             alignment: Alignment.center,
             child: TextFormView(
               textController: _emailFieldController,
-              textType: TextType.IS_EMAIL,
+              textType: textType,
               textHint: SpookerStrings.emailAddressText,
             )),
         SizedBox(height: SpookerSize.sizedBoxSpace),
         MainButtonView(
           buttonText: SpookerStrings.ContinueButtonText,
-        )
+          isEnable: _emailFieldController.text.isValidEmail(),
+        ),
       ]),
     );
   }

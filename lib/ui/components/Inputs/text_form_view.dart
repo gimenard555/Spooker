@@ -7,6 +7,7 @@ import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/strings_types.dart';
 
+@immutable
 class TextFormView extends HookConsumerWidget {
   TextFormView(
       {required this.textController,
@@ -14,8 +15,8 @@ class TextFormView extends HookConsumerWidget {
       this.autofocus,
       this.textType});
 
-  TextEditingController textController;
-  String textHint;
+  final TextEditingController textController;
+  final String textHint;
   bool? autofocus = false;
   TextType? textType = TextType.IS_NORMAL_TEXT;
   @override
@@ -26,81 +27,71 @@ class TextFormView extends HookConsumerWidget {
       children: [
         TextFormField(
           autofocus: this.autofocus ??= false,
-          decoration: getDecorationByText(state.error),
-          style: getTextStyleByText(state.error),
+          decoration: InputDecoration(
+            labelText: this.textHint,
+            labelStyle: TextStyle(
+                color: getDecorationByError(
+                    state.errorMessage, state.isValidText)),
+            fillColor: SpookerColors.completeLight,
+            filled: true,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
+              borderSide: BorderSide(
+                color:
+                    getDecorationByError(state.errorMessage, state.isValidText),
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
+              borderSide: BorderSide(
+                color:
+                    getDecorationByError(state.errorMessage, state.isValidText),
+                width: 3,
+              ),
+            ),
+          ),
+          style: getTextStyleByText(state.errorMessage, state.isValidText),
           controller: textController,
-          onChanged: (text) => state.validateTypeError(text),
+          onChanged: (text) => state.validateText(text),
         ),
-        SizedBox(width: SpookerSize.sizedBoxSpace),
-        Row(
-          children: [
-            SvgPicture.asset('svgs/alert_icon.svg',
-                height: 20, width: 20, color: Colors.red),
-            SizedBox(height: SpookerSize.miniSizedBox),
-            Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  'Try entering a valid email',
-                  textAlign: TextAlign.center,
-                  style: SpookerFonts.titleText,
-                )),
-          ],
-        )
+        SizedBox(height: SpookerSize.miniSizedBox),
+        Visibility(
+            visible: state.errorMessage.isNotEmpty,
+            child: Row(
+              children: [
+                SvgPicture.asset('svgs/alert_icon.svg',
+                    height: 25, width: 25, color: Colors.red),
+                SizedBox(width: SpookerSize.miniSizedBox),
+                Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      state.errorMessage,
+                      textAlign: TextAlign.center,
+                      style: SpookerFonts.errorText,
+                    )),
+              ],
+            ))
       ],
     );
   }
 
-  InputDecoration getDecorationByText(TextFormError textFormError) {
+  Color getDecorationByError(String errorMessage, bool isValid) {
     var borderColor;
-    switch (textFormError) {
-      case TextFormError.RIGHT:
-        borderColor = SpookerColors.spookerGreen;
-        break;
-      case TextFormError.WRONG:
-        borderColor = SpookerColors.errorRed;
-        break;
-      case TextFormError.NORMAL:
-        borderColor = SpookerColors.lightGray;
-        break;
-      case TextFormError.EMPTY:
-        borderColor = SpookerColors.darkGray;
-        break;
+    if (errorMessage.isEmpty && isValid) {
+      borderColor = SpookerColors.spookerGreen;
+    } else if (errorMessage.isNotEmpty && !isValid) {
+      borderColor = SpookerColors.errorRed;
+    } else {
+      borderColor = SpookerColors.darkGray;
     }
-    return InputDecoration(
-      labelText: this.textHint,
-      fillColor: borderColor,
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
-        borderSide: BorderSide(
-          color: borderColor,
-        ),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
-        borderSide: BorderSide(
-          color: borderColor,
-          width: 2.0,
-        ),
-      ),
-    );
+    return borderColor;
   }
 
-  TextStyle getTextStyleByText(TextFormError textFormError) {
-    var textStyle;
-    switch (textFormError) {
-      case TextFormError.RIGHT:
-        textStyle = SpookerFonts.textFormNormal;
-        break;
-      case TextFormError.WRONG:
-        textStyle = SpookerFonts.textFormError;
-        break;
-      case TextFormError.NORMAL:
-        textStyle = SpookerFonts.textFormNormal;
-        break;
-      case TextFormError.EMPTY:
-        textStyle = SpookerFonts.textFormHint;
-        break;
+  TextStyle getTextStyleByText(String errorMessage, bool isValid) {
+    if (errorMessage.isNotEmpty && !isValid) {
+      return SpookerFonts.textFormError;
+    } else {
+      return SpookerFonts.textFormNormal;
     }
-    return textStyle;
   }
 }
