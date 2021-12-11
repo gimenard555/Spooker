@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "137414811288",
+    "project_id": "spooker-138d0",
+    "storage_bucket": "spooker-138d0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137414811288:android:25e048dfd9aa1fbd5e3aed",
+        "android_client_info": {
+          "package_name": "com.example.spooker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137414811288-rvahircevtr6sb5n8hr5rbrm3nr31tkd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzSSzLxEaiYrJfHzuIyjIRf9BKKxk-Nvg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137414811288-rvahircevtr6sb5n8hr5rbrm3nr31tkd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
