@@ -4,11 +4,18 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 
+typedef WhenPress = void Function();
+
+// ignore: must_be_immutable
 class MainButtonView extends HookConsumerWidget {
-  MainButtonView({required this.buttonText, required this.isEnable});
+  MainButtonView(
+      {required this.buttonText,
+      required this.isAvailable,
+      required this.whenPress});
 
   final String buttonText;
-  final bool isEnable;
+  bool isAvailable = false;
+  final WhenPress whenPress;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,46 +25,62 @@ class MainButtonView extends HookConsumerWidget {
         child: Padding(
             padding: EdgeInsets.all(5),
             child: ElevatedButton(
-              onPressed: () {},
-              child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    buttonText,
-                    style: SpookerFonts.textFormNormal,
-                  )),
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(getColor()),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                          side: BorderSide(color: getColor())))),
-            )),
+                onPressed: onPressedByAvailable,
+                child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      buttonText,
+                      style: getTextStyleByAvailable(),
+                    )),
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        getButtonStyleByAvailable()),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ))))),
       ),
       height: 60,
       width: MediaQuery.of(context).size.width,
-      decoration: okBorderButton,
+      decoration: getButtonBorderByAvailable(),
     );
   }
 
-  final okBorderButton = BoxDecoration(
-    gradient: SpookerColors.rightGradient,
-    border: Border.all(
-      color: SpookerColors.lightGray,
-    ),
-    borderRadius: BorderRadius.circular(30),
-  );
+  BoxDecoration getButtonBorderByAvailable() {
+    if (isAvailable) {
+      return BoxDecoration(
+        gradient: SpookerColors.rightGradient,
+        border: Border.all(
+          color: SpookerColors.lightGray,
+        ),
+        borderRadius: BorderRadius.circular(30),
+      );
+    } else {
+      return BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+      );
+    }
+  }
 
-  final innerButton = BoxDecoration(
-    color: SpookerColors.completeLight,
-    border: Border.all(color: SpookerColors.completeLight),
-    borderRadius: BorderRadius.circular(60),
-  );
+  TextStyle getTextStyleByAvailable() {
+    if (isAvailable) {
+      return SpookerFonts.buttonAvailable;
+    } else {
+      return SpookerFonts.buttonNoAvailable;
+    }
+  }
 
-  Color getColor() {
-    if (isEnable) {
+  Color getButtonStyleByAvailable() {
+    if (isAvailable) {
       return SpookerColors.completeLight;
     } else {
-      return SpookerColors.errorRed;
+      return SpookerColors.noAvailableColor;
+    }
+  }
+
+  void onPressedByAvailable() {
+    if (isAvailable) {
+      whenPress();
     }
   }
 }

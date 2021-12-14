@@ -15,6 +15,8 @@ class SpookerColors {
   static const Color darkBlue = Color(0xFF1B4F72);
   static const Color hintGray = Color(0xFFB0B0B0);
   static const Color completeDark = Color(0xFF000000);
+  static const Color noAvailableColor = Color(0xFFC8DAE6);
+  static const Color blueCommonTextColor = Color(0xFF1D8CA1);
 
   static const LinearGradient rightGradient = LinearGradient(
       begin: Alignment.topLeft,

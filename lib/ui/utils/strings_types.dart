@@ -6,7 +6,7 @@ extension TextTypeExtension on TextType {
   String get errorMessage {
     switch (this) {
       case TextType.IS_EMAIL:
-        return 'SpookerErrorStrings.emailErrorText';
+        return SpookerErrorStrings.emailErrorText;
       case TextType.IS_PASSWORD:
         return '';
       case TextType.IS_DATE:

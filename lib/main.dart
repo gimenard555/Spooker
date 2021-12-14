@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/screens/login_screen.dart';
+import 'package:spooker/ui/utils/spooker_colors.dart';
 
 final firebaseAuthProvider =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
@@ -21,10 +22,14 @@ class SpookerApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
-      /* onGenerateRoute: (settings) =>
+        debugShowCheckedModeBanner: false,
+        home:
+            LoginScreen() /*Container(
+          color: SpookerColors.completeDark,
+        )*/
+        /*LoginScreen(),
+       onGenerateRoute: (settings) =>
           AppRouter.onGenerateRoute(settings, firebaseAuth),*/
-    );
+        );
   }
 }

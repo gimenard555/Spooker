@@ -39,4 +39,16 @@ class SpookerFonts {
       fontSize: common16,
       fontWeight: regular,
       color: SpookerColors.errorRed);
+
+  static const TextStyle buttonNoAvailable = TextStyle(
+      fontFamily: font,
+      fontSize: common16,
+      fontWeight: bold,
+      color: SpookerColors.completeLight);
+
+  static const TextStyle buttonAvailable = TextStyle(
+      fontFamily: font,
+      fontSize: common16,
+      fontWeight: bold,
+      color: SpookerColors.blueCommonTextColor);
 }

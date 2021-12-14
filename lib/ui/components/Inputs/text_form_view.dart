@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:spooker/ui/components/Inputs/text_form_state.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
-import 'package:spooker/ui/utils/strings_types.dart';
 
 @immutable
 class TextFormView extends HookConsumerWidget {
   TextFormView(
       {required this.textController,
       required this.textHint,
-      this.autofocus,
-      this.textType});
+      required this.errorMessage,
+      required this.isValidText,
+      this.autofocus});
 
   final TextEditingController textController;
   final String textHint;
+  final bool isValidText;
+  final String errorMessage;
   bool? autofocus = false;
-  TextType? textType = TextType.IS_NORMAL_TEXT;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(textFormStateProvider);
-    state.textType = this.textType ??= TextType.IS_NORMAL_TEXT;
     return Column(
       children: [
         TextFormField(
@@ -30,33 +29,29 @@ class TextFormView extends HookConsumerWidget {
           decoration: InputDecoration(
             labelText: this.textHint,
             labelStyle: TextStyle(
-                color: getDecorationByError(
-                    state.errorMessage, state.isValidText)),
+                color: getDecorationByError(errorMessage, isValidText)),
             fillColor: SpookerColors.completeLight,
             filled: true,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
               borderSide: BorderSide(
-                color:
-                    getDecorationByError(state.errorMessage, state.isValidText),
+                color: getDecorationByError(errorMessage, isValidText),
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
               borderSide: BorderSide(
-                color:
-                    getDecorationByError(state.errorMessage, state.isValidText),
+                color: getDecorationByError(errorMessage, isValidText),
                 width: 3,
               ),
             ),
           ),
-          style: getTextStyleByText(state.errorMessage, state.isValidText),
+          style: getTextStyleByText(errorMessage, isValidText),
           controller: textController,
-          onChanged: (text) => state.validateText(text),
         ),
         SizedBox(height: SpookerSize.miniSizedBox),
         Visibility(
-            visible: state.errorMessage.isNotEmpty,
+            visible: errorMessage.isNotEmpty,
             child: Row(
               children: [
                 SvgPicture.asset('svgs/alert_icon.svg',
@@ -65,7 +60,7 @@ class TextFormView extends HookConsumerWidget {
                 Align(
                     alignment: Alignment.topCenter,
                     child: Text(
-                      state.errorMessage,
+                      errorMessage,
                       textAlign: TextAlign.center,
                       style: SpookerFonts.errorText,
                     )),
