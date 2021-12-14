@@ -32,15 +32,26 @@ class LoginViewModel extends ChangeNotifier {
       switch (textType) {
         case TextType.IS_EMAIL:
           _isValidText = text.isValidEmail();
-          if (!_isValidText) {
-            _errorMessage = textType.errorMessage;
-          } else {
-            _errorMessage = '';
-          }
+          break;
+        case TextType.IS_PASSWORD:
+          _isValidText = text.isValidPassword();
+          break;
+        case TextType.IS_DATE:
+          _isValidText = text.isValidDate();
+          break;
+        case TextType.IS_NORMAL_TEXT:
+          _isValidText = true;
           break;
       }
+      validateErrorMessage();
     }
     notifyListeners();
+  }
+
+  void validateErrorMessage() {
+    if (!_isValidText) {
+      _errorMessage = textType.errorMessage!;
+    }
   }
 
   ///Actions

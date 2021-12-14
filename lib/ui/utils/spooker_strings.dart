@@ -12,4 +12,6 @@ class SpookerStrings {
 @immutable
 class SpookerErrorStrings {
   static const emailErrorText = 'Enter a Valid email';
+  static const passwordErrorText = 'Incorrect password try again';
+  static const dateErrorText = 'Enter a Valid date';
 }
