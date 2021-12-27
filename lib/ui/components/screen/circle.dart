@@ -9,7 +9,7 @@ class CircleButton extends StatelessWidget {
     double size = MediaQuery.of(context).size.width / 5;
     return new InkResponse(
         child: BackdropFilter(
-      filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
+      filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
       child: Container(
         width: size,
         height: size,

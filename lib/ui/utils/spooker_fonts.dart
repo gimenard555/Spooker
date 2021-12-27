@@ -5,6 +5,7 @@ class SpookerFonts {
   static const String font = "Montserrat";
   static const double common18 = 18.0;
   static const double common16 = 16.0;
+  static const double common24 = 24.0;
 
   static const FontWeight regular = FontWeight.w400;
   static const FontWeight medium = FontWeight.w500;
@@ -32,7 +33,13 @@ class SpookerFonts {
       fontFamily: font,
       fontSize: common18,
       fontWeight: bold,
-      color: SpookerColors.darkBlue);
+      color: SpookerColors.blueCommonTextColor);
+
+  static const TextStyle lightTitleText = TextStyle(
+      fontFamily: font,
+      fontSize: common24,
+      fontWeight: bold,
+      color: SpookerColors.completeLight);
 
   static const TextStyle errorText = TextStyle(
       fontFamily: font,

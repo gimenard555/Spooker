@@ -4,29 +4,32 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/components/Inputs/text_form_view.dart';
 import 'package:spooker/ui/components/buttons/main_button_view.dart';
 import 'package:spooker/ui/components/screen/authentication_background_screen.dart';
-import 'package:spooker/ui/screens/login_screen_view_model.dart';
+import 'package:spooker/ui/screens/login_view_model.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 import 'package:spooker/ui/utils/strings_types.dart';
 
-// ignore: must_be_immutable
 class LoginScreen extends HookConsumerWidget {
-  late LoginViewModel _state;
+  late LoginViewModel _viewModel;
   late TextEditingController _emailFieldController;
+  late TextEditingController _passwordFieldController;
+  bool isPassword = false;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    _state = ref.watch(loginViewModel);
-    _state.textType = TextType.IS_EMAIL;
+    _viewModel = ref.watch(loginViewModel);
     _emailFieldController =
         useTextEditingController.fromValue(TextEditingValue.empty);
-    _emailFieldController.addListener(_manageTextChanges);
+    _emailFieldController.addListener(_manageEmailChanges);
+    _passwordFieldController =
+        useTextEditingController.fromValue(TextEditingValue.empty);
+    _emailFieldController.addListener(_managePasswordChanges);
     return Scaffold(
       body: AuthenticationBackground([
         Align(
             alignment: Alignment.topCenter,
             child: Text(
-              SpookerStrings.welcomeText,
+              SpookerStrings.welcomeSignInText,
               textAlign: TextAlign.center,
               style: SpookerFonts.titleText,
             )),
@@ -36,20 +39,38 @@ class LoginScreen extends HookConsumerWidget {
             child: TextFormView(
               textController: _emailFieldController,
               textHint: SpookerStrings.emailAddressText,
-              errorMessage: _state.errorMessage,
-              isValidText: _state.isValidText,
+              errorMessage: _viewModel.errorMessage,
+              isValidText: _viewModel.isValidText(),
+            )),
+        SizedBox(height: SpookerSize.sizedBoxSpace),
+        Align(
+            alignment: Alignment.center,
+            child: TextFormView(
+              textController: _passwordFieldController,
+              textHint: SpookerStrings.passwordText,
+              errorMessage: null,
+              isValidText: isPassword,
+              isPassword: true,
             )),
         SizedBox(height: SpookerSize.sizedBoxSpace),
         MainButtonView(
           buttonText: SpookerStrings.ContinueButtonText,
-          isAvailable: _state.isValidText,
-          whenPress: _state.signIn,
+          isAvailable: _viewModel.isValidText(),
+          whenPress: _viewModel.signIn,
         ),
-      ]),
+      ], SpookerStrings.signInText),
     );
   }
 
-  void _manageTextChanges() {
-    _state.isTextAvailable(_emailFieldController.text);
+  void _manageEmailChanges() {
+    _viewModel.isTextAvailable(_emailFieldController.text, TextType.IS_EMAIL);
+  }
+
+  void _managePasswordChanges() {
+    if (_emailFieldController.text.isNotEmpty) {
+      isPassword = true;
+    } else {
+      isPassword = false;
+    }
   }
 }

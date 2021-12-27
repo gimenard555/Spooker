@@ -3,8 +3,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:spooker/ui/screens/create_account_screen.dart';
 import 'package:spooker/ui/screens/login_screen.dart';
-import 'package:spooker/ui/utils/spooker_colors.dart';
+import 'package:spooker/ui/utils/spooker_routes.dart';
+import 'package:spooker/ui/utils/spooker_strings.dart';
 
 final firebaseAuthProvider =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
@@ -12,7 +14,6 @@ final firebaseAuthProvider =
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  //final sharedPreferences = await SharedPreferences.getInstance();
   runApp(ProviderScope(
     child: SpookerApp(),
   ));
@@ -23,13 +24,10 @@ class SpookerApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        home:
-            LoginScreen() /*Container(
-          color: SpookerColors.completeDark,
-        )*/
-        /*LoginScreen(),
-       onGenerateRoute: (settings) =>
-          AppRouter.onGenerateRoute(settings, firebaseAuth),*/
-        );
+        title: SpookerStrings.spookerAppName,
+        home: LoginScreen(),
+        routes: {
+          SpookerRoutes.pageHome: (context) => LoginScreen(),
+        });
   }
 }

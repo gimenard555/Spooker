@@ -12,12 +12,14 @@ class TextFormView extends HookConsumerWidget {
       required this.textHint,
       required this.errorMessage,
       required this.isValidText,
-      this.autofocus});
+      this.autofocus,
+      this.isPassword});
 
   final TextEditingController textController;
   final String textHint;
   final bool isValidText;
-  final String errorMessage;
+  final String? errorMessage;
+  bool? isPassword = false;
   bool? autofocus = false;
 
   @override
@@ -25,6 +27,9 @@ class TextFormView extends HookConsumerWidget {
     return Column(
       children: [
         TextFormField(
+          obscureText: this.isPassword ??= false,
+          enableSuggestions: this.isPassword ??= true,
+          autocorrect: this.isPassword ??= true,
           autofocus: this.autofocus ??= false,
           decoration: InputDecoration(
             labelText: this.textHint,
@@ -51,16 +56,15 @@ class TextFormView extends HookConsumerWidget {
         ),
         SizedBox(height: SpookerSize.miniSizedBox),
         Visibility(
-            visible: errorMessage.isNotEmpty,
+            visible: getAvailable(errorMessage),
             child: Row(
               children: [
-                SvgPicture.asset('svgs/alert_icon.svg',
-                    height: 25, width: 25, color: Colors.red),
+                SvgPicture.asset('svgs/alert_icon.svg', height: 16, width: 16),
                 SizedBox(width: SpookerSize.miniSizedBox),
                 Align(
                     alignment: Alignment.topCenter,
                     child: Text(
-                      errorMessage,
+                      getErrorMessage(),
                       textAlign: TextAlign.center,
                       style: SpookerFonts.errorText,
                     )),
@@ -70,23 +74,45 @@ class TextFormView extends HookConsumerWidget {
     );
   }
 
-  Color getDecorationByError(String errorMessage, bool isValid) {
-    var borderColor;
-    if (errorMessage.isEmpty && isValid) {
-      borderColor = SpookerColors.spookerGreen;
-    } else if (errorMessage.isNotEmpty && !isValid) {
-      borderColor = SpookerColors.errorRed;
+  String getErrorMessage() {
+    if (this.errorMessage == null) {
+      return '';
     } else {
-      borderColor = SpookerColors.darkGray;
+      return errorMessage!;
+    }
+  }
+
+  bool getAvailable(String? errorMessage) {
+    if (errorMessage == null || errorMessage.isEmpty) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  Color getDecorationByError(String? errorMessage, bool isValid) {
+    var borderColor;
+    if (errorMessage == null) {
+      borderColor = SpookerColors.noAvailableColor;
+    } else {
+      if (errorMessage.isEmpty && isValid) {
+        borderColor = SpookerColors.blueCommonTextColor;
+      } else if (errorMessage.isNotEmpty && !isValid) {
+        borderColor = SpookerColors.errorRed;
+      }
     }
     return borderColor;
   }
 
-  TextStyle getTextStyleByText(String errorMessage, bool isValid) {
-    if (errorMessage.isNotEmpty && !isValid) {
-      return SpookerFonts.textFormError;
-    } else {
+  TextStyle getTextStyleByText(String? errorMessage, bool isValid) {
+    if (errorMessage == null) {
       return SpookerFonts.textFormNormal;
+    } else {
+      if (errorMessage.isNotEmpty && !isValid) {
+        return SpookerFonts.textFormError;
+      } else {
+        return SpookerFonts.textFormNormal;
+      }
     }
   }
 }
