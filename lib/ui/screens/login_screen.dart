@@ -14,7 +14,7 @@ class LoginScreen extends HookConsumerWidget {
   late LoginViewModel _viewModel;
   late TextEditingController _emailFieldController;
   late TextEditingController _passwordFieldController;
-  bool isPassword = false;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     _viewModel = ref.watch(loginViewModel);
@@ -48,14 +48,14 @@ class LoginScreen extends HookConsumerWidget {
             child: TextFormView(
               textController: _passwordFieldController,
               textHint: SpookerStrings.passwordText,
-              errorMessage: null,
-              isValidText: isPassword,
+              errorMessage: '',
+              isValidText: _viewModel.isValidPass(),
               isPassword: true,
             )),
         SizedBox(height: SpookerSize.sizedBoxSpace),
         MainButtonView(
           buttonText: SpookerStrings.ContinueButtonText,
-          isAvailable: _viewModel.isValidText(),
+          isAvailable: _viewModel.isDataComplete(),
           whenPress: _viewModel.signIn,
         ),
       ], SpookerStrings.signInText),
@@ -67,10 +67,6 @@ class LoginScreen extends HookConsumerWidget {
   }
 
   void _managePasswordChanges() {
-    if (_emailFieldController.text.isNotEmpty) {
-      isPassword = true;
-    } else {
-      isPassword = false;
-    }
+    _viewModel.validatePassword(_passwordFieldController.text);
   }
 }

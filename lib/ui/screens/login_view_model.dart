@@ -8,8 +8,19 @@ final loginViewModel = ChangeNotifierProvider((ref) => LoginViewModel());
 class LoginViewModel extends ChangeNotifier {
   ///Validations
   String? _errorMessage;
-
   String? get errorMessage => _errorMessage;
+
+  String _password = '';
+  String _email = '';
+
+  void validatePassword(String pass) {
+    _password = pass;
+    notifyListeners();
+  }
+
+  bool isValidPass() {
+    return _password.isNotEmpty;
+  }
 
   bool isValidText() {
     if (_errorMessage == null) {
@@ -23,8 +34,17 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
+  bool isDataComplete() {
+    if (_email.isNotEmpty && _password.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   void isTextAvailable(String text, TextType textType) {
-    _errorMessage = text.isValidText(textType);
+    _email = text;
+    _errorMessage = text.validateErrorText(textType);
     notifyListeners();
   }
 

@@ -25,9 +25,10 @@ class SpookerApp extends ConsumerWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: SpookerStrings.spookerAppName,
-        home: LoginScreen(),
+        home: CreateAccountScreen(),
         routes: {
           SpookerRoutes.pageHome: (context) => LoginScreen(),
+          SpookerRoutes.pageSignUp: (context) => CreateAccountScreen(),
         });
   }
 }

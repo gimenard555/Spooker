@@ -58,4 +58,10 @@ class SpookerFonts {
       fontSize: common16,
       fontWeight: bold,
       color: SpookerColors.blueCommonTextColor);
+
+  static const TextStyle commonGrayBold = TextStyle(
+      fontFamily: font,
+      fontSize: common16,
+      fontWeight: bold,
+      color: SpookerColors.darkGrayTextColor);
 }

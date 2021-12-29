@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
+
+typedef WhenPressTextForm = void Function();
 
 @immutable
 class TextFormView extends HookConsumerWidget {
@@ -13,7 +16,8 @@ class TextFormView extends HookConsumerWidget {
       required this.errorMessage,
       required this.isValidText,
       this.autofocus,
-      this.isPassword});
+      this.isPassword,
+      this.onTouchText});
 
   final TextEditingController textController;
   final String textHint;
@@ -21,39 +25,46 @@ class TextFormView extends HookConsumerWidget {
   final String? errorMessage;
   bool? isPassword = false;
   bool? autofocus = false;
+  WhenPressTextForm? onTouchText;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-        TextFormField(
-          obscureText: this.isPassword ??= false,
-          enableSuggestions: this.isPassword ??= true,
-          autocorrect: this.isPassword ??= true,
-          autofocus: this.autofocus ??= false,
-          decoration: InputDecoration(
-            labelText: this.textHint,
-            labelStyle: TextStyle(
-                color: getDecorationByError(errorMessage, isValidText)),
-            fillColor: SpookerColors.completeLight,
-            filled: true,
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
-              borderSide: BorderSide(
-                color: getDecorationByError(errorMessage, isValidText),
+        Focus(
+            child: TextFormField(
+              obscureText: this.isPassword ??= false,
+              enableSuggestions: this.isPassword ??= true,
+              autocorrect: this.isPassword ??= true,
+              autofocus: this.autofocus ??= false,
+              decoration: InputDecoration(
+                labelText: this.textHint,
+                labelStyle: TextStyle(
+                    color: getDecorationByError(errorMessage, isValidText)),
+                fillColor: SpookerColors.completeLight,
+                filled: true,
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
+                  borderSide: BorderSide(
+                    color: getDecorationByError(errorMessage, isValidText),
+                  ),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
+                  borderSide: BorderSide(
+                    color: getDecorationByError(errorMessage, isValidText),
+                    width: 3,
+                  ),
+                ),
               ),
+              style: getTextStyleByText(errorMessage, isValidText),
+              controller: textController,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
-              borderSide: BorderSide(
-                color: getDecorationByError(errorMessage, isValidText),
-                width: 3,
-              ),
-            ),
-          ),
-          style: getTextStyleByText(errorMessage, isValidText),
-          controller: textController,
-        ),
+            onFocusChange: (hasFocus) {
+              if (hasFocus && onTouchText != null) {
+                onTouchText!();
+              }
+            }),
         SizedBox(height: SpookerSize.miniSizedBox),
         Visibility(
             visible: getAvailable(errorMessage),
@@ -99,6 +110,8 @@ class TextFormView extends HookConsumerWidget {
         borderColor = SpookerColors.blueCommonTextColor;
       } else if (errorMessage.isNotEmpty && !isValid) {
         borderColor = SpookerColors.errorRed;
+      } else if (errorMessage.isEmpty && !isValidText) {
+        borderColor = SpookerColors.noAvailableColor;
       }
     }
     return borderColor;

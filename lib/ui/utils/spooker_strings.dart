@@ -16,11 +16,18 @@ class SpookerStrings {
   static const confirmPasswordText = 'Confirm Password';
   static const GoogleButtonText = 'Sign in with Google';
   static const ContinueButtonText = 'Continue';
+  static const birthdateSelectionText = 'Select your birthdate';
+  static const dateSelectionButtonText = 'Select date';
 }
 
 @immutable
 class SpookerErrorStrings {
-  static const emailErrorText = 'Enter a Valid email';
-  static const passwordErrorText = 'Incorrect password try again';
-  static const dateErrorText = 'Enter a Valid date';
+  static const emailErrorText = 'Enter a valid email address';
+  static const passwordErrorText = "Enter a valid password\n"
+      "Minimum 1 Upper case\n"
+      "Minimum 1 lowercase\n"
+      "Minimum 1 Numeric Number\n"
+      "Minimum 1 Special Character\n";
+  static const dateErrorText = 'Enter a valid date';
+  static const passwordMatch = 'Passwords do not match';
 }
