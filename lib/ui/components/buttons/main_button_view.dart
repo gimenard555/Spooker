@@ -11,11 +11,13 @@ class MainButtonView extends HookConsumerWidget {
   MainButtonView(
       {required this.buttonText,
       required this.isAvailable,
-      required this.whenPress});
+      required this.whenPress,
+      this.isNormal = false});
 
   final String buttonText;
   bool isAvailable = false;
   final WhenPress whenPress;
+  bool isNormal = false;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,22 +25,27 @@ class MainButtonView extends HookConsumerWidget {
       child: Align(
         alignment: Alignment.center,
         child: Padding(
-            padding: EdgeInsets.all(5),
+            padding: EdgeInsets.all(returnPadding()),
             child: ElevatedButton(
-                onPressed: onPressedByAvailable,
-                child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      buttonText,
-                      style: getTextStyleByAvailable(),
-                    )),
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        getButtonStyleByAvailable()),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ))))),
+              onPressed: () {
+                if (isAvailable) {
+                  whenPress();
+                }
+              },
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    buttonText,
+                    style: getTextStyleByAvailable(),
+                  )),
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      getButtonStyleByAvailable()),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ))),
+            )),
       ),
       height: 60,
       width: MediaQuery.of(context).size.width,
@@ -47,26 +54,40 @@ class MainButtonView extends HookConsumerWidget {
   }
 
   BoxDecoration getButtonBorderByAvailable() {
-    if (isAvailable) {
+    if (isNormal) {
       return BoxDecoration(
-        gradient: SpookerColors.rightGradient,
         border: Border.all(
-          color: SpookerColors.lightGray,
+          width: 3,
+          color: SpookerColors.darkBlue,
         ),
         borderRadius: BorderRadius.circular(30),
       );
     } else {
-      return BoxDecoration(
-        borderRadius: BorderRadius.circular(30),
-      );
+      if (isAvailable) {
+        return BoxDecoration(
+          gradient: SpookerColors.rightGradient,
+          border: Border.all(
+            color: SpookerColors.lightGray,
+          ),
+          borderRadius: BorderRadius.circular(30),
+        );
+      } else {
+        return BoxDecoration(
+          borderRadius: BorderRadius.circular(30),
+        );
+      }
     }
   }
 
   TextStyle getTextStyleByAvailable() {
-    if (isAvailable) {
-      return SpookerFonts.buttonAvailable;
+    if (isNormal) {
+      return SpookerFonts.blueButtonText;
     } else {
-      return SpookerFonts.buttonNoAvailable;
+      if (isAvailable) {
+        return SpookerFonts.buttonAvailable;
+      } else {
+        return SpookerFonts.buttonNoAvailable;
+      }
     }
   }
 
@@ -78,9 +99,11 @@ class MainButtonView extends HookConsumerWidget {
     }
   }
 
-  void onPressedByAvailable() {
-    if (isAvailable) {
-      whenPress();
+  double returnPadding() {
+    if (isNormal) {
+      return 0;
+    } else {
+      return 5;
     }
   }
 }

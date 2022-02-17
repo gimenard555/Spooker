@@ -2,13 +2,17 @@ import 'package:flutter/cupertino.dart';
 
 @immutable
 class SpookerStrings {
+  static const spookerAppName = 'Spooker';
+  static const firstScreenText =
+      'Start sharing your artworks with your friends';
   static const welcomeSignUpText =
       'Create your personal account so you can know new friends';
   static const welcomeSignInText =
       'Enter in your account and share your artworks with friends';
+  static const loginText = 'Login';
   static const signInText = 'Sign In';
+  static const signInGoogleText = 'Sign in with Google';
   static const signUpText = 'Create Your Account';
-  static const spookerAppName = 'Spooker';
   static const emailAddressText = 'Email Address';
   static const usernameText = 'Username';
   static const birthdateText = 'Birthdate';

@@ -16,75 +16,84 @@ class AuthenticationBackground extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Container(
-          color: SpookerColors.completeLight,
-          child: Stack(
-            children: [
-              Center(
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          height: screenHeight * 0.3,
-                          width: screenWidth,
-                          child: CustomPaint(
-                            painter: MainCurve(),
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(SpookerSize.paddingSize),
-                          child: Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.bottomCenter,
-                                child: Text(
-                                  titleForm,
-                                  textAlign: TextAlign.center,
-                                  style: SpookerFonts.lightTitleText,
-                                ),
-                              ),
-                              Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Container(
-                                    height: screenHeight * 0.2,
-                                    width: screenHeight * 0.2,
-                                    decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            image: AssetImage(
-                                                'images/main_logo.png'),
-                                            fit: BoxFit.fill)),
-                                  )),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.topCenter,
-                          child: Image(
+        body: SafeArea(
+      child: SingleChildScrollView(
+        reverse: true,
+        child: Container(
+            color: SpookerColors.completeLight,
+            child: Stack(
+              children: [
+                Center(
+                  child: Column(
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            height: screenHeight * 0.3,
                             width: screenWidth,
-                            height: screenHeight * 0.8,
-                            fit: BoxFit.contain,
-                            image: AssetImage('images/paint.png'),
+                            child: CustomPaint(
+                              painter: MainCurve(),
+                            ),
                           ),
-                        ),
-                        SingleChildScrollView(
-                          child: Padding(
-                              padding: EdgeInsets.all(SpookerSize.paddingSize),
-                              child: Column(
-                                children: form,
+                          GestureDetector(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              child: Padding(
+                                padding:
+                                    EdgeInsets.all(SpookerSize.miniSizedBox),
+                                child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Image(
+                                        image: AssetImage(
+                                            "assets/images/back_button.png"))),
                               )),
-                        )
-                      ],
-                    ),
-                  ],
+                          Padding(
+                            padding: EdgeInsets.all(SpookerSize.paddingSize),
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Text(
+                                    titleForm,
+                                    textAlign: TextAlign.center,
+                                    style: SpookerFonts.lightTitleText,
+                                  ),
+                                ),
+                                Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Container(
+                                      height: screenHeight * 0.2,
+                                      width: screenHeight * 0.2,
+                                      decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: AssetImage(
+                                                  'assets/images/main_logo.png'),
+                                              fit: BoxFit.fill)),
+                                    )),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Stack(
+                        children: [
+                          SingleChildScrollView(
+                            child: Padding(
+                                padding:
+                                    EdgeInsets.all(SpookerSize.paddingSize),
+                                child: Column(
+                                  children: form,
+                                )),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          )),
-    );
+              ],
+            )),
+      ),
+    ));
   }
 }

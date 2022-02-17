@@ -1,17 +1,30 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:spooker/data/provider/auth/auth_repository_provider.dart';
+import 'package:spooker/data/repository/auth/auth_repository.dart';
 import 'package:spooker/ui/utils/strings_extensions.dart';
 import 'package:spooker/ui/utils/strings_types.dart';
 
-final loginViewModel = ChangeNotifierProvider((ref) => LoginViewModel());
+final loginViewModel = ChangeNotifierProvider(
+    (ref) => LoginViewModel(ref.read(authRepositoryProvider)));
 
 class LoginViewModel extends ChangeNotifier {
+  LoginViewModel(this._repository);
+
+  //Repository
+  final AuthRepository _repository;
+
   ///Validations
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
 
   String _password = '';
   String _email = '';
+
+  //Data
+  User? _user;
+  User? get user => _user;
 
   void validatePassword(String pass) {
     _password = pass;
@@ -48,5 +61,13 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void signIn() {}
+  Future<void> signIn() {
+    return _repository.signIn().then((result) {
+      // Result use case No.2
+      result.ifSuccess((data) {
+        _user = data;
+        notifyListeners();
+      });
+    });
+  }
 }

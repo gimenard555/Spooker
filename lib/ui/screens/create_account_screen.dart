@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:spooker/ui/components/Inputs/text_form_view.dart';
 import 'package:spooker/ui/components/buttons/main_button_view.dart';
-import 'package:spooker/ui/components/dialog/spooker_dialog.dart';
+import 'package:spooker/ui/components/dialogs/spooker_dialog.dart';
 import 'package:spooker/ui/components/screen/authentication_background_screen.dart';
 import 'package:spooker/ui/screens/create_account_view_model.dart';
+import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 
+// ignore: must_be_immutable
 class CreateAccountScreen extends HookConsumerWidget {
   late CreateAccountViewModel _viewModel;
   late TextEditingController _emailFieldController;
@@ -132,27 +135,43 @@ class CreateAccountScreen extends HookConsumerWidget {
 
   void showBirthdateDialog(BuildContext context) {
     showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return SpookerDialog([
-          Padding(
-            padding: EdgeInsets.only(top: SpookerSize.paddingSize),
-            child: TextFormView(
-              textController: _birthdateFieldController,
-              textHint: SpookerStrings.birthdateText,
-              errorMessage: '',
-              isValidText: false,
+        context: context,
+        builder: (_) {
+          return SpookerDialog([
+            Padding(
+              padding: EdgeInsets.only(top: SpookerSize.paddingSize),
+              child: TextFormView(
+                textController: _birthdateFieldController,
+                textHint: SpookerStrings.birthdateText,
+                errorMessage: '',
+                isValidText: false,
+              ),
             ),
-          ),
-          MainButtonView(
-            buttonText: SpookerStrings.dateSelectionButtonText,
-            isAvailable: true,
-            whenPress: () {
-              Navigator.pop(context, true);
-            },
-          ),
-        ], SpookerStrings.birthdateSelectionText);
-      },
-    );
+            Theme(
+              data: ThemeData.light().copyWith(
+                  primaryColor: SpookerColors.spookerGreen,
+                  textTheme: TextTheme(
+                      bodyText1: SpookerFonts.titleText,
+                      bodyText2: SpookerFonts.blueTitleText)),
+              child: CalendarDatePicker(
+                initialDate: DateTime.now(),
+                firstDate: DateTime.now().add(Duration(days: -5114)),
+                lastDate: DateTime.now(),
+                onDateChanged: (DateTime selectedDate) {
+                  _birthdateFieldController.text =
+                      DateFormat('dd MMMM yyyy').format(selectedDate);
+                },
+              ),
+            ),
+            MainButtonView(
+              buttonText: SpookerStrings.dateSelectionButtonText,
+              isAvailable: true,
+              whenPress: () {
+                Navigator.of(context).pop(false);
+              },
+            ),
+          ], SpookerStrings.birthdateSelectionText);
+        },
+        barrierDismissible: false);
   }
 }

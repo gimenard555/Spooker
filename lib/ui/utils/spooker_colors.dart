@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 @immutable
 class SpookerColors {
   static const Color loginBackground = Color(0xFFF4FFF3);
-  static const Color completeLight = Color(0xFFFFFFEF);
+  static const Color completeLight = Color(0xFFFFFFFF);
   static const Color spookerGreen = Color(0xFFF4F440);
   static const Color spookerBlue = Color(0xFF6BDBE4);
   static const Color spookerYellow = Color(0xFFFFDD55);

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
@@ -8,7 +7,7 @@ import 'package:spooker/ui/utils/spooker_sizes.dart';
 
 typedef WhenPressTextForm = void Function();
 
-@immutable
+// ignore: must_be_immutable
 class TextFormView extends HookConsumerWidget {
   TextFormView(
       {required this.textController,
@@ -31,40 +30,42 @@ class TextFormView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-        Focus(
-            child: TextFormField(
-              obscureText: this.isPassword ??= false,
-              enableSuggestions: this.isPassword ??= true,
-              autocorrect: this.isPassword ??= true,
-              autofocus: this.autofocus ??= false,
-              decoration: InputDecoration(
-                labelText: this.textHint,
-                labelStyle: TextStyle(
-                    color: getDecorationByError(errorMessage, isValidText)),
-                fillColor: SpookerColors.completeLight,
-                filled: true,
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
-                  borderSide: BorderSide(
-                    color: getDecorationByError(errorMessage, isValidText),
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
-                  borderSide: BorderSide(
-                    color: getDecorationByError(errorMessage, isValidText),
-                    width: 3,
-                  ),
-                ),
-              ),
-              style: getTextStyleByText(errorMessage, isValidText),
-              controller: textController,
-            ),
-            onFocusChange: (hasFocus) {
-              if (hasFocus && onTouchText != null) {
+        Align(
+          alignment: Alignment.topRight,
+          child: TextFormField(
+            onTap: () {
+              if (onTouchText != null) {
                 onTouchText!();
               }
-            }),
+            },
+            obscureText: this.isPassword ??= false,
+            enableSuggestions: this.isPassword ??= true,
+            autocorrect: this.isPassword ??= true,
+            autofocus: this.autofocus ??= false,
+            decoration: InputDecoration(
+              labelText: this.textHint,
+              labelStyle: TextStyle(
+                  color: getDecorationByError(errorMessage, isValidText)),
+              fillColor: SpookerColors.completeLight,
+              filled: true,
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
+                borderSide: BorderSide(
+                  color: getDecorationByError(errorMessage, isValidText),
+                ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
+                borderSide: BorderSide(
+                  color: getDecorationByError(errorMessage, isValidText),
+                  width: 3,
+                ),
+              ),
+            ),
+            style: getTextStyleByText(errorMessage, isValidText),
+            controller: textController,
+          ),
+        ),
         SizedBox(height: SpookerSize.miniSizedBox),
         Visibility(
             visible: getAvailable(errorMessage),

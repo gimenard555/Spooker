@@ -10,6 +10,7 @@ import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 import 'package:spooker/ui/utils/strings_types.dart';
 
+// ignore: must_be_immutable
 class LoginScreen extends HookConsumerWidget {
   late LoginViewModel _viewModel;
   late TextEditingController _emailFieldController;

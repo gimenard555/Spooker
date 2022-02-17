@@ -12,6 +12,32 @@ class SpookerDialog extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    List<Widget> newForm = [
+      Stack(
+        children: [
+          Align(
+              alignment: Alignment.topCenter,
+              child: Text(
+                titleForm,
+                textAlign: TextAlign.center,
+                style: SpookerFonts.commonGrayBold,
+              )),
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Text(
+                'X',
+                style: SpookerFonts.commonGrayBold,
+              ),
+            ),
+          )
+        ],
+      ),
+    ];
+    newForm.addAll(form);
     return Dialog(
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(SpookerSize.borderRadius)),
@@ -34,42 +60,10 @@ class SpookerDialog extends HookConsumerWidget {
                   ]),
               child: Padding(
                 padding: EdgeInsets.all(SpookerSize.paddingSize),
-                child: Column(children: getWholeData(context)),
+                child: Column(children: newForm),
               )),
         ],
       ),
     );
-  }
-
-  List<Widget> getWholeData(BuildContext context) {
-    form.insertAll(
-      0,
-      [
-        Stack(
-          children: [
-            Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  titleForm,
-                  textAlign: TextAlign.center,
-                  style: SpookerFonts.commonGrayBold,
-                )),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Text(
-                  'X',
-                  style: SpookerFonts.commonGrayBold,
-                ),
-              ),
-            )
-          ],
-        ),
-      ],
-    );
-    return form;
   }
 }
