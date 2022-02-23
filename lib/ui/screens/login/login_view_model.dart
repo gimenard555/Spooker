@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:spooker/data/provider/auth/auth_repository_provider.dart';
 import 'package:spooker/data/repository/auth/auth_repository.dart';
 import 'package:spooker/ui/utils/strings_extensions.dart';
 import 'package:spooker/ui/utils/strings_types.dart';
+
+import '../../../data/provider/top_provider.dart';
+import '../../../data/repository/event/event_repository.dart';
 
 final loginViewModel = ChangeNotifierProvider(
     (ref) => LoginViewModel(ref.read(authRepositoryProvider)));
@@ -69,5 +71,9 @@ class LoginViewModel extends ChangeNotifier {
         notifyListeners();
       });
     });
+  }
+
+  void getAllEvents(){
+
   }
 }

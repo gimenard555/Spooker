@@ -8,4 +8,6 @@ class SpookerSize {
   static const double paddingSize = 20;
   static const double borderRadius = 30;
   static const double miniSizedBox = 8;
+  static const double miniMargin = 10;
+  static const double zero = 0;
 }

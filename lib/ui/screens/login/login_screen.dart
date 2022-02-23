@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/components/Inputs/text_form_view.dart';
 import 'package:spooker/ui/components/buttons/main_button_view.dart';
 import 'package:spooker/ui/components/screen/authentication_background_screen.dart';
-import 'package:spooker/ui/screens/login_view_model.dart';
+import 'package:spooker/ui/screens/login/login_view_model.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
@@ -57,7 +57,9 @@ class LoginScreen extends HookConsumerWidget {
         MainButtonView(
           buttonText: SpookerStrings.ContinueButtonText,
           isAvailable: _viewModel.isDataComplete(),
-          whenPress: _viewModel.signIn,
+          whenPress: (){
+            _viewModel.getAllEvents();
+          },
         ),
       ], SpookerStrings.signInText),
     );

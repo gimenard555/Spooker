@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:spooker/data/remote/auth_data_source.dart';
+import 'package:spooker/data/remote/auth/auth_data_source.dart';
 
 class AuthDataSourceImpl implements AuthDataSource {
   AuthDataSourceImpl(this._firebaseAuth);

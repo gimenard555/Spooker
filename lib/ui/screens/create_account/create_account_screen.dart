@@ -6,11 +6,12 @@ import 'package:spooker/ui/components/Inputs/text_form_view.dart';
 import 'package:spooker/ui/components/buttons/main_button_view.dart';
 import 'package:spooker/ui/components/dialogs/spooker_dialog.dart';
 import 'package:spooker/ui/components/screen/authentication_background_screen.dart';
-import 'package:spooker/ui/screens/create_account_view_model.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
+
+import 'create_account_view_model.dart';
 
 // ignore: must_be_immutable
 class CreateAccountScreen extends HookConsumerWidget {

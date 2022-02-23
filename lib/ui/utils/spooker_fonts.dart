@@ -4,8 +4,10 @@ import 'package:spooker/ui/utils/spooker_colors.dart';
 class SpookerFonts {
   static const String montserratFont = "Montserrat";
   static const String painterzFont = "Painterz";
-  static const double common18 = 18.0;
+  static const double common12 = 12.0;
+  static const double common14 = 14.0;
   static const double common16 = 16.0;
+  static const double common18 = 18.0;
   static const double common24 = 24.0;
   static const double common96 = 96.0;
 
@@ -83,4 +85,16 @@ class SpookerFonts {
       fontSize: common16,
       fontWeight: bold,
       color: SpookerColors.darkGrayTextColor);
+
+  static const TextStyle artworkItemText = TextStyle(
+      fontFamily: montserratFont,
+      fontSize: common14,
+      fontWeight: bold,
+      color: SpookerColors.blueCommonTextColor);
+
+  static const TextStyle dashboardTitleText = TextStyle(
+      fontFamily: montserratFont,
+      fontSize: common18,
+      fontWeight: bold,
+      color: SpookerColors.blueCommonTextColor);
 }
