@@ -35,8 +35,8 @@ class CustomTopBar extends HookConsumerWidget {
                 },
                 child: Container(
                     margin: EdgeInsets.all(SpookerSize.m5),
-                    width: SpookerSize.m40,
-                    height: SpookerSize.m40,
+                    width: SpookerSize.m50,
+                    height: SpookerSize.m50,
                     child: CircleAvatar(
                       radius: SpookerSize.m20,
                       backgroundImage: NetworkImage(
@@ -51,10 +51,10 @@ class CustomTopBar extends HookConsumerWidget {
               ),
               Expanded(child: SizedBox()),
               Container(
-                  margin: EdgeInsets.all(SpookerSize.m5),
+                  margin: EdgeInsets.all(SpookerSize.m20),
                   child: Assets.images.notifications.image()),
               Container(
-                  margin: EdgeInsets.all(SpookerSize.m10),
+                  margin: EdgeInsets.all(SpookerSize.m20),
                   child: Assets.images.configuration.image()),
             ],
           ),

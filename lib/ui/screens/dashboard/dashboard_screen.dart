@@ -39,7 +39,7 @@ class DashboardScreen extends HookConsumerWidget {
         body: SafeArea(
             child: Column(children: [
       SizedBox(
-        height: SpookerSize.m20,
+        height: SpookerSize.m10,
       ),
       CustomTopBar(),
       ContainerWithLoading(
