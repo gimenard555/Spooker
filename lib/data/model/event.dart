@@ -6,20 +6,20 @@ Event eventFromMap(String text) => Event.fromMap(json.decode(text));
 String eventToMap(Event data) => json.encode(data.toMap());
 
 class Event {
-  Event(this.name, this.date, this.tags, this.userName, this.imagePath);
+  Event(this.name, this.date, this.tags, this.userName, this.description);
 
   String name;
   String date;
   String tags;
   String userName;
-  String imagePath;
+  String description;
 
   factory Event.fromMap(Map<String, dynamic> json) => Event(
         json['name'],
         json['date'],
         json['tags'],
-        json['userName'],
-        json['image_path'],
+        json['user_name'],
+        json['description'],
       );
 
   Map<String, dynamic> toMap() => {
@@ -27,7 +27,7 @@ class Event {
         'date': date,
         'tags': tags,
         'userName': userName,
-        'image_path': imagePath,
+        'description': description,
       };
 
   factory Event.fromFirestore(DocumentSnapshot document) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:spooker/ui/components/spooker_borders.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
@@ -39,27 +40,26 @@ class SpookerDialog extends HookConsumerWidget {
     ];
     newForm.addAll(form);
     return Dialog(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(SpookerSize.borderRadius)),
+      shape: RoundedRectangleBorder(borderRadius: SpookerBorders.m10Border),
       elevation: 0,
       backgroundColor: SpookerColors.transparent,
       child: Stack(
         children: [
           Container(
               height: MediaQuery.of(context).size.height * 0.7,
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all(SpookerSize.m10),
               decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   color: SpookerColors.completeLight,
-                  borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
+                  borderRadius: SpookerBorders.m10Border,
                   boxShadow: [
                     BoxShadow(
-                        color: Colors.black,
+                        color: SpookerColors.completeDark,
                         offset: Offset(0, 10),
-                        blurRadius: 30),
+                        blurRadius: SpookerSize.m30),
                   ]),
               child: Padding(
-                padding: EdgeInsets.all(SpookerSize.paddingSize),
+                padding: EdgeInsets.all(SpookerSize.m20),
                 child: Column(children: newForm),
               )),
         ],

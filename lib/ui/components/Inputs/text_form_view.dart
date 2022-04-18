@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:spooker/ui/components/spooker_borders.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
@@ -49,16 +50,16 @@ class TextFormView extends HookConsumerWidget {
               fillColor: SpookerColors.completeLight,
               filled: true,
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
+                borderRadius: SpookerBorders.m10Border,
                 borderSide: BorderSide(
                   color: getDecorationByError(errorMessage, isValidText),
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(SpookerSize.borderRadius),
+                borderRadius: SpookerBorders.m10Border,
                 borderSide: BorderSide(
                   color: getDecorationByError(errorMessage, isValidText),
-                  width: 3,
+                  width: SpookerSize.m3,
                 ),
               ),
             ),
@@ -66,13 +67,13 @@ class TextFormView extends HookConsumerWidget {
             controller: textController,
           ),
         ),
-        SizedBox(height: SpookerSize.miniSizedBox),
+        SizedBox(height: SpookerSize.m8),
         Visibility(
             visible: getAvailable(errorMessage),
             child: Row(
               children: [
                 SvgPicture.asset('svgs/alert_icon.svg', height: 16, width: 16),
-                SizedBox(width: SpookerSize.miniSizedBox),
+                SizedBox(width: SpookerSize.m8),
                 Align(
                     alignment: Alignment.topCenter,
                     child: Text(

@@ -34,7 +34,7 @@ class LoginScreen extends HookConsumerWidget {
               textAlign: TextAlign.center,
               style: SpookerFonts.titleText,
             )),
-        SizedBox(height: SpookerSize.sizedBoxSpace),
+        SizedBox(height: SpookerSize.m20),
         Align(
             alignment: Alignment.center,
             child: TextFormView(
@@ -43,7 +43,7 @@ class LoginScreen extends HookConsumerWidget {
               errorMessage: _viewModel.errorMessage,
               isValidText: _viewModel.isValidText(),
             )),
-        SizedBox(height: SpookerSize.sizedBoxSpace),
+        SizedBox(height: SpookerSize.m20),
         Align(
             alignment: Alignment.center,
             child: TextFormView(
@@ -53,7 +53,7 @@ class LoginScreen extends HookConsumerWidget {
               isValidText: _viewModel.isValidPass(),
               isPassword: true,
             )),
-        SizedBox(height: SpookerSize.sizedBoxSpace),
+        SizedBox(height: SpookerSize.m20),
         MainButtonView(
           buttonText: SpookerStrings.ContinueButtonText,
           isAvailable: _viewModel.isDataComplete(),

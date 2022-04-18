@@ -26,9 +26,17 @@ class $AssetsImagesGen {
   AssetGenImage get backButton =>
       const AssetGenImage('assets/images/back_button.png');
 
+  /// File path: assets/images/configuration.png
+  AssetGenImage get configuration =>
+      const AssetGenImage('assets/images/configuration.png');
+
   /// File path: assets/images/main_logo.png
   AssetGenImage get mainLogo =>
       const AssetGenImage('assets/images/main_logo.png');
+
+  /// File path: assets/images/notifications.png
+  AssetGenImage get notifications =>
+      const AssetGenImage('assets/images/notifications.png');
 
   /// File path: assets/images/paint.png
   AssetGenImage get paint => const AssetGenImage('assets/images/paint.png');
@@ -41,15 +49,15 @@ class $AssetsImagesGen {
 class $AssetsSvgsGen {
   const $AssetsSvgsGen();
 
-  /// File path: assets/svgs/Error icon.svg
-  SvgGenImage get errorIcon => const SvgGenImage('assets/svgs/Error icon.svg');
-
   /// File path: assets/svgs/alert_icon.svg
   SvgGenImage get alertIcon => const SvgGenImage('assets/svgs/alert_icon.svg');
 
   /// File path: assets/svgs/back_button.svg
   SvgGenImage get backButton =>
       const SvgGenImage('assets/svgs/back_button.svg');
+
+  /// File path: assets/svgs/error_icon.svg
+  SvgGenImage get errorIcon => const SvgGenImage('assets/svgs/error_icon.svg');
 
   /// File path: assets/svgs/light_logo.svg
   SvgGenImage get lightLogo => const SvgGenImage('assets/svgs/light_logo.svg');

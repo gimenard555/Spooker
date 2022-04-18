@@ -2,10 +2,13 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 
+import '../spooker_borders.dart';
+
 class GlassMorphism extends StatelessWidget {
   final Widget child;
   final double start;
   final double end;
+
   const GlassMorphism({
     Key? key,
     required this.child,
@@ -29,10 +32,10 @@ class GlassMorphism extends StatelessWidget {
               end: AlignmentDirectional.bottomEnd,
             ),
             borderRadius: BorderRadius.only(
-                topRight: Radius.circular(SpookerSize.borderRadius),
-                topLeft: Radius.circular(SpookerSize.borderRadius)),
+                topRight: SpookerBorders.m10Radius,
+                topLeft: SpookerBorders.m10Radius),
             border: Border.all(
-              width: 1.5,
+              width: SpookerSize.m2,
               color: Colors.white.withOpacity(0.2),
             ),
           ),

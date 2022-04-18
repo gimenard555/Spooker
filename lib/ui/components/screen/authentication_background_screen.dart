@@ -41,7 +41,7 @@ class AuthenticationBackground extends StatelessWidget {
                               },
                               child: Padding(
                                 padding:
-                                    EdgeInsets.all(SpookerSize.miniSizedBox),
+                                    EdgeInsets.all(SpookerSize.m8),
                                 child: Align(
                                     alignment: Alignment.topLeft,
                                     child: Image(
@@ -49,7 +49,7 @@ class AuthenticationBackground extends StatelessWidget {
                                             "assets/images/back_button.png"))),
                               )),
                           Padding(
-                            padding: EdgeInsets.all(SpookerSize.paddingSize),
+                            padding: EdgeInsets.all(SpookerSize.m20),
                             child: Column(
                               children: [
                                 Align(
@@ -81,7 +81,7 @@ class AuthenticationBackground extends StatelessWidget {
                           SingleChildScrollView(
                             child: Padding(
                                 padding:
-                                    EdgeInsets.all(SpookerSize.paddingSize),
+                                    EdgeInsets.all(SpookerSize.m20),
                                 child: Column(
                                   children: form,
                                 )),

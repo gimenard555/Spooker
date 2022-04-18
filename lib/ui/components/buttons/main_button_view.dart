@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:spooker/ui/components/spooker_borders.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
+import 'package:spooker/ui/utils/spooker_sizes.dart';
 
 typedef WhenPress = void Function();
 
@@ -47,7 +49,7 @@ class MainButtonView extends HookConsumerWidget {
                   ))),
             )),
       ),
-      height: 60,
+      height: SpookerSize.m60,
       width: MediaQuery.of(context).size.width,
       decoration: getButtonBorderByAvailable(),
     );
@@ -57,10 +59,10 @@ class MainButtonView extends HookConsumerWidget {
     if (isNormal) {
       return BoxDecoration(
         border: Border.all(
-          width: 3,
+          width: SpookerSize.m3,
           color: SpookerColors.darkBlue,
         ),
-        borderRadius: BorderRadius.circular(30),
+        borderRadius: SpookerBorders.m30Border,
       );
     } else {
       if (isAvailable) {
@@ -69,11 +71,11 @@ class MainButtonView extends HookConsumerWidget {
           border: Border.all(
             color: SpookerColors.lightGray,
           ),
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: SpookerBorders.m30Border,
         );
       } else {
         return BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: SpookerBorders.m30Border,
         );
       }
     }

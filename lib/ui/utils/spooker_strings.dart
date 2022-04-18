@@ -22,6 +22,8 @@ class SpookerStrings {
   static const ContinueButtonText = 'Continue';
   static const birthdateSelectionText = 'Select your birthdate';
   static const dateSelectionButtonText = 'Select date';
+  static const artworksText = 'Artworks';
+  static const eventsText = 'Events';
 }
 
 @immutable
@@ -34,4 +36,5 @@ class SpookerErrorStrings {
       "Minimum 1 Special Character\n";
   static const dateErrorText = 'Enter a valid date';
   static const passwordMatch = 'Passwords do not match';
+  static const somethingIsWrong = 'something is wrong';
 }

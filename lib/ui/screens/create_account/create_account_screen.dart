@@ -35,7 +35,7 @@ class CreateAccountScreen extends HookConsumerWidget {
               textAlign: TextAlign.center,
               style: SpookerFonts.titleText,
             )),
-        SizedBox(height: SpookerSize.sizedBoxSpace),
+        SizedBox(height: SpookerSize.m20),
         Align(
             alignment: Alignment.center,
             child: TextFormView(
@@ -44,7 +44,7 @@ class CreateAccountScreen extends HookConsumerWidget {
               errorMessage: _viewModel.errorEmailMessage,
               isValidText: _viewModel.isValidEmail(),
             )),
-        SizedBox(height: SpookerSize.sizedBoxSpace),
+        SizedBox(height: SpookerSize.m20),
         Align(
             alignment: Alignment.center,
             child: TextFormView(
@@ -53,7 +53,7 @@ class CreateAccountScreen extends HookConsumerWidget {
               errorMessage: _viewModel.errorUsernameMessage,
               isValidText: _viewModel.isValidUsername(),
             )),
-        SizedBox(height: SpookerSize.sizedBoxSpace),
+        SizedBox(height: SpookerSize.m20),
         Align(
             alignment: Alignment.center,
             child: TextFormView(
@@ -65,7 +65,7 @@ class CreateAccountScreen extends HookConsumerWidget {
                 showBirthdateDialog(context);
               },
             )),
-        SizedBox(height: SpookerSize.sizedBoxSpace),
+        SizedBox(height: SpookerSize.m20),
         Align(
             alignment: Alignment.center,
             child: TextFormView(
@@ -74,7 +74,7 @@ class CreateAccountScreen extends HookConsumerWidget {
               errorMessage: _viewModel.errorPasswordMessage,
               isValidText: _viewModel.isValidPassword(),
             )),
-        SizedBox(height: SpookerSize.sizedBoxSpace),
+        SizedBox(height: SpookerSize.m20),
         Align(
             alignment: Alignment.center,
             child: TextFormView(
@@ -83,7 +83,7 @@ class CreateAccountScreen extends HookConsumerWidget {
               errorMessage: _viewModel.errorConfirmedPasswordMessage,
               isValidText: _viewModel.isValidConfirmedPass(),
             )),
-        SizedBox(height: SpookerSize.sizedBoxSpace),
+        SizedBox(height: SpookerSize.m20),
         MainButtonView(
           buttonText: SpookerStrings.ContinueButtonText,
           isAvailable: _viewModel.isDataCompleted(),
@@ -140,7 +140,7 @@ class CreateAccountScreen extends HookConsumerWidget {
         builder: (_) {
           return SpookerDialog([
             Padding(
-              padding: EdgeInsets.only(top: SpookerSize.paddingSize),
+              padding: EdgeInsets.only(top: SpookerSize.m20),
               child: TextFormView(
                 textController: _birthdateFieldController,
                 textHint: SpookerStrings.birthdateText,

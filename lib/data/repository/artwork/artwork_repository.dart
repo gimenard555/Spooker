@@ -6,5 +6,7 @@ abstract class ArtworkRepository {
 
   Future<void> createNewArtwork();
 
-  Future<void> deleteNewArtwork();
+  Future<void> deleteArtwork();
+
+  Future<Result<List<Artwork>>> fetchMyArtworks();
 }

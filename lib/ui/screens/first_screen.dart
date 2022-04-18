@@ -23,7 +23,7 @@ class FirstScreen extends HookConsumerWidget {
                 child: Align(
                     alignment: Alignment.bottomCenter,
                     child: Padding(
-                      padding: EdgeInsets.all(SpookerSize.paddingSize),
+                      padding: EdgeInsets.all(SpookerSize.m20),
                       child: Column(
                         children: [
                           Stack(
@@ -51,7 +51,7 @@ class FirstScreen extends HookConsumerWidget {
                             style: SpookerFonts.titleFirst,
                           ),
                           SizedBox(
-                            height: SpookerSize.miniSizedBox,
+                            height: SpookerSize.m8,
                           ),
                           Text(
                             SpookerStrings.firstScreenText,
@@ -59,7 +59,7 @@ class FirstScreen extends HookConsumerWidget {
                             style: SpookerFonts.blueTitleText,
                           ),
                           SizedBox(
-                            height: SpookerSize.sizedBoxSpace,
+                            height: SpookerSize.m20,
                           ),
                           MainButtonView(
                             buttonText: SpookerStrings.loginText,
@@ -73,7 +73,7 @@ class FirstScreen extends HookConsumerWidget {
                             },
                           ),
                           SizedBox(
-                            height: SpookerSize.miniSizedBox,
+                            height: SpookerSize.m8,
                           ),
                           MainButtonView(
                             buttonText: SpookerStrings.signUpText,
@@ -89,7 +89,7 @@ class FirstScreen extends HookConsumerWidget {
                             isNormal: true,
                           ),
                           SizedBox(
-                            height: SpookerSize.miniSizedBox,
+                            height: SpookerSize.m8,
                           ),
                           MainButtonView(
                             buttonText: SpookerStrings.signInGoogleText,
