@@ -22,8 +22,8 @@ dependencies:
   firebase_auth: ^3.1.4
   google_sign_in: ^5.1.0
   firebase_crashlytics: ^2.2.4
-  firebase_performance: ^0.7.1+2  
-  cloud_firestore: ^3.1.4
+  firebase_performance: ^0.7.1+2
+  cloud_firestore: ^3.1.13
   flutter_form_builder: ^7.0.0
   
   #For architecture

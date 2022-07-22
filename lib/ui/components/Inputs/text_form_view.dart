@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:spooker/gen/assets.gen.dart';
 import 'package:spooker/ui/components/spooker_borders.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
+import 'package:spooker/ui/utils/spooker_strings.dart';
 
 typedef WhenPressTextForm = void Function();
 
@@ -31,9 +32,7 @@ class TextFormView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-        Align(
-          alignment: Alignment.topRight,
-          child: TextFormField(
+       TextFormField(
             onTap: () {
               if (onTouchText != null) {
                 onTouchText!();
@@ -50,13 +49,13 @@ class TextFormView extends HookConsumerWidget {
               fillColor: SpookerColors.completeLight,
               filled: true,
               focusedBorder: OutlineInputBorder(
-                borderRadius: SpookerBorders.m10Border,
+                borderRadius: SpookerBorders.m30Border,
                 borderSide: BorderSide(
                   color: getDecorationByError(errorMessage, isValidText),
                 ),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: SpookerBorders.m10Border,
+                borderRadius: SpookerBorders.m30Border,
                 borderSide: BorderSide(
                   color: getDecorationByError(errorMessage, isValidText),
                   width: SpookerSize.m3,
@@ -66,13 +65,13 @@ class TextFormView extends HookConsumerWidget {
             style: getTextStyleByText(errorMessage, isValidText),
             controller: textController,
           ),
-        ),
         SizedBox(height: SpookerSize.m8),
         Visibility(
             visible: getAvailable(errorMessage),
             child: Row(
               children: [
-                SvgPicture.asset('svgs/alert_icon.svg', height: 16, width: 16),
+                Assets.svgs.alertIcon
+                    .svg(height: SpookerSize.m14, width: SpookerSize.m14),
                 SizedBox(width: SpookerSize.m8),
                 Align(
                     alignment: Alignment.topCenter,
@@ -89,7 +88,7 @@ class TextFormView extends HookConsumerWidget {
 
   String getErrorMessage() {
     if (this.errorMessage == null) {
-      return '';
+      return SpookerStrings.emptyString;
     } else {
       return errorMessage!;
     }

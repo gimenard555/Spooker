@@ -9,6 +9,7 @@ import '../../components/outputs/custom_title_text.dart';
 import '../../components/outputs/custom_top_bar.dart';
 import '../../loading_state_view_model.dart';
 import '../../utils/spooker_sizes.dart';
+import '../profile/profile_screen.dart';
 import 'artwork_item.dart';
 import 'dashboard_view_model.dart';
 
@@ -32,7 +33,7 @@ class DashboardScreen extends HookConsumerWidget {
         return ref
             .read(loadingStateProvider)
             .whileLoading(() => viewModel.fetchEvents());
-      }, [artworks?.toString()]),
+      }, [events?.toString()]),
     );
 
     return Scaffold(
@@ -41,7 +42,12 @@ class DashboardScreen extends HookConsumerWidget {
       SizedBox(
         height: SpookerSize.m10,
       ),
-      CustomTopBar(),
+      CustomTopBar(goToProfile: (){
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ProfileScreen()),
+        );
+      },),
       ContainerWithLoading(
         child: snapshotArtworks.connectionState == ConnectionState.waiting ||
                 viewModel.artworks == null

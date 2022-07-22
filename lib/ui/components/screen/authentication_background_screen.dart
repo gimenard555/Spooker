@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:spooker/gen/assets.gen.dart';
 import 'package:spooker/ui/components/screen/main_curve_background.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
@@ -40,20 +41,17 @@ class AuthenticationBackground extends StatelessWidget {
                                 Navigator.pop(context);
                               },
                               child: Padding(
-                                padding:
-                                    EdgeInsets.all(SpookerSize.m8),
+                                padding: EdgeInsets.all(SpookerSize.m8),
                                 child: Align(
                                     alignment: Alignment.topLeft,
-                                    child: Image(
-                                        image: AssetImage(
-                                            "assets/images/back_button.png"))),
+                                    child: Assets.images.backButton.image()),
                               )),
                           Padding(
                             padding: EdgeInsets.all(SpookerSize.m20),
                             child: Column(
                               children: [
                                 Align(
-                                  alignment: Alignment.bottomCenter,
+                                  alignment: Alignment.center,
                                   child: Text(
                                     titleForm,
                                     textAlign: TextAlign.center,
@@ -62,15 +60,7 @@ class AuthenticationBackground extends StatelessWidget {
                                 ),
                                 Align(
                                     alignment: Alignment.topCenter,
-                                    child: Container(
-                                      height: screenHeight * 0.2,
-                                      width: screenHeight * 0.2,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  'assets/images/main_logo.png'),
-                                              fit: BoxFit.fill)),
-                                    )),
+                                    child: Assets.images.mainLogo.image()),
                               ],
                             ),
                           )
@@ -79,12 +69,9 @@ class AuthenticationBackground extends StatelessWidget {
                       Stack(
                         children: [
                           SingleChildScrollView(
-                            child: Padding(
-                                padding:
-                                    EdgeInsets.all(SpookerSize.m20),
-                                child: Column(
+                            child: Column(
                                   children: form,
-                                )),
+                                ),
                           )
                         ],
                       ),

@@ -9,7 +9,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   final FirebaseAuth _firebaseAuth;
 
   @override
-  Future<User?> signIn() async {
+  Future<User?> googleSignIn() async {
     final account = await GoogleSignIn().signIn();
     if (account == null) {
       return throw StateError('User cancel signIn');
@@ -32,5 +32,24 @@ class AuthDataSourceImpl implements AuthDataSource {
       debugPrint(error.toString());
       throw error;
     });
+  }
+
+  @override
+  Future<User> signIn(String email, String password) async {
+    try {
+      UserCredential credential;
+      credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      final currentUser = _firebaseAuth.currentUser;
+      assert(credential.user?.uid == currentUser?.uid);
+      return credential.user!;
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
+  Future<bool> isSignedAny() async {
+    return FirebaseAuth.instance.currentUser != null;
   }
 }

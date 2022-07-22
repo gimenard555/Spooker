@@ -34,7 +34,7 @@ class SpookerFonts {
 
   static const TextStyle titleText = TextStyle(
       fontFamily: montserratFont,
-      fontSize:s18,
+      fontSize:s16,
       fontWeight: bold,
       color: SpookerColors.blueCommonTextColor);
 
@@ -96,6 +96,12 @@ class SpookerFonts {
       fontFamily: montserratFont,
       fontSize: s18,
       fontWeight: bold,
+      color: SpookerColors.darkBlue);
+
+  static const TextStyle unSelectedTitleText = TextStyle(
+      fontFamily: montserratFont,
+      fontSize: s18,
+      fontWeight: medium,
       color: SpookerColors.darkBlue);
 
   static const TextStyle eventDateText = TextStyle(

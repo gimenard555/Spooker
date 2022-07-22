@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/screens/dashboard/dashboard_screen.dart';
+import 'package:spooker/ui/screens/splash_screen.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 
@@ -31,7 +32,7 @@ class SpookerApp extends ConsumerWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: SpookerColors.completeLight,
       ),
-      home: DashboardScreen(),
+      home: SplashScreen(),
     );
   }
 }

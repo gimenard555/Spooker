@@ -29,4 +29,5 @@ class SpookerBorders {
   static BorderRadius borderTag = BorderRadius.circular(SpookerSize.m20);
   static BorderRadius m30Border = BorderRadius.circular(SpookerSize.m30);
   static BorderRadius m10Border = BorderRadius.circular(SpookerSize.m10);
+  static BorderRadius m200Border = BorderRadius.circular(SpookerSize.m200);
 }

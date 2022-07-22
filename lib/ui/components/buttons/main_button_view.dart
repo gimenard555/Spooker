@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:spooker/ui/components/loading/container_with_loading.dart';
 import 'package:spooker/ui/components/spooker_borders.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
@@ -14,12 +15,14 @@ class MainButtonView extends HookConsumerWidget {
       {required this.buttonText,
       required this.isAvailable,
       required this.whenPress,
-      this.isNormal = false});
+      this.isNormal = false,
+      this.buttonImage});
 
   final String buttonText;
   bool isAvailable = false;
   final WhenPress whenPress;
   bool isNormal = false;
+  Image? buttonImage;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,18 +37,13 @@ class MainButtonView extends HookConsumerWidget {
                   whenPress();
                 }
               },
-              child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    buttonText,
-                    style: getTextStyleByAvailable(),
-                  )),
+              child: getIconButton(),
               style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all<Color>(
                       getButtonStyleByAvailable()),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: SpookerBorders.m30Border,
                   ))),
             )),
       ),
@@ -53,6 +51,34 @@ class MainButtonView extends HookConsumerWidget {
       width: MediaQuery.of(context).size.width,
       decoration: getButtonBorderByAvailable(),
     );
+  }
+
+  Widget getIconButton() {
+    if (buttonImage != null) {
+      return Expanded(
+          child: Container(
+              margin: EdgeInsets.symmetric(vertical: SpookerSize.m10),
+              child: Stack(
+                children: [
+                  buttonImage!,
+                  Expanded(
+                      child: Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      buttonText,
+                      style: getTextStyleByAvailable(),
+                    ),
+                  ))
+                ],
+              )));
+    } else {
+      return Align(
+          alignment: Alignment.center,
+          child: Text(
+            buttonText,
+            style: getTextStyleByAvailable(),
+          ));
+    }
   }
 
   BoxDecoration getButtonBorderByAvailable() {

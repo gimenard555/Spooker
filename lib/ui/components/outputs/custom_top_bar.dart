@@ -9,7 +9,17 @@ import 'package:spooker/ui/utils/spooker_sizes.dart';
 import '../../screens/profile/profile_screen.dart';
 import '../spooker_borders.dart';
 
+typedef GoToProfile = void Function();
+
+typedef GoToNotifications = void Function();
+
+typedef GoStartMySpooker = void Function();
+
 class CustomTopBar extends HookConsumerWidget {
+  CustomTopBar({required this.goToProfile});
+
+  final GoToProfile goToProfile;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
@@ -28,10 +38,7 @@ class CustomTopBar extends HookConsumerWidget {
             children: [
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ProfileScreen()),
-                  );
+                  goToProfile();
                 },
                 child: Container(
                     margin: EdgeInsets.all(SpookerSize.m5),

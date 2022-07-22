@@ -1,21 +1,32 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/rendering.dart';
 
 enum AppErrorType {
-  NETWORK,
-  BAD_REQUEST,
-  UNAUTHORIZED,
-  CANCEL,
-  TIMEOUT,
-  SERVER,
-  UNKNOWN
+  Network,
+  Bad_Request,
+  Unauthorized,
+  Cancel,
+  Timeout,
+  Server,
+  Unknown,
+  User_Not_Found,
+  Password_Wrong,
 }
 
 class AppError {
   late String message;
   late AppErrorType type;
+  static const userNotFound = 'user-not-found';
+  static const passwordWrong = 'wrong-password';
+
   AppError(Exception? error) {
-    debugPrint('Error desconocido: $error');
-    type = AppErrorType.UNKNOWN;
-    message = 'AppError: $error';
+    var message = '';
+    if (error.toString().contains(']')) {
+      var getMessage = error.toString().split('] ');
+      message = getMessage[1];
+    }
+    type = AppErrorType.Unknown;
+    debugPrint('Error: $message');
+    message = message;
   }
 }

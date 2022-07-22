@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:spooker/ui/components/buttons/main_button_view.dart';
@@ -8,6 +9,7 @@ import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 
+import '../../gen/assets.gen.dart';
 import 'login/login_screen.dart';
 
 class FirstScreen extends HookConsumerWidget {
@@ -29,19 +31,14 @@ class FirstScreen extends HookConsumerWidget {
                           Stack(
                             alignment: Alignment.center,
                             children: [
-                              Lottie.asset(
-                                  'assets/animations/spooker_back.json',
+                              Lottie.asset(Assets.animations.spookerBack,
                                   width: screenHeight * 0.5,
                                   height: screenHeight * 0.5,
                                   fit: BoxFit.fill),
                               Container(
                                 height: screenHeight * 0.2,
                                 width: screenHeight * 0.2,
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            'assets/images/main_logo.png'),
-                                        fit: BoxFit.fill)),
+                                child: Assets.images.mainLogo.image(),
                               ),
                             ],
                           ),
@@ -98,11 +95,13 @@ class FirstScreen extends HookConsumerWidget {
                               _signInGooglePressed(context);
                             },
                             isNormal: true,
+                            buttonImage: Assets.images.googleIcon.image(),
                           ),
                         ],
                       ),
                     )))));
   }
+
 
   void _signInGooglePressed(BuildContext context) {}
 }

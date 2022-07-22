@@ -30,6 +30,10 @@ class $AssetsImagesGen {
   AssetGenImage get configuration =>
       const AssetGenImage('assets/images/configuration.png');
 
+  /// File path: assets/images/google_icon.png
+  AssetGenImage get googleIcon =>
+      const AssetGenImage('assets/images/google_icon.png');
+
   /// File path: assets/images/main_logo.png
   AssetGenImage get mainLogo =>
       const AssetGenImage('assets/images/main_logo.png');
