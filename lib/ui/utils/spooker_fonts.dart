@@ -8,6 +8,7 @@ class SpookerFonts {
   static const double s14 = 14.0;
   static const double s16 = 16.0;
   static const double s18 = 18.0;
+  static const double s20 = 20.0;
   static const double s24 = 24.0;
   static const double s96 = 96.0;
 
@@ -16,13 +17,29 @@ class SpookerFonts {
   static const FontWeight bold = FontWeight.w700;
 
   static const TextStyle titleFirst = TextStyle(
-      fontFamily: painterzFont,
-      fontSize: s96,
-      color: SpookerColors.darkBlue);
+      fontFamily: painterzFont, fontSize: s96, color: SpookerColors.darkBlue);
 
   static const TextStyle textFormError = TextStyle(
       fontFamily: montserratFont,
       fontSize: s18,
+      fontWeight: regular,
+      color: SpookerColors.errorRed);
+
+  static const TextStyle s14BoldLight = TextStyle(
+      fontFamily: montserratFont,
+      fontSize: s14,
+      fontWeight: bold,
+      color: SpookerColors.completeLight);
+
+  static const TextStyle dialogTitleError = TextStyle(
+      fontFamily: montserratFont,
+      fontSize: s20,
+      fontWeight: bold,
+      color: SpookerColors.errorRed);
+
+  static const TextStyle dialogTextError = TextStyle(
+      fontFamily: montserratFont,
+      fontSize: s14,
       fontWeight: regular,
       color: SpookerColors.errorRed);
 
@@ -34,13 +51,13 @@ class SpookerFonts {
 
   static const TextStyle titleText = TextStyle(
       fontFamily: montserratFont,
-      fontSize:s16,
+      fontSize: s16,
       fontWeight: bold,
       color: SpookerColors.blueCommonTextColor);
 
   static const TextStyle topBarText = TextStyle(
       fontFamily: montserratFont,
-      fontSize:s18,
+      fontSize: s18,
       fontWeight: regular,
       color: SpookerColors.blueCommonTextColor);
 
@@ -70,7 +87,7 @@ class SpookerFonts {
 
   static const TextStyle buttonNoAvailable = TextStyle(
       fontFamily: montserratFont,
-      fontSize:s16,
+      fontSize: s16,
       fontWeight: bold,
       color: SpookerColors.completeLight);
 
@@ -80,11 +97,17 @@ class SpookerFonts {
       fontWeight: bold,
       color: SpookerColors.blueCommonTextColor);
 
-  static const TextStyle commonGrayBold = TextStyle(
+  static const TextStyle s16BoldDarkBlue = TextStyle(
       fontFamily: montserratFont,
-      fontSize: s14,
+      fontSize: SpookerFonts.s16,
       fontWeight: bold,
-      color: SpookerColors.darkGrayTextColor);
+      color: SpookerColors.darkBlue);
+
+  static const TextStyle s20BoldCommonBlue = TextStyle(
+      fontFamily: montserratFont,
+      fontSize: SpookerFonts.s20,
+      fontWeight: bold,
+      color: SpookerColors.blueCommonTextColor);
 
   static const TextStyle tagText = TextStyle(
       fontFamily: montserratFont,

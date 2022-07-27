@@ -3,12 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:spooker/ui/screens/dashboard/dashboard_screen.dart';
 import 'package:spooker/ui/screens/splash_screen.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
-
-import 'ui/screens/first_screen.dart';
 
 final firebaseAuthProvider =
     Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);

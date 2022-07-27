@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:spooker/ui/components/Inputs/text_form_view.dart';
 import 'package:spooker/ui/components/buttons/main_button_view.dart';
-import 'package:spooker/ui/components/dialogs/spooker_dialog.dart';
+import 'package:spooker/ui/components/main_screen_extension.dart';
 import 'package:spooker/ui/components/screen/authentication_background_screen.dart';
-import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 
+import '../../components/buttons/common_button_view.dart';
+import '../../utils/spooker_colors.dart';
 import 'create_account_view_model.dart';
 
 // ignore: must_be_immutable
@@ -18,9 +18,9 @@ class CreateAccountScreen extends HookConsumerWidget {
   late CreateAccountViewModel _viewModel;
   late TextEditingController _emailFieldController;
   late TextEditingController _usernameFieldController;
-  late TextEditingController _birthdateFieldController;
   late TextEditingController _passwordFieldController;
   late TextEditingController _confirmPasswordFieldController;
+  late TextEditingController _birthdateFieldController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,15 +28,17 @@ class CreateAccountScreen extends HookConsumerWidget {
     initAllTextEditing();
     return Scaffold(
       body: AuthenticationBackground([
-        Align(
+        Container(
+            margin: EdgeInsets.all(SpookerSize.m20),
             alignment: Alignment.topCenter,
             child: Text(
               SpookerStrings.welcomeSignUpText,
               textAlign: TextAlign.center,
               style: SpookerFonts.titleText,
             )),
-        SizedBox(height: SpookerSize.m20),
-        Align(
+        Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
             alignment: Alignment.center,
             child: TextFormView(
               textController: _emailFieldController,
@@ -44,8 +46,9 @@ class CreateAccountScreen extends HookConsumerWidget {
               errorMessage: _viewModel.errorEmailMessage,
               isValidText: _viewModel.isValidEmail(),
             )),
-        SizedBox(height: SpookerSize.m20),
-        Align(
+        Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
             alignment: Alignment.center,
             child: TextFormView(
               textController: _usernameFieldController,
@@ -53,20 +56,26 @@ class CreateAccountScreen extends HookConsumerWidget {
               errorMessage: _viewModel.errorUsernameMessage,
               isValidText: _viewModel.isValidUsername(),
             )),
-        SizedBox(height: SpookerSize.m20),
-        Align(
+        Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
             alignment: Alignment.center,
             child: TextFormView(
               textController: _birthdateFieldController,
               textHint: SpookerStrings.birthdateText,
               errorMessage: '',
-              isValidText: false,
+              isValidText: _viewModel.birthdate.isNotEmpty,
               onTouchText: () {
-                showBirthdateDialog(context);
+                FocusManager.instance.primaryFocus?.unfocus();
+                context.showDateDialog((date, dateTime) {
+                  _viewModel.saveBirthdate(date);
+                  _birthdateFieldController.text = date;
+                });
               },
             )),
-        SizedBox(height: SpookerSize.m20),
-        Align(
+        Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
             alignment: Alignment.center,
             child: TextFormView(
               textController: _passwordFieldController,
@@ -74,8 +83,9 @@ class CreateAccountScreen extends HookConsumerWidget {
               errorMessage: _viewModel.errorPasswordMessage,
               isValidText: _viewModel.isValidPassword(),
             )),
-        SizedBox(height: SpookerSize.m20),
-        Align(
+        Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
             alignment: Alignment.center,
             child: TextFormView(
               textController: _confirmPasswordFieldController,
@@ -83,11 +93,17 @@ class CreateAccountScreen extends HookConsumerWidget {
               errorMessage: _viewModel.errorConfirmedPasswordMessage,
               isValidText: _viewModel.isValidConfirmedPass(),
             )),
-        SizedBox(height: SpookerSize.m20),
-        MainButtonView(
-          buttonText: SpookerStrings.ContinueButtonText,
-          isAvailable: _viewModel.isDataCompleted(),
-          whenPress: () {},
+        Container(
+          alignment: Alignment.center,
+          margin: EdgeInsets.symmetric(
+              horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+          child: CommonButtonView(
+            SpookerColors.blueCommonTextColor,
+            SpookerStrings.continueText,
+            SpookerFonts.s14BoldLight,
+            () {},
+            isAvailable: _viewModel.isDataCompleted(),
+          ),
         ),
       ], SpookerStrings.signUpText),
     );
@@ -104,7 +120,6 @@ class CreateAccountScreen extends HookConsumerWidget {
 
     _birthdateFieldController =
         useTextEditingController.fromValue(TextEditingValue.empty);
-    _birthdateFieldController.addListener(_manageBirthdateChanges);
 
     _passwordFieldController =
         useTextEditingController.fromValue(TextEditingValue.empty);
@@ -123,8 +138,6 @@ class CreateAccountScreen extends HookConsumerWidget {
     _viewModel.isUsernameAvaliable(_usernameFieldController.text);
   }
 
-  void _manageBirthdateChanges() {}
-
   void _managePasswordChanges() {
     _viewModel.isPasswordAvaliable(_passwordFieldController.text);
   }
@@ -132,47 +145,5 @@ class CreateAccountScreen extends HookConsumerWidget {
   void _manageConfirmPasswordChanges() {
     _viewModel
         .isConfirmedPasswordAvaliable(_confirmPasswordFieldController.text);
-  }
-
-  void showBirthdateDialog(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (_) {
-          return SpookerDialog([
-            Padding(
-              padding: EdgeInsets.only(top: SpookerSize.m20),
-              child: TextFormView(
-                textController: _birthdateFieldController,
-                textHint: SpookerStrings.birthdateText,
-                errorMessage: '',
-                isValidText: false,
-              ),
-            ),
-            Theme(
-              data: ThemeData.light().copyWith(
-                  primaryColor: SpookerColors.spookerGreen,
-                  textTheme: TextTheme(
-                      bodyText1: SpookerFonts.titleText,
-                      bodyText2: SpookerFonts.blueTitleText)),
-              child: CalendarDatePicker(
-                initialDate: DateTime.now(),
-                firstDate: DateTime.now().add(Duration(days: -5114)),
-                lastDate: DateTime.now(),
-                onDateChanged: (DateTime selectedDate) {
-                  _birthdateFieldController.text =
-                      DateFormat('dd MMMM yyyy').format(selectedDate);
-                },
-              ),
-            ),
-            MainButtonView(
-              buttonText: SpookerStrings.dateSelectionButtonText,
-              isAvailable: true,
-              whenPress: () {
-                Navigator.of(context).pop(false);
-              },
-            ),
-          ], SpookerStrings.birthdateSelectionText);
-        },
-        barrierDismissible: false);
   }
 }

@@ -22,6 +22,7 @@ class SpookerColors {
   static const Color pastelPinkColor = Color(0xFFFFAEA5);
   static const Color lightSpookerBlue = Color(0xFFF2FEFF);
   static const Color lightSpookerYellow = Color(0xFFFFFFEE);
+  static const Color dialogBackground = Color(0x80D3D3D380);
 
   static const LinearGradient rightGradient = LinearGradient(
       begin: Alignment.topLeft,

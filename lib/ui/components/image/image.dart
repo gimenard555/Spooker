@@ -9,9 +9,9 @@ Image profileImage(String? imageUrl) {
   return Image.network(imageUrl);
 }
 
-ImageProvider profileImageProvider(String? imageUrl) {
+Object profileImageProvider(String? imageUrl) {
   if (imageUrl == null || imageUrl.isEmpty) {
-    return Assets.images.mainLogo;
+    return Assets.images.mainLogo.image();
   }
   return NetworkImage(imageUrl);
 }

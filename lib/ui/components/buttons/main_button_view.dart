@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:spooker/ui/components/loading/container_with_loading.dart';
 import 'package:spooker/ui/components/spooker_borders.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
@@ -27,25 +26,22 @@ class MainButtonView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      child: Align(
-        alignment: Alignment.center,
-        child: Padding(
-            padding: EdgeInsets.all(returnPadding()),
-            child: ElevatedButton(
-              onPressed: () {
-                if (isAvailable) {
-                  whenPress();
-                }
-              },
-              child: getIconButton(),
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all<Color>(
-                      getButtonStyleByAvailable()),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                    borderRadius: SpookerBorders.m30Border,
-                  ))),
-            )),
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(returnPadding()),
+      child: ElevatedButton(
+        onPressed: () {
+          if (isAvailable) {
+            whenPress();
+          }
+        },
+        child: getIconButton(),
+        style: ButtonStyle(
+            backgroundColor:
+                MaterialStateProperty.all<Color>(getButtonStyleByAvailable()),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                RoundedRectangleBorder(
+              borderRadius: SpookerBorders.m30Border,
+            ))),
       ),
       height: SpookerSize.m60,
       width: MediaQuery.of(context).size.width,

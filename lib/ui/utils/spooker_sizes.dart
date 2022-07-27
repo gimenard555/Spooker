@@ -25,4 +25,6 @@ class SpookerSize {
   static const double m180 = 180.0;
   static const double m200 = 200.0;
   static const double m300 = 300.0;
+  static const double m400 = 400.0;
+  static const double m600 = 600.0;
 }

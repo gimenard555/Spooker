@@ -26,10 +26,13 @@ class SpookerStrings {
   static const dateSelectionButtonText = 'Select date';
   static const artworksText = 'Artworks';
   static const eventsText = 'Events';
+  static const continueText = 'Continue';
+  static const spookerExit = 'X';
 }
 
 @immutable
 class SpookerErrorStrings {
+  static const error = 'ERROR';
   static const emailErrorText = 'Enter a valid email address';
   static const passwordErrorText = "Enter a valid password\n"
       "Minimum 1 Upper case\n"
@@ -39,4 +42,5 @@ class SpookerErrorStrings {
   static const dateErrorText = 'Enter a valid date';
   static const passwordMatch = 'Passwords do not match';
   static const somethingIsWrong = 'something is wrong';
+  static const dialogWrong = 'Something went wrong with the username or password. please enter them again';
 }

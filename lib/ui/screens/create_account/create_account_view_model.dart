@@ -11,20 +11,31 @@ class CreateAccountViewModel extends ChangeNotifier {
   ///Validations
   String _email = '';
   String? _errorEmailMessage;
+
   String? get errorEmailMessage => _errorEmailMessage;
 
   String _username = '';
   String? _errorUsernameMessage;
+
   String? get errorUsernameMessage => _errorUsernameMessage;
 
   String _birthdate = '';
 
+  String get birthdate => _birthdate;
+
   String _password = '';
   String? _errorPasswordMessage;
+
   String? get errorPasswordMessage => _errorPasswordMessage;
 
   String? _errorConfirmedPasswordMessage;
+
   String? get errorConfirmedPasswordMessage => _errorConfirmedPasswordMessage;
+
+  void saveBirthdate(String date) {
+    _birthdate = date;
+    notifyListeners();
+  }
 
   void isUsernameAvaliable(String text) {
     _errorUsernameMessage = text.validateErrorText(TextType.IS_NORMAL_TEXT);
