@@ -55,7 +55,7 @@ class AuthenticationBackground extends StatelessWidget {
                                   child: Text(
                                     titleForm,
                                     textAlign: TextAlign.center,
-                                    style: SpookerFonts.lightTitleText,
+                                    style: SpookerFonts.s24BoldLight,
                                   ),
                                 ),
                                 Align(

@@ -78,7 +78,7 @@ class TextFormView extends HookConsumerWidget {
                     child: Text(
                       getErrorMessage(),
                       textAlign: TextAlign.center,
-                      style: SpookerFonts.errorText,
+                      style: SpookerFonts.s16RegularRed,
                     )),
               ],
             ))
@@ -120,12 +120,12 @@ class TextFormView extends HookConsumerWidget {
 
   TextStyle getTextStyleByText(String? errorMessage, bool isValid) {
     if (errorMessage == null) {
-      return SpookerFonts.textFormNormal;
+      return SpookerFonts.s14RegularDark;
     } else {
       if (errorMessage.isNotEmpty && !isValid) {
-        return SpookerFonts.textFormError;
+        return SpookerFonts.s18RegularRed;
       } else {
-        return SpookerFonts.textFormNormal;
+        return SpookerFonts.s14RegularDark;
       }
     }
   }

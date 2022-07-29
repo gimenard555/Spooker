@@ -52,7 +52,7 @@ class FirstScreen extends HookConsumerWidget {
                           Text(
                             SpookerStrings.firstScreenText,
                             textAlign: TextAlign.center,
-                            style: SpookerFonts.blueTitleText,
+                            style: SpookerFonts.s18BoldDarkBlue,
                           ),
                           SizedBox(
                             height: SpookerSize.m20,

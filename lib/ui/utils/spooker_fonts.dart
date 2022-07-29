@@ -19,7 +19,7 @@ class SpookerFonts {
   static const TextStyle titleFirst = TextStyle(
       fontFamily: painterzFont, fontSize: s96, color: SpookerColors.darkBlue);
 
-  static const TextStyle textFormError = TextStyle(
+  static const TextStyle s18RegularRed = TextStyle(
       fontFamily: montserratFont,
       fontSize: s18,
       fontWeight: regular,
@@ -31,7 +31,7 @@ class SpookerFonts {
       fontWeight: bold,
       color: SpookerColors.completeLight);
 
-  static const TextStyle dialogTitleError = TextStyle(
+  static const TextStyle s20BoldRed = TextStyle(
       fontFamily: montserratFont,
       fontSize: s20,
       fontWeight: bold,
@@ -49,55 +49,37 @@ class SpookerFonts {
       fontWeight: medium,
       color: SpookerColors.completeLight);
 
-  static const TextStyle textFormNormal = TextStyle(
+  static const TextStyle s14RegularDark = TextStyle(
       fontFamily: montserratFont,
       fontSize: s14,
       fontWeight: regular,
       color: SpookerColors.completeDark);
 
-  static const TextStyle titleText = TextStyle(
-      fontFamily: montserratFont,
-      fontSize: s16,
-      fontWeight: bold,
-      color: SpookerColors.blueCommonTextColor);
-
-  static const TextStyle topBarText = TextStyle(
+  static const TextStyle s18RegularBlueCommon = TextStyle(
       fontFamily: montserratFont,
       fontSize: s18,
       fontWeight: regular,
       color: SpookerColors.blueCommonTextColor);
 
-  static const TextStyle blueTitleText = TextStyle(
-      fontFamily: montserratFont,
-      fontSize: s18,
-      fontWeight: bold,
-      color: SpookerColors.darkBlue);
-
-  static const TextStyle blueButtonText = TextStyle(
-      fontFamily: montserratFont,
-      fontSize: s16,
-      fontWeight: bold,
-      color: SpookerColors.darkBlue);
-
-  static const TextStyle lightTitleText = TextStyle(
+  static const TextStyle s24BoldLight = TextStyle(
       fontFamily: montserratFont,
       fontSize: s24,
       fontWeight: bold,
       color: SpookerColors.completeLight);
 
-  static const TextStyle errorText = TextStyle(
+  static const TextStyle s16RegularRed = TextStyle(
       fontFamily: montserratFont,
       fontSize: s16,
       fontWeight: regular,
       color: SpookerColors.errorRed);
 
-  static const TextStyle buttonNoAvailable = TextStyle(
+  static const TextStyle s16BoldLight = TextStyle(
       fontFamily: montserratFont,
       fontSize: s16,
       fontWeight: bold,
       color: SpookerColors.completeLight);
 
-  static const TextStyle buttonAvailable = TextStyle(
+  static const TextStyle s16BoldBlueCommon = TextStyle(
       fontFamily: montserratFont,
       fontSize: s16,
       fontWeight: bold,
@@ -115,37 +97,37 @@ class SpookerFonts {
       fontWeight: bold,
       color: SpookerColors.blueCommonTextColor);
 
-  static const TextStyle tagText = TextStyle(
+  static const TextStyle s12MediumLightGray = TextStyle(
       fontFamily: montserratFont,
       fontSize: s12,
       fontWeight: medium,
       color: SpookerColors.lightGray);
 
-  static const TextStyle dashboardTitleText = TextStyle(
+  static const TextStyle s18BoldDarkBlue = TextStyle(
       fontFamily: montserratFont,
       fontSize: s18,
       fontWeight: bold,
       color: SpookerColors.darkBlue);
 
-  static const TextStyle unSelectedTitleText = TextStyle(
+  static const TextStyle s18MediumDarkBlue = TextStyle(
       fontFamily: montserratFont,
       fontSize: s18,
       fontWeight: medium,
       color: SpookerColors.darkBlue);
 
-  static const TextStyle eventDateText = TextStyle(
+  static const TextStyle s12MediumDarkBlue = TextStyle(
       fontFamily: montserratFont,
       fontSize: s12,
       fontWeight: medium,
       color: SpookerColors.darkBlue);
 
-  static const TextStyle eventNameText = TextStyle(
+  static const TextStyle s24BoldBlueCommon = TextStyle(
       fontFamily: montserratFont,
       fontSize: s24,
       fontWeight: bold,
       color: SpookerColors.blueCommonTextColor);
 
-  static const TextStyle eventDescriptionText = TextStyle(
+  static const TextStyle s12RegularBlueCommon = TextStyle(
       fontFamily: montserratFont,
       fontSize: s12,
       fontWeight: regular,

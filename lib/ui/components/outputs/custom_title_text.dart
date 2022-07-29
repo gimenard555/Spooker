@@ -55,9 +55,9 @@ class CustomTextTitle extends HookConsumerWidget {
 
   TextStyle getFontByStatement() {
     if (highlight) {
-      return SpookerFonts.dashboardTitleText;
+      return SpookerFonts.s18BoldDarkBlue;
     } else {
-      return SpookerFonts.unSelectedTitleText;
+      return SpookerFonts.s18MediumDarkBlue;
     }
   }
 }

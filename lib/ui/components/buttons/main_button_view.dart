@@ -105,12 +105,12 @@ class MainButtonView extends HookConsumerWidget {
 
   TextStyle getTextStyleByAvailable() {
     if (isNormal) {
-      return SpookerFonts.blueButtonText;
+      return SpookerFonts.s16BoldDarkBlue;
     } else {
       if (isAvailable) {
-        return SpookerFonts.buttonAvailable;
+        return SpookerFonts.s16BoldBlueCommon;
       } else {
-        return SpookerFonts.buttonNoAvailable;
+        return SpookerFonts.s16BoldLight;
       }
     }
   }

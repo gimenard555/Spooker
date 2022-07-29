@@ -53,7 +53,7 @@ class CustomProfileBackground extends StatelessWidget {
                       Text(
                         screenName,
                         textAlign: TextAlign.center,
-                        style: SpookerFonts.lightTitleText,
+                        style: SpookerFonts.s24BoldLight,
                       ),
                       SizedBox(
                         height: SpookerSize.m20,
@@ -80,7 +80,7 @@ class CustomProfileBackground extends StatelessWidget {
           ),
           Container(
             child: Text(name,
-                textAlign: TextAlign.center, style: SpookerFonts.eventNameText),
+                textAlign: TextAlign.center, style: SpookerFonts.s24BoldBlueCommon),
           ),
         ],
       ),

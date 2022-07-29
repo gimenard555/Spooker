@@ -25,7 +25,7 @@ class TagText extends HookConsumerWidget {
             alignment: Alignment.center,
             child: Text(
               "@$tagText",
-              style: SpookerFonts.tagText,
+              style: SpookerFonts.s12MediumLightGray,
             ),
           )),
     );

@@ -42,7 +42,7 @@ class ErrorDialog extends HookConsumerWidget {
                 child: Text(
                   SpookerErrorStrings.error,
                   textAlign: TextAlign.center,
-                  style: SpookerFonts.dialogTitleError,
+                  style: SpookerFonts.s20BoldRed,
                 ),
               ),
               Container(

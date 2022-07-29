@@ -31,7 +31,7 @@ class EventItem extends HookConsumerWidget {
                 alignment: Alignment.center,
                 child: Text(
                   "#${event.tags.toUpperCase()}",
-                  style: SpookerFonts.tagText,
+                  style: SpookerFonts.s12MediumLightGray,
                 )),
           ),
           Container(
@@ -84,14 +84,14 @@ class EventItem extends HookConsumerWidget {
                                       ),
                                       Text(event.date,
                                           textAlign: TextAlign.center,
-                                          style: SpookerFonts.eventDateText),
+                                          style: SpookerFonts.s12MediumDarkBlue),
                                       Text(event.name,
                                           textAlign: TextAlign.center,
-                                          style: SpookerFonts.eventNameText),
+                                          style: SpookerFonts.s24BoldBlueCommon),
                                       Text(event.description,
                                           textAlign: TextAlign.center,
                                           style: SpookerFonts
-                                              .eventDescriptionText),
+                                              .s12RegularBlueCommon),
                                     ],
                                   ),
                                 ))),

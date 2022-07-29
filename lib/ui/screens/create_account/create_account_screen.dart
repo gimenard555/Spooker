@@ -34,7 +34,7 @@ class CreateAccountScreen extends HookConsumerWidget {
             child: Text(
               SpookerStrings.welcomeSignUpText,
               textAlign: TextAlign.center,
-              style: SpookerFonts.titleText,
+              style: SpookerFonts.s16BoldBlueCommon,
             )),
         Container(
             margin: EdgeInsets.symmetric(

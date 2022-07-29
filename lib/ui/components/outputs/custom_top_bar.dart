@@ -6,7 +6,7 @@ import 'package:spooker/gen/assets.gen.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
-import '../../screens/profile/profile_screen.dart';
+
 import '../spooker_borders.dart';
 
 typedef GoToProfile = void Function();
@@ -54,7 +54,7 @@ class CustomTopBar extends HookConsumerWidget {
               Container(
                 margin: EdgeInsets.all(SpookerSize.m5),
                 child: Text("Jimenard Rojas Duarte",
-                    style: SpookerFonts.topBarText),
+                    style: SpookerFonts.s18RegularBlueCommon),
               ),
               Expanded(child: SizedBox()),
               Container(

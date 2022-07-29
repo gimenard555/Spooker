@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,6 +10,7 @@ import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 import 'package:spooker/ui/utils/strings_types.dart';
+
 import '../dashboard/dashboard_screen.dart';
 
 // ignore: must_be_immutable
@@ -38,7 +38,7 @@ class LoginScreen extends HookConsumerWidget {
         child: Text(
           SpookerStrings.welcomeSignInText,
           textAlign: TextAlign.center,
-          style: SpookerFonts.titleText,
+          style: SpookerFonts.s16BoldBlueCommon,
         ),
       ),
       Container(
@@ -75,7 +75,7 @@ class LoginScreen extends HookConsumerWidget {
             child: Text(
               SpookerStrings.passwordForgotten,
               textAlign: TextAlign.center,
-              style: SpookerFonts.titleText,
+              style: SpookerFonts.s16BoldBlueCommon,
             ),
           )),
       Container(
