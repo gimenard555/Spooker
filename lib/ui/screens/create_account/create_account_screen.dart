@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/components/Inputs/text_form_view.dart';
-import 'package:spooker/ui/components/buttons/main_button_view.dart';
 import 'package:spooker/ui/components/main_screen_extension.dart';
 import 'package:spooker/ui/components/screen/authentication_background_screen.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
@@ -11,6 +10,7 @@ import 'package:spooker/ui/utils/spooker_strings.dart';
 
 import '../../components/buttons/common_button_view.dart';
 import '../../utils/spooker_colors.dart';
+import '../dashboard/dashboard_screen.dart';
 import 'create_account_view_model.dart';
 
 // ignore: must_be_immutable
@@ -101,12 +101,29 @@ class CreateAccountScreen extends HookConsumerWidget {
             SpookerColors.blueCommonTextColor,
             SpookerStrings.continueText,
             SpookerFonts.s14BoldLight,
-            () {},
+            () {
+              context.showLoading();
+              _viewModel
+                  .createAccount()
+                  .whenComplete(() => {_manageState(context)});
+            },
             isAvailable: _viewModel.isDataCompleted(),
           ),
         ),
       ], SpookerStrings.signUpText),
     );
+  }
+
+  void _manageState(BuildContext context) {
+    Navigator.pop(context);
+    if (_viewModel.isAuthenticated) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => DashboardScreen()),
+      );
+    } else {
+      context.showErrorDialog(SpookerErrorStrings.dialogWrong);
+    }
   }
 
   void initAllTextEditing() {

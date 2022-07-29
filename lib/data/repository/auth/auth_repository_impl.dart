@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:spooker/data/remote/auth/auth_data_source.dart';
 import 'package:spooker/data/repository/auth/auth_repository.dart';
 
+import '../../model/user.dart';
+
 class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl(this._dataSource);
 
@@ -21,11 +23,17 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Result<User>> signIn(String email, String password) {
-    return Result.guardFuture(() => _dataSource.signIn(email.trim(), password.trim()));
+    return Result.guardFuture(
+        () => _dataSource.signIn(email.trim(), password.trim()));
   }
 
   @override
   Future<Result<bool>> isSignedAny() {
     return Result.guardFuture(() => _dataSource.isSignedAny());
+  }
+
+  @override
+  Future<Result<bool>> createAccount(SpookerUser user) {
+    return Result.guardFuture(() => _dataSource.createAccount(user));
   }
 }

@@ -1,13 +1,21 @@
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:spooker/data/model/user.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 import 'package:spooker/ui/utils/strings_extensions.dart';
 import 'package:spooker/ui/utils/strings_types.dart';
 
-final createAccountViewModel =
-    ChangeNotifierProvider((ref) => CreateAccountViewModel());
+import '../../../data/provider/top_provider.dart';
+import '../../../data/repository/auth/auth_repository.dart';
+
+final createAccountViewModel = ChangeNotifierProvider(
+    (ref) => CreateAccountViewModel(ref.read(authRepositoryProvider)));
 
 class CreateAccountViewModel extends ChangeNotifier {
+  CreateAccountViewModel(this._repository);
+
+  final AuthRepository _repository;
+
   ///Validations
   String _email = '';
   String? _errorEmailMessage;
@@ -27,6 +35,10 @@ class CreateAccountViewModel extends ChangeNotifier {
   String? _errorPasswordMessage;
 
   String? get errorPasswordMessage => _errorPasswordMessage;
+
+  bool _isAuthenticated = false;
+
+  bool get isAuthenticated => _isAuthenticated;
 
   String? _errorConfirmedPasswordMessage;
 
@@ -117,5 +129,19 @@ class CreateAccountViewModel extends ChangeNotifier {
     }
   }
 
-  void createAccount() {}
+  Future<void> createAccount() async {
+    var user =
+        SpookerUser(_birthdate, _email, "", _username, "1223456", _username);
+    return await _repository.createAccount(user).then((value) {
+          if (value.isSuccess) {
+            value.ifSuccess((flag) => _isAuthenticated = flag);
+            notifyListeners();
+          } else if (value.isFailure) {
+            value.ifFailure((data){
+              _isAuthenticated = false;
+              notifyListeners();
+            });
+          }
+        });
+  }
 }

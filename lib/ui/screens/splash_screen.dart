@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
@@ -33,11 +32,7 @@ class SplashScreen extends HookConsumerWidget {
             _animationController
               ..duration = composition.duration
               ..forward().whenComplete(() =>
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => FirstScreen()),
-                  ));
-                  /*_viewModel.isSomeoneSignIn().then((value) {
+                  _viewModel.isSomeoneSignIn().then((value) {
                     if (value) {
                       Navigator.pushReplacement(
                         context,
@@ -50,7 +45,7 @@ class SplashScreen extends HookConsumerWidget {
                         MaterialPageRoute(builder: (context) => FirstScreen()),
                       );
                     }
-                  }));*/
+                  }));
           },
         ),
         Center(

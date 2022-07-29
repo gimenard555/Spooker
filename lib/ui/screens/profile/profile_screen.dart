@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:spooker/ui/components/main_screen_extension.dart';
+import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 
+import '../../../gen/assets.gen.dart';
 import '../../components/outputs/custom_profile_background.dart';
 import '../../components/outputs/custom_title_text.dart';
 
@@ -39,6 +42,13 @@ class ProfileScreen extends HookConsumerWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: SpookerColors.spookerBlue,
+        child: Assets.images.add.image(),
+        onPressed: () {
+          context.showOptions((selectedOption) {});
+        },
       ),
     );
   }

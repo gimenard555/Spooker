@@ -5,9 +5,7 @@ import 'package:spooker/data/repository/auth/auth_repository.dart';
 import 'package:spooker/ui/utils/strings_extensions.dart';
 import 'package:spooker/ui/utils/strings_types.dart';
 
-import '../../../data/model/result.dart';
 import '../../../data/provider/top_provider.dart';
-import '../../../data/repository/event/event_repository.dart';
 
 final loginViewModelProvider = ChangeNotifierProvider(
     (ref) => LoginViewModel(ref.read(authRepositoryProvider)));

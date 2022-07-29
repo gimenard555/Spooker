@@ -37,11 +37,17 @@ class SpookerFonts {
       fontWeight: bold,
       color: SpookerColors.errorRed);
 
-  static const TextStyle dialogTextError = TextStyle(
+  static const TextStyle s14RegularRed = TextStyle(
       fontFamily: montserratFont,
       fontSize: s14,
       fontWeight: regular,
       color: SpookerColors.errorRed);
+
+  static const TextStyle s16MediumLight = TextStyle(
+      fontFamily: montserratFont,
+      fontSize: s16,
+      fontWeight: medium,
+      color: SpookerColors.completeLight);
 
   static const TextStyle textFormNormal = TextStyle(
       fontFamily: montserratFont,

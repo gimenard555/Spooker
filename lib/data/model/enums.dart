@@ -1,0 +1,1 @@
+enum Option { EVENT, ARTWORK, REMINDER }

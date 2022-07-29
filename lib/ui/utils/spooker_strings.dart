@@ -28,6 +28,9 @@ class SpookerStrings {
   static const eventsText = 'Events';
   static const continueText = 'Continue';
   static const spookerExit = 'X';
+  static const newSpooker = 'New Spooker';
+  static const newArtwork = 'New Artwork';
+  static const newReminder = 'New Reminder';
 }
 
 @immutable

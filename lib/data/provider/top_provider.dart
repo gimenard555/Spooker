@@ -26,8 +26,9 @@ final preferencesProvider = Provider((ref) {
 });
 
 //DataSources
-final authDataSourceProvider = Provider<AuthDataSource>(
-    (ref) => AuthDataSourceImpl(ref.read(firebaseAuthProvider)));
+final authDataSourceProvider = Provider<AuthDataSource>((ref) =>
+    AuthDataSourceImpl(
+        ref.read(firebaseAuthProvider), ref.read(firebaseStoreProvider)));
 
 final eventDataSourceProvider = Provider<EventDataSource>(
     (ref) => EventDataSourceImpl(ref.read(firebaseStoreProvider)));

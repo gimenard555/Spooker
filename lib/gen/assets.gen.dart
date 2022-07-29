@@ -24,6 +24,12 @@ class $AssetsAnimationsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/add.png
+  AssetGenImage get add => const AssetGenImage('assets/images/add.png');
+
+  /// File path: assets/images/artwork.png
+  AssetGenImage get artwork => const AssetGenImage('assets/images/artwork.png');
+
   /// File path: assets/images/back_button.png
   AssetGenImage get backButton =>
       const AssetGenImage('assets/images/back_button.png');
@@ -44,12 +50,20 @@ class $AssetsImagesGen {
   AssetGenImage get mainLogo =>
       const AssetGenImage('assets/images/main_logo.png');
 
+  /// File path: assets/images/mini_logo.png
+  AssetGenImage get miniLogo =>
+      const AssetGenImage('assets/images/mini_logo.png');
+
   /// File path: assets/images/notifications.png
   AssetGenImage get notifications =>
       const AssetGenImage('assets/images/notifications.png');
 
   /// File path: assets/images/paint.png
   AssetGenImage get paint => const AssetGenImage('assets/images/paint.png');
+
+  /// File path: assets/images/reminder.png
+  AssetGenImage get reminder =>
+      const AssetGenImage('assets/images/reminder.png');
 
   /// File path: assets/images/splash_logo.png
   AssetGenImage get splashLogo =>

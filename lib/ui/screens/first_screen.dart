@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:lottie/lottie.dart';
 import 'package:spooker/ui/components/buttons/main_button_view.dart';
@@ -103,5 +102,7 @@ class FirstScreen extends HookConsumerWidget {
   }
 
 
-  void _signInGooglePressed(BuildContext context) {}
+  void _signInGooglePressed(BuildContext context) {
+
+  }
 }

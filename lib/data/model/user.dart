@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-User userFromMap(String text) => User.fromMap(json.decode(text));
+SpookerUser userFromMap(String text) => SpookerUser.fromMap(json.decode(text));
 
-String userToMap(User data) => json.encode(data.toMap());
+String userToMap(SpookerUser data) => json.encode(data.toMap());
 
-class User {
-  User(this.birthdate, this.email_address, this.image_path, this.name,
+class SpookerUser {
+  SpookerUser(this.birthdate, this.email_address, this.image_path, this.name,
       this.password, this.username);
 
   String username;
@@ -16,10 +16,10 @@ class User {
   String image_path;
   String name;
 
-  factory User.fromMap(Map<String, dynamic> json) => User(
+  factory SpookerUser.fromMap(Map<String, dynamic> json) => SpookerUser(
         json['birthdate'],
         json['email_address'],
-        json['image_path'],
+        json['profile_image'],
         json['name'],
         json['password'],
         json['username'],
@@ -34,9 +34,9 @@ class User {
         'username': username,
       };
 
-  factory User.fromFirestore(DocumentSnapshot document) {
+  factory SpookerUser.fromFirestore(DocumentSnapshot document) {
     var doc = document.data()!;
-    var user = User.fromMap(doc as Map<String, dynamic>);
+    var user = SpookerUser.fromMap(doc as Map<String, dynamic>);
     return user;
   }
 }

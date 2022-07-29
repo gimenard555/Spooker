@@ -1,12 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/data/remote/auth/auth_data_source.dart';
 
+import '../../model/user.dart';
+import '../FirestoreConstants.dart';
+
 class AuthDataSourceImpl implements AuthDataSource {
-  AuthDataSourceImpl(this._firebaseAuth);
+  AuthDataSourceImpl(this._firebaseAuth, this._firebaseFirestore);
 
   final FirebaseAuth _firebaseAuth;
+  final FirebaseFirestore _firebaseFirestore;
 
   @override
   Future<User?> googleSignIn() async {
@@ -51,5 +57,22 @@ class AuthDataSourceImpl implements AuthDataSource {
   @override
   Future<bool> isSignedAny() async {
     return FirebaseAuth.instance.currentUser != null;
+  }
+
+  @override
+  Future<bool> createAccount(SpookerUser user) async {
+    var isAuthenticated = false;
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: user.email_address, password: user.password);
+      await _firebaseFirestore
+          .collection(FirestoreConstants.usersCollection)
+          .add(user.toMap())
+          .then((value) => {isAuthenticated = true});
+    } on FirebaseAuthException catch (e) {
+      isAuthenticated = false;
+      throw Exception(e);
+    }
+    return isAuthenticated;
   }
 }
