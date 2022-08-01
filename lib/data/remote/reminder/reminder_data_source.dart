@@ -7,5 +7,5 @@ abstract class ReminderDataSource {
 
   Future<void> updateReminder(Reminder reminder);
 
-  Future<void> deleteReminder(Reminder reminder);
+  Future<void> deleteReminder(String reminderId);
 }

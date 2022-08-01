@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:spooker/data/model/reminder.dart';
 import 'package:spooker/data/remote/reminder/reminder_data_source.dart';
+import 'package:spooker/ui/utils/spooker_strings.dart';
 
 import '../FirestoreConstants.dart';
 
@@ -31,7 +32,7 @@ class ReminderDataSourceImpl extends ReminderDataSource {
           (querySnapshot) => querySnapshot.docs.forEach(
             (element) {
               reminders.add(
-                Reminder.fromMap(element.data()),
+                Reminder.fromMap(element.data(), id: element.id),
               );
             },
           ),
@@ -57,14 +58,32 @@ class ReminderDataSourceImpl extends ReminderDataSource {
   }
 
   @override
-  Future<void> deleteReminder(Reminder reminder) {
-    // TODO: implement deleteReminder
-    throw UnimplementedError();
+  Future<void> deleteReminder(String reminderId) async {
+    await _firebaseFirestore
+        .collection(FirestoreConstants.reminderCollection)
+        .doc(reminderId)
+        .delete()
+        .then((querySnapshot) {
+      // ignore: invalid_return_type_for_catch_error
+    }).catchError((error) => print(SpookerErrorStrings.somethingIsWrong));
   }
 
   @override
-  Future<void> updateReminder(Reminder reminder) {
-    // TODO: implement updateReminder
-    throw UnimplementedError();
+  Future<void> updateReminder(Reminder reminder) async {
+    final currentUser = _firebaseAuth.currentUser;
+    await _firebaseFirestore
+        .collection(FirestoreConstants.usersCollection)
+        .where(FirestoreConstants.email, isEqualTo: currentUser!.email)
+        .get()
+        .then((querySnapshot) {
+      reminder.userId = querySnapshot.docs.first.id;
+    });
+    await _firebaseFirestore
+        .collection(FirestoreConstants.reminderCollection)
+        .doc(reminder.reminderId)
+        .update(reminder.toMap())
+        .then((querySnapshot) {
+      // ignore: invalid_return_type_for_catch_error
+    }).catchError((error) => print(SpookerErrorStrings.somethingIsWrong));
   }
 }

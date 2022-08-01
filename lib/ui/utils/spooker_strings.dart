@@ -27,6 +27,7 @@ class SpookerStrings {
   static const artworksText = 'Artworks';
   static const eventsText = 'Events';
   static const continueText = 'Continue';
+  static const editText = 'Edit';
   static const spookerExit = 'X';
   static const newSpooker = 'New Spooker';
   static const newArtwork = 'New Artwork';
@@ -41,6 +42,11 @@ class SpookerStrings {
   static const tagType = 'Tag Type';
   static const emptySpooker = 'There are no live spookers right now';
   static const reminders = 'Reminders';
+  static const reminder = 'Reminder';
+  static const delete = 'Delete';
+  static const edit = 'Edit';
+  static const deleteMessage = 'Are you sure do you want to delete your';
+  static const deleteWarning = 'Once deleted it cannot be recovered';
 }
 
 @immutable

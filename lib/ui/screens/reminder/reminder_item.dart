@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/data/model/reminder.dart';
+import 'package:spooker/ui/components/main_screen_extension.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 
@@ -37,10 +38,15 @@ class ReminderItem extends HookConsumerWidget {
           ),
           SizedBox(width: SpookerSize.m20),
           Expanded(
-            child: Text(
-              _reminder.description,
-              textAlign: TextAlign.justify,
-              style: SpookerFonts.s14RegularDark,
+            child: InkWell(
+              onTap: () {
+                context.showReminderDetail(_reminder);
+              },
+              child: Text(
+                _reminder.description,
+                textAlign: TextAlign.justify,
+                style: SpookerFonts.s14RegularDark,
+              ),
             ),
           )
         ],

@@ -39,7 +39,12 @@ class RemindersScreen extends HookConsumerWidget {
               child: ContainerWithLoading(
                 snapshot.connectionState == ConnectionState.waiting ||
                         viewModel.reminders == null
-                    ? SizedBox()
+                    ? Container(
+                        alignment: Alignment.center,
+                        child: Wrap(children: [
+                          EmptyView(),
+                        ]),
+                      )
                     : reminders!.when(success: (data) {
                         if (data.isEmpty) {
                           return EmptyView();
