@@ -47,7 +47,7 @@ class ProfileScreen extends HookConsumerWidget {
         backgroundColor: SpookerColors.spookerBlue,
         child: Assets.images.add.image(),
         onPressed: () {
-          context.showOptions((selectedOption) {});
+          context.showOptions();
         },
       ),
     );

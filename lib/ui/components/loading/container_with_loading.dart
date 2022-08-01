@@ -5,18 +5,15 @@ import 'package:spooker/ui/components/loading/loading.dart';
 import '../../loading_state_view_model.dart';
 
 class ContainerWithLoading extends ConsumerWidget {
-  const ContainerWithLoading({
-    Key? key,
-    required this.child,
-  }) : super(key: key);
+  const ContainerWithLoading(this._child);
 
-  final Widget child;
+  final Widget _child;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(loadingStateProvider);
     return Stack(children: [
-      child,
+      _child,
       state.isLoading ? const Loading() : const SizedBox(),
     ]);
   }

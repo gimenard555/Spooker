@@ -31,6 +31,16 @@ class SpookerStrings {
   static const newSpooker = 'New Spooker';
   static const newArtwork = 'New Artwork';
   static const newReminder = 'New Reminder';
+  static const eventTitle = 'Event Title';
+  static const eventDate = 'Event Date';
+  static const eventPlace = 'Event Place';
+  static const reminderTitle = 'Reminder Title';
+  static const reminderDate = 'Reminder Date';
+  static const reminderHour = 'Reminder Hour';
+  static const reminderPlace = 'Reminder Place (Optional)';
+  static const tagType = 'Tag Type';
+  static const emptySpooker = 'There are no live spookers right now';
+  static const reminders = 'Reminders';
 }
 
 @immutable
@@ -45,5 +55,6 @@ class SpookerErrorStrings {
   static const dateErrorText = 'Enter a valid date';
   static const passwordMatch = 'Passwords do not match';
   static const somethingIsWrong = 'something is wrong';
-  static const dialogWrong = 'Something went wrong with the username or password. please enter them again';
+  static const dialogWrong =
+      'Something went wrong with the username or password. please enter them again';
 }

@@ -16,6 +16,7 @@ class TagText extends HookConsumerWidget {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
+          padding: EdgeInsets.all(SpookerSize.m2),
           width: SpookerSize.m120,
           height: SpookerSize.m30,
           decoration: BoxDecoration(
@@ -26,6 +27,7 @@ class TagText extends HookConsumerWidget {
             child: Text(
               "@$tagText",
               style: SpookerFonts.s12MediumLightGray,
+              textAlign: TextAlign.center,
             ),
           )),
     );

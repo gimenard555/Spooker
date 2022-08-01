@@ -8,6 +8,7 @@ import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 
+import '../../../data/model/enums.dart';
 import '../../components/buttons/common_button_view.dart';
 import '../../utils/spooker_colors.dart';
 import '../dashboard/dashboard_screen.dart';
@@ -25,7 +26,7 @@ class CreateAccountScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     _viewModel = ref.watch(createAccountViewModel);
-    initAllTextEditing();
+    _initAllTextEditing();
     return Scaffold(
       body: AuthenticationBackground([
         Container(
@@ -126,7 +127,7 @@ class CreateAccountScreen extends HookConsumerWidget {
     }
   }
 
-  void initAllTextEditing() {
+  void _initAllTextEditing() {
     _emailFieldController =
         useTextEditingController.fromValue(TextEditingValue.empty);
     _emailFieldController.addListener(_manageEmailChanges);

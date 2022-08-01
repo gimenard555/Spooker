@@ -17,11 +17,11 @@ class DashboardViewModel extends ChangeNotifier {
   final ArtworkRepository _artworkRepo;
   final EventRepository _eventsRepo;
 
-  //Result Case O
   Result<List<Artwork>>? _artworks;
   Result<List<Event>>? _events;
 
   Result<List<Artwork>>? get artworks => _artworks;
+
   Result<List<Event>>? get events => _events;
 
   Future<void> fetchArtworks() {

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -6,14 +7,16 @@ import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
+import '../../../data/model/enums.dart';
 import '../buttons/common_button_view.dart';
 
 typedef OnDateSelected = void Function(String date, DateTime dateTime);
 
 class SpookerDateDialog extends HookConsumerWidget {
-  SpookerDateDialog(this.onDateSelected);
+  SpookerDateDialog(this.onDateSelected, {this.hasLimit = false});
 
   final OnDateSelected onDateSelected;
+  final bool hasLimit;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -73,7 +76,7 @@ class SpookerDateDialog extends HookConsumerWidget {
                 child: CalendarDatePicker(
                   initialDate: DateTime.now(),
                   firstDate: DateTime.now().add(Duration(days: -5114)),
-                  lastDate: DateTime.now(),
+                  lastDate: getLastDate(),
                   onDateChanged: (DateTime selectedDate) {
                     var textDate =
                         DateFormat('dd MMMM yyyy').format(selectedDate);
@@ -92,6 +95,7 @@ class SpookerDateDialog extends HookConsumerWidget {
                       SpookerColors.blueCommonTextColor,
                       SpookerStrings.continueText,
                       SpookerFonts.s14BoldLight, () {
+                    FocusManager.instance.primaryFocus?.unfocus();
                     Navigator.pop(context);
                   })),
             ]),
@@ -99,6 +103,14 @@ class SpookerDateDialog extends HookConsumerWidget {
         ],
       ),
     );
+  }
+
+  DateTime getLastDate() {
+    if (hasLimit) {
+      return DateTime.now();
+    } else {
+      return DateTime.now().add(Duration(days: 365));
+    }
   }
 }
 

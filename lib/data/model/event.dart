@@ -6,28 +6,47 @@ Event eventFromMap(String text) => Event.fromMap(json.decode(text));
 String eventToMap(Event data) => json.encode(data.toMap());
 
 class Event {
-  Event(this.name, this.date, this.tags, this.userName, this.description);
+  Event(this._name, this._date, this._hour, this._tag, this._place,
+      {this.userId = ''});
 
-  String name;
-  String date;
-  String tags;
-  String userName;
-  String description;
+  String _name;
+
+  String get name => _name;
+
+  String _date;
+
+  String get date => _date;
+
+  String _tag;
+
+  String get tag => _tag;
+
+  String userId = '';
+
+  String _place;
+
+  String get place => _place;
+
+  String _hour;
+
+  String get hour => _hour;
 
   factory Event.fromMap(Map<String, dynamic> json) => Event(
         json['name'],
         json['date'],
+        json['hour'],
         json['tags'],
-        json['user_name'],
-        json['description'],
+        json['place'],
+        userId: json['user'],
       );
 
   Map<String, dynamic> toMap() => {
-        'name': name,
-        'date': date,
-        'tags': tags,
-        'userName': userName,
-        'description': description,
+        'name': _name,
+        'date': _date,
+        'hour': _hour,
+        'tags': _tag,
+        'place': _place,
+        'user': userId
       };
 
   factory Event.fromFirestore(DocumentSnapshot document) {
