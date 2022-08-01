@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/data/model/event.dart';
+
 import '../../components/outputs/custom_tag_text.dart';
 import '../../components/spooker_borders.dart';
 import '../../utils/spooker_colors.dart';
@@ -9,9 +10,9 @@ import '../../utils/spooker_fonts.dart';
 import '../../utils/spooker_sizes.dart';
 
 class EventItem extends HookConsumerWidget {
-  const EventItem({Key? key, required this.event}) : super(key: key);
+  const EventItem(this._event);
 
-  final Event event;
+  final Event _event;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,7 +31,7 @@ class EventItem extends HookConsumerWidget {
             child: Align(
                 alignment: Alignment.center,
                 child: Text(
-                  "#${event.tags.toUpperCase()}",
+                  "#${_event.tag}",
                   style: SpookerFonts.s12MediumLightGray,
                 )),
           ),
@@ -65,9 +66,10 @@ class EventItem extends HookConsumerWidget {
                                   boxShadow: [
                                     BoxShadow(
                                       color: SpookerColors.lightGray,
-                                      blurRadius: 4,
-                                      spreadRadius: 4,
-                                      offset: Offset(4, 4),
+                                      blurRadius: SpookerSize.m5,
+                                      spreadRadius: SpookerSize.m5,
+                                      offset: Offset(
+                                          SpookerSize.m5, SpookerSize.m5),
                                     ),
                                   ],
                                 ),
@@ -82,13 +84,15 @@ class EventItem extends HookConsumerWidget {
                                       SizedBox(
                                         height: SpookerSize.m30,
                                       ),
-                                      Text(event.date,
+                                      Text(_event.date,
                                           textAlign: TextAlign.center,
-                                          style: SpookerFonts.s12MediumDarkBlue),
-                                      Text(event.name,
+                                          style:
+                                              SpookerFonts.s12MediumDarkBlue),
+                                      Text(_event.name,
                                           textAlign: TextAlign.center,
-                                          style: SpookerFonts.s24BoldBlueCommon),
-                                      Text(event.description,
+                                          style:
+                                              SpookerFonts.s24BoldBlueCommon),
+                                      Text(_event.place,
                                           textAlign: TextAlign.center,
                                           style: SpookerFonts
                                               .s12RegularBlueCommon),
@@ -101,7 +105,7 @@ class EventItem extends HookConsumerWidget {
                 ),
                 Align(
                   alignment: Alignment.topCenter,
-                  child: TagText(tagText: event.userName),
+                  child: TagText(tagText: _event.userId),
                 )
               ],
             ),

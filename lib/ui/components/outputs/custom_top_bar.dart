@@ -11,22 +11,22 @@ import '../spooker_borders.dart';
 
 typedef GoToProfile = void Function();
 
-typedef GoToNotifications = void Function();
+typedef GoToReminder = void Function();
 
 typedef GoStartMySpooker = void Function();
 
 class CustomTopBar extends HookConsumerWidget {
-  CustomTopBar({required this.goToProfile});
+  CustomTopBar(this._goToProfile, this._goToReminder);
 
-  final GoToProfile goToProfile;
+  final GoToProfile _goToProfile;
+  final GoToReminder _goToReminder;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      height: SpookerSize.m80,
+      height: SpookerSize.m60,
       width: double.infinity,
       child: Card(
-        margin: EdgeInsets.all(SpookerSize.m8),
         elevation: SpookerSize.m5,
         color: SpookerColors.completeLight,
         shape: RoundedRectangleBorder(borderRadius: SpookerBorders.m30Border),
@@ -38,7 +38,7 @@ class CustomTopBar extends HookConsumerWidget {
             children: [
               InkWell(
                 onTap: () {
-                  goToProfile();
+                  _goToProfile();
                 },
                 child: Container(
                     margin: EdgeInsets.all(SpookerSize.m5),
@@ -57,11 +57,16 @@ class CustomTopBar extends HookConsumerWidget {
                     style: SpookerFonts.s18RegularBlueCommon),
               ),
               Expanded(child: SizedBox()),
+              InkWell(
+                onTap: () {
+                  _goToReminder();
+                },
+                child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: SpookerSize.m10),
+                    child: Assets.images.notifications.image()),
+              ),
               Container(
-                  margin: EdgeInsets.all(SpookerSize.m20),
-                  child: Assets.images.notifications.image()),
-              Container(
-                  margin: EdgeInsets.all(SpookerSize.m20),
+                  margin: EdgeInsets.symmetric(horizontal: SpookerSize.m10),
                   child: Assets.images.configuration.image()),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:spooker/ui/components/dialogs/spooker_loading_dialog.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
+import '../../data/model/enums.dart';
 import 'dialogs/floating_options_dialog.dart';
 import 'dialogs/spooker_date_dialog.dart';
 import 'dialogs/spooker_error_dialog.dart';
@@ -34,13 +35,13 @@ extension MainScreen on BuildContext {
         });
   }
 
-  void showOptions(OnOptionSelected onOptionSelected) {
+  void showOptions() {
     showDialog(
         context: this,
         barrierDismissible: true,
         barrierColor: SpookerColors.optionsBackground,
         builder: (_) {
-          return OptionDialog(onOptionSelected);
+          return OptionDialog();
         });
   }
 }

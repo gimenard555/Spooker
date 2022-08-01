@@ -1,1 +1,16 @@
 enum Option { EVENT, ARTWORK, REMINDER }
+
+enum Tags {
+  PARTY,
+  SHARE,
+  MUSIC,
+  SHOW,
+  FILM,
+  SESSION,
+  WORKSHOP,
+  CLASS,
+  CONFERENCE,
+  HISTORICAL,
+  PROTEST,
+  ART
+}

@@ -5,16 +5,11 @@ import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 
-import '../../../data/model/enums.dart';
 import '../../../gen/assets.gen.dart';
-
-typedef OnOptionSelected = void Function(Option option);
+import '../../screens/event/new_event_screen.dart';
+import '../../screens/reminder/new_reminder_screen.dart';
 
 class OptionDialog extends HookConsumerWidget {
-  OptionDialog(this.onOptionSelected);
-
-  final OnOptionSelected onOptionSelected;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Dialog(
@@ -29,44 +24,84 @@ class OptionDialog extends HookConsumerWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text(
-                          SpookerStrings.newSpooker,
-                          textAlign: TextAlign.right,
-                          style: SpookerFonts.s16MediumLight,
+                    InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NewEventScreen()),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Text(
+                              SpookerStrings.newSpooker,
+                              textAlign: TextAlign.right,
+                              style: SpookerFonts.s16MediumLight,
+                            )),
+                            SizedBox(width: SpookerSize.m10),
+                            Assets.images.miniLogo.image(
+                                width: SpookerSize.m50, height: SpookerSize.m50)
+                          ],
                         )),
-                        SizedBox(width: SpookerSize.m10),
-                        Assets.images.miniLogo.image(width: SpookerSize.m50, height: SpookerSize.m50)
-                      ],
+                    SizedBox(width: SpookerSize.m20),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NewEventScreen()),
+                        );
+                      },
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: Text(
+                            SpookerStrings.newArtwork,
+                            textAlign: TextAlign.right,
+                            style: SpookerFonts.s16MediumLight,
+                          )),
+                          SizedBox(width: SpookerSize.m10),
+                          Assets.images.artwork.image(
+                              width: SpookerSize.m50, height: SpookerSize.m50)
+                        ],
+                      ),
                     ),
                     SizedBox(width: SpookerSize.m20),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text(
-                          SpookerStrings.newArtwork,
-                          textAlign: TextAlign.right,
-                          style: SpookerFonts.s16MediumLight,
+                    InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => NewReminderScreen()),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: Text(
+                              SpookerStrings.newReminder,
+                              textAlign: TextAlign.right,
+                              style: SpookerFonts.s16MediumLight,
+                            )),
+                            SizedBox(width: SpookerSize.m10),
+                            Assets.images.reminder.image(
+                                width: SpookerSize.m50, height: SpookerSize.m50)
+                          ],
                         )),
-                        SizedBox(width: SpookerSize.m10),
-                        Assets.images.artwork.image(width: SpookerSize.m50, height: SpookerSize.m50)
-                      ],
-                    ),
                     SizedBox(width: SpookerSize.m20),
-                    Row(
-                      children: [
-                        Expanded(
-                            child: Text(
-                          SpookerStrings.newReminder,
-                          textAlign: TextAlign.right,
-                          style: SpookerFonts.s16MediumLight,
-                        )),
-                        SizedBox(width: SpookerSize.m10),
-                        Assets.images.reminder.image(width: SpookerSize.m50, height: SpookerSize.m50)
-                      ],
-                    ),
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      child: InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Assets.images.customFloating.image()),
+                    )
                   ],
                 ))));
   }

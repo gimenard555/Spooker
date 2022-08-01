@@ -30,6 +30,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/artwork.png
   AssetGenImage get artwork => const AssetGenImage('assets/images/artwork.png');
 
+  /// File path: assets/images/back_arrow.png
+  AssetGenImage get backArrow =>
+      const AssetGenImage('assets/images/back_arrow.png');
+
   /// File path: assets/images/back_button.png
   AssetGenImage get backButton =>
       const AssetGenImage('assets/images/back_button.png');
@@ -37,6 +41,14 @@ class $AssetsImagesGen {
   /// File path: assets/images/configuration.png
   AssetGenImage get configuration =>
       const AssetGenImage('assets/images/configuration.png');
+
+  /// File path: assets/images/custom_floating.png
+  AssetGenImage get customFloating =>
+      const AssetGenImage('assets/images/custom_floating.png');
+
+  /// File path: assets/images/empty_logo.png
+  AssetGenImage get emptyLogo =>
+      const AssetGenImage('assets/images/empty_logo.png');
 
   /// File path: assets/images/error_logo.png
   AssetGenImage get errorLogo =>
