@@ -10,15 +10,18 @@ class EmptyView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      child: Column(
-        children: [
-          Assets.images.emptyLogo.image(),
-          Text(
-            SpookerStrings.emptySpooker,
-            textAlign: TextAlign.center,
-            style: SpookerFonts.s16BoldNoAvailable,
-          )
-        ],
+      alignment: Alignment.center,
+      child: Expanded(
+        child: Column(
+          children: [
+            Assets.images.emptyLogo.image(),
+            Text(
+              SpookerStrings.emptySpooker,
+              textAlign: TextAlign.center,
+              style: SpookerFonts.s16BoldNoAvailable,
+            )
+          ],
+        ),
       ),
     );
   }

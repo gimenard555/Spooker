@@ -75,9 +75,7 @@ class ReminderViewModel extends ChangeNotifier {
   get isSaved => _isSaved;
 
   Future<void> createNewEvent() async {
-    final finalDate = DateTime.now();
-    var reminder = Reminder(_date, _title, _hour, true, finalDate);
-    return await _repository.createNewReminder(reminder).then((value) {
+    return await _repository.createNewReminder(createReminder()).then((value) {
       if (value.isSuccess) {
         value.ifSuccess((flag) => _isSaved = true);
         notifyListeners();
@@ -88,5 +86,43 @@ class ReminderViewModel extends ChangeNotifier {
         });
       }
     });
+  }
+
+  Future<void> deleteReminder(String reminderId) async {
+    await _repository.deleteReminder(reminderId).then((value) {
+      if (value.isSuccess) {
+        notifyListeners();
+      }
+    });
+  }
+
+  Future<void> editReminder(String reminderId) async {
+    await _repository
+        .updateReminder(createReminder(idReminder: reminderId))
+        .then((value) {
+      if (value.isSuccess) {
+        value.ifSuccess((flag) => _isSaved = true);
+        notifyListeners();
+      } else if (value.isFailure) {
+        value.ifFailure((data) {
+          _isSaved = false;
+          notifyListeners();
+        });
+      }
+    });
+  }
+
+  Reminder createReminder({String idReminder = ''}) {
+    final finalDate = DateTime.now();
+    return Reminder(_date, _title, _hour, true, finalDate, _place,
+        reminderId: idReminder);
+  }
+
+  void chargeReminderData(Reminder reminder) {
+    _date = reminder.date;
+    _title = reminder.description;
+    _hour = reminder.hour;
+    _place = reminder.place;
+    isDataCompleted();
   }
 }

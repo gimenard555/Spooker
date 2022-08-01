@@ -8,5 +8,5 @@ abstract class ReminderRepository {
 
   Future<Result<void>> updateReminder(Reminder reminder);
 
-  Future<Result<void>> deleteReminder(Reminder reminder);
+  Future<Result<void>> deleteReminder(String reminderId);
 }

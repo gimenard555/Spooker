@@ -105,7 +105,7 @@ class EventItem extends HookConsumerWidget {
                 ),
                 Align(
                   alignment: Alignment.topCenter,
-                  child: TagText(tagText: _event.userId),
+                  child: TagText(_event.userId),
                 )
               ],
             ),

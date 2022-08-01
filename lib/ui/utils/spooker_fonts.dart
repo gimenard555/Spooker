@@ -85,6 +85,12 @@ class SpookerFonts {
       fontWeight: regular,
       color: SpookerColors.errorRed);
 
+  static const TextStyle s16RegularDarkBlue = TextStyle(
+      fontFamily: montserratFont,
+      fontSize: s16,
+      fontWeight: regular,
+      color: SpookerColors.darkBlue);
+
   static const TextStyle s16BoldLight = TextStyle(
       fontFamily: montserratFont,
       fontSize: s16,
@@ -114,6 +120,12 @@ class SpookerFonts {
       fontSize: SpookerFonts.s20,
       fontWeight: bold,
       color: SpookerColors.blueCommonTextColor);
+
+  static const TextStyle s20BoldDarkBlue = TextStyle(
+      fontFamily: montserratFont,
+      fontSize: SpookerFonts.s20,
+      fontWeight: bold,
+      color: SpookerColors.darkBlue);
 
   static const TextStyle s12MediumLightGray = TextStyle(
       fontFamily: montserratFont,
@@ -150,4 +162,5 @@ class SpookerFonts {
       fontSize: s12,
       fontWeight: regular,
       color: SpookerColors.blueCommonTextColor);
+
 }

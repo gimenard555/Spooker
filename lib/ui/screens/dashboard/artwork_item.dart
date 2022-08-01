@@ -15,26 +15,24 @@ class ArtworkItem extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       margin: EdgeInsets.only(left: SpookerSize.m10),
-      width: 150,
-      height: 200,
+      width: SpookerSize.m150,
+      height: SpookerSize.m200,
       child: Stack(
         children: [
           Column(
             children: [
-              SizedBox(
-                height: SpookerSize.m10,
-              ),
-              SizedBox(
+              Container(
+                margin: EdgeInsets.only(top: SpookerSize.m20),
                 height: SpookerSize.m180,
                 width: SpookerSize.m150,
                 child: ClipRRect(
-                  borderRadius: SpookerBorders.borderRadiusAll,
+                  borderRadius: SpookerBorders.m30Border,
                   child: networkImage(artwork.imagePath, fit: BoxFit.cover),
                 ),
               ),
             ],
           ),
-          TagText(tagText: artwork.userName)
+          TagText(artwork.userName)
         ],
       ),
       //onTap: () => router.push(DetailRoute(article: article)),

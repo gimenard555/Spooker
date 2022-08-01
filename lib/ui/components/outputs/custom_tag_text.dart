@@ -7,29 +7,25 @@ import '../../utils/spooker_fonts.dart';
 import '../spooker_borders.dart';
 
 class TagText extends HookConsumerWidget {
-  const TagText({Key? key, required this.tagText}) : super(key: key);
+  const TagText(this._tagText);
 
-  final String tagText;
+  final String _tagText;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Align(
+    return Container(
       alignment: Alignment.topCenter,
-      child: Container(
-          padding: EdgeInsets.all(SpookerSize.m2),
-          width: SpookerSize.m120,
-          height: SpookerSize.m30,
-          decoration: BoxDecoration(
-              color: SpookerColors.spookerBlue,
-              borderRadius: SpookerBorders.borderTag),
-          child: Align(
-            alignment: Alignment.center,
-            child: Text(
-              "@$tagText",
-              style: SpookerFonts.s12MediumLightGray,
-              textAlign: TextAlign.center,
-            ),
-          )),
+      padding: EdgeInsets.all(SpookerSize.m2),
+      width: SpookerSize.m120,
+      height: SpookerSize.m30,
+      decoration: BoxDecoration(
+          color: SpookerColors.spookerBlue,
+          borderRadius: SpookerBorders.borderTag),
+      child: Text(
+        "@$_tagText",
+        style: SpookerFonts.s12MediumLightGray,
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }

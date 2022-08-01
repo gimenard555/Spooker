@@ -15,8 +15,8 @@ class ReminderRepositoryImpl extends ReminderRepository {
   }
 
   @override
-  Future<Result<void>> deleteReminder(Reminder reminder) {
-    return Result.guardFuture(() => _dataSource.deleteReminder(reminder));
+  Future<Result<void>> deleteReminder(String reminderId) {
+    return Result.guardFuture(() => _dataSource.deleteReminder(reminderId));
   }
 
   @override

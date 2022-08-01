@@ -7,6 +7,7 @@ import 'package:spooker/data/model/enums.dart';
 import 'package:spooker/ui/components/main_screen_extension.dart';
 import 'package:spooker/ui/screens/reminder/reminder_view_model.dart';
 
+import '../../../data/model/reminder.dart';
 import '../../components/Inputs/text_form_view.dart';
 import '../../components/buttons/common_button_view.dart';
 import '../../components/top_bar_view.dart';
@@ -15,12 +16,18 @@ import '../../utils/spooker_fonts.dart';
 import '../../utils/spooker_sizes.dart';
 import '../../utils/spooker_strings.dart';
 
+// ignore: must_be_immutable
 class NewReminderScreen extends HookConsumerWidget {
+  NewReminderScreen({this.reminder, this.reminderId});
+
   late ReminderViewModel _viewModel;
   late TextEditingController _titleController;
   late TextEditingController _dateFieldController;
   late TextEditingController _hourFieldController;
   late TextEditingController _placeFieldController;
+
+  final Reminder? reminder;
+  final String? reminderId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,8 +64,7 @@ class NewReminderScreen extends HookConsumerWidget {
                         context.showDateDialog((date, dateTime) {
                           _viewModel.date = date;
                           _viewModel.selectedDate =
-                              DateFormat("yyyy-MM-dd")
-                                  .format(dateTime);
+                              DateFormat("yyyy-MM-dd").format(dateTime);
                           _dateFieldController.text = date;
                         });
                       })),
@@ -95,9 +101,7 @@ class NewReminderScreen extends HookConsumerWidget {
                   SpookerFonts.s14BoldLight,
                   () {
                     context.showLoading();
-                    _viewModel
-                        .createNewEvent()
-                        .whenComplete(() => {_manageState(context)});
+                    editOrCreateByData(context);
                   },
                   isAvailable: _viewModel.isDataCompleted(),
                 ),
@@ -134,22 +138,44 @@ class NewReminderScreen extends HookConsumerWidget {
   }
 
   void _initTextControllers() {
-    _titleController =
-        useTextEditingController.fromValue(TextEditingValue.empty);
+    if (reminder != null && reminderId != null) {
+      _titleController = useTextEditingController(text: reminder!.description);
+      _dateFieldController = useTextEditingController(text: reminder!.date);
+      _hourFieldController = useTextEditingController(text: reminder!.hour);
+      _placeFieldController = useTextEditingController(text: reminder!.place);
+    } else if (reminder == null && reminderId == null) {
+      _titleController =
+          useTextEditingController.fromValue(TextEditingValue.empty);
+      _dateFieldController =
+          useTextEditingController.fromValue(TextEditingValue.empty);
+      _hourFieldController =
+          useTextEditingController.fromValue(TextEditingValue.empty);
+      _placeFieldController =
+          useTextEditingController.fromValue(TextEditingValue.empty);
+    }
     _titleController.addListener(() {
       _viewModel.title = _titleController.text;
     });
-
-    _dateFieldController =
-        useTextEditingController.fromValue(TextEditingValue.empty);
-
-    _hourFieldController =
-        useTextEditingController.fromValue(TextEditingValue.empty);
-
-    _placeFieldController =
-        useTextEditingController.fromValue(TextEditingValue.empty);
     _placeFieldController.addListener(() {
       _viewModel.place = _placeFieldController.text;
     });
+  }
+
+  String? getButtonTextByData() {
+    if (reminder != null && reminderId != null) {
+      return SpookerStrings.continueText;
+    } else {
+      return SpookerStrings.editText;
+    }
+  }
+
+  void editOrCreateByData(BuildContext context) {
+    if (reminder != null && reminderId != null) {
+      _viewModel
+          .editReminder(reminderId!)
+          .whenComplete(() => {_manageState(context)});
+    } else {
+      _viewModel.createNewEvent().whenComplete(() => {_manageState(context)});
+    }
   }
 }
