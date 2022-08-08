@@ -23,6 +23,7 @@ dependencies:
   google_sign_in: ^5.1.0
   firebase_crashlytics: ^2.2.4
   firebase_performance: ^0.7.1+2
+  firebase_storage: ^10.3.4
   cloud_firestore: ^3.1.13
   flutter_form_builder: ^7.0.0
   
@@ -51,7 +52,10 @@ dependencies:
   flutter_svg: ^0.23.0+1
   get: ^4.3.8
   lottie: ^1.2.1
-  
+  camera: ^0.10.0
+  path_provider: ^2.0.11
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -73,11 +77,39 @@ flutter_gen:
 # The following section is specific to Flutter.
 flutter:
   assets:
-    - assets/
-    - assets/images/
-    - assets/svgs/
-    - assets/animations/
-
+    - assets/animations/confetti_splash.json
+    - assets/animations/spooker_back.json
+    - assets/fonts/montserrat_bold.otf
+    - assets/fonts/montserrat_medium.otf
+    - assets/fonts/montserrat_regular.otf
+    - assets/fonts/painterz.ttf
+    - assets/images/add.png
+    - assets/images/artwork.png
+    - assets/images/back_arrow.png
+    - assets/images/back_button.png
+    - assets/images/camera.png
+    - assets/images/configuration.png
+    - assets/images/custom_floating.png
+    - assets/images/empty_image_icon.png
+    - assets/images/empty_logo.png
+    - assets/images/error_logo.png
+    - assets/images/gallery.png
+    - assets/images/google_icon.png
+    - assets/images/main_logo.png
+    - assets/images/mini_logo.png
+    - assets/images/notifications.png
+    - assets/images/paint.png
+    - assets/images/reminder.png
+    - assets/images/splash_logo.png
+    - assets/images/take-photo.png
+    - assets/svgs/alert_icon.svg
+    - assets/svgs/back_button.svg
+    - assets/svgs/error_icon.svg
+    - assets/svgs/light_logo.svg
+    - assets/svgs/login_background.svg
+    - assets/svgs/main_background.svg
+    - assets/svgs/paint.svg
+    - assets/svgs/splash_logo.svg
   fonts:
     - family: Montserrat
       fonts:

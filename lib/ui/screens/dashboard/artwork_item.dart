@@ -8,8 +8,9 @@ import 'package:spooker/ui/utils/spooker_sizes.dart';
 import '../../components/image/image.dart';
 
 class ArtworkItem extends HookConsumerWidget {
-  const ArtworkItem({Key? key, required this.artwork}) : super(key: key);
-  final Artwork artwork;
+  ArtworkItem(this._artwork);
+
+  final Artwork _artwork;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,12 +28,15 @@ class ArtworkItem extends HookConsumerWidget {
                 width: SpookerSize.m150,
                 child: ClipRRect(
                   borderRadius: SpookerBorders.m30Border,
-                  child: networkImage(artwork.imagePath, fit: BoxFit.cover),
+                  child: networkImage(_artwork.imagePath, fit: BoxFit.cover),
                 ),
               ),
             ],
           ),
-          TagText(artwork.userName)
+          Container(
+            alignment: Alignment.topCenter,
+            child: TagText(_artwork.userId),
+          ),
         ],
       ),
       //onTap: () => router.push(DetailRoute(article: article)),

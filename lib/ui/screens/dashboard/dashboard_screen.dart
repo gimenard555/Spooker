@@ -62,7 +62,7 @@ class DashboardScreen extends HookConsumerWidget {
             })),
         Container(
           margin: EdgeInsets.symmetric(
-              horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+              horizontal: SpookerSize.m20, vertical: SpookerSize.m10),
           child: CustomTextTitle(
             titleText: SpookerStrings.artworksText,
           ),
@@ -86,7 +86,7 @@ class DashboardScreen extends HookConsumerWidget {
                         scrollDirection: Axis.horizontal,
                         itemCount: data.length,
                         itemBuilder: (_, index) {
-                          return ArtworkItem(artwork: data[index]);
+                          return ArtworkItem(data[index]);
                         },
                       ),
                     ),
@@ -98,7 +98,7 @@ class DashboardScreen extends HookConsumerWidget {
         ),
         Container(
           margin: EdgeInsets.symmetric(
-              horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+              horizontal: SpookerSize.m20, vertical: SpookerSize.m20),
           child: CustomTextTitle(
             titleText: SpookerStrings.eventsText,
           ),

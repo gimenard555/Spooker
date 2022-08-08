@@ -37,9 +37,12 @@ class SpookerStrings {
   static const eventPlace = 'Event Place';
   static const reminderTitle = 'Reminder Title';
   static const reminderDate = 'Reminder Date';
+  static const artworkTitle = 'Artwork name';
+  static const artworkDescription = 'Artwork description';
   static const reminderHour = 'Reminder Hour';
   static const reminderPlace = 'Reminder Place (Optional)';
   static const tagType = 'Tag Type';
+  static const privacyType = 'Privacy Type';
   static const emptySpooker = 'There are no live spookers right now';
   static const reminders = 'Reminders';
   static const reminder = 'Reminder';
@@ -47,6 +50,11 @@ class SpookerStrings {
   static const edit = 'Edit';
   static const deleteMessage = 'Are you sure do you want to delete your';
   static const deleteWarning = 'Once deleted it cannot be recovered';
+  static const imageOptionTitle = 'Select artwork picture source';
+  static const takePicture = 'Take picture';
+  static const selectFromYourGallery = 'Select from your gallery';
+  static const yourArtworkImage = 'Your Artwork Image';
+  static const artwork = 'Artwork';
 }
 
 @immutable

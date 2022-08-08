@@ -7,40 +7,54 @@ import 'package:spooker/data/remote/event/event_data_source.dart';
 import '../FirestoreConstants.dart';
 
 class EventDataSourceImpl extends EventDataSource {
-  EventDataSourceImpl(this._firebaseFirestore, this._firebaseAuth);
+  EventDataSourceImpl(this._firestore, this._firebaseAuth);
 
-  final FirebaseFirestore _firebaseFirestore;
+  final FirebaseFirestore _firestore;
   final FirebaseAuth _firebaseAuth;
 
   @override
   Future<List<Event>> getEvents() async {
     var events = <Event>[];
-    await _firebaseFirestore
-        .collection(FirestoreConstants.eventsCollection)
-        .get()
-        .then(
+    await _firestore.collection(FirestoreConstants.eventsCollection).get().then(
           (querySnapshot) => querySnapshot.docs.forEach(
             (element) {
-              events.add(
-                Event.fromMap(element.data()),
-              );
+              events.add(Event.fromMap(element.data()));
             },
           ),
         );
     return events;
   }
 
+  Future<List<Event>> getListUserNameById(List<Event> events) async {
+    for(int i = 0; i<events.length; i++){
+      events[i].userName = await getUserNameById(events[i].userId);
+    }
+    return events;
+  }
+
+  Future<String> getUserNameById(String userId) async {
+    var username = '';
+    await _firestore
+        .collection(FirestoreConstants.usersCollection)
+        .doc(userId)
+        .get()
+        .then((querySnapshot) {
+      username = SpookerUser.fromMap(querySnapshot.data()!).name;
+    });
+    return username;
+  }
+
   @override
   Future<void> createNewEvent(Event event) async {
     final currentUser = _firebaseAuth.currentUser;
-    await _firebaseFirestore
+    await _firestore
         .collection(FirestoreConstants.usersCollection)
         .where(FirestoreConstants.email, isEqualTo: currentUser!.email)
         .get()
         .then((querySnapshot) {
       event.userId = querySnapshot.docs.first.id;
     });
-    await _firebaseFirestore
+    await _firestore
         .collection(FirestoreConstants.eventsCollection)
         .add(event.toMap())
         .then((value) {})

@@ -10,30 +10,31 @@ import '../../utils/spooker_fonts.dart';
 import '../../utils/spooker_sizes.dart';
 
 class EventItem extends HookConsumerWidget {
-  const EventItem(this._event);
+  const EventItem(this._event, {this.isTag = true});
 
   final Event _event;
+  final bool isTag;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      margin: EdgeInsets.only(bottom: SpookerSize.m10),
-      height: SpookerSize.m120,
+      padding: EdgeInsets.only(right: SpookerSize.m5),
+      margin: EdgeInsets.only(bottom: SpookerSize.m20),
+      height: SpookerSize.m150,
       child: Row(
         children: [
           Container(
+            alignment: Alignment.center,
             margin: EdgeInsets.only(top: SpookerSize.m10),
             width: SpookerSize.m120,
             height: SpookerSize.m30,
             decoration: BoxDecoration(
                 color: SpookerColors.spookerBlue,
                 borderRadius: SpookerBorders.borderTag),
-            child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  "#${_event.tag}",
-                  style: SpookerFonts.s12MediumLightGray,
-                )),
+            child: Text(
+              "#${_event.tag}",
+              style: SpookerFonts.s12MediumLightGray,
+            ),
           ),
           Container(
             margin: EdgeInsets.only(top: SpookerSize.m10),
@@ -44,7 +45,7 @@ class EventItem extends HookConsumerWidget {
           Container(
             margin: EdgeInsets.only(top: SpookerSize.m10),
             width: SpookerSize.m5,
-            height: SpookerSize.m120,
+            height: SpookerSize.m150,
             decoration: BoxDecoration(
                 gradient: SpookerColors.rightGradient,
                 borderRadius: SpookerBorders.borderRadiusLeft),
@@ -53,65 +54,61 @@ class EventItem extends HookConsumerWidget {
           Expanded(
             child: Stack(
               children: [
-                Column(
-                  children: [
-                    SizedBox(
-                      height: SpookerSize.m10,
-                    ),
-                    Row(
+                Container(
+                  margin: EdgeInsets.only(top: SpookerSize.m10),
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: SpookerColors.lightGray),
+                    borderRadius: SpookerBorders.borderRadiusRight,
+                    color: SpookerColors.completeLight,
+                    boxShadow: [
+                      BoxShadow(
+                        color: SpookerColors.lightGray,
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: Offset(2, 0), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Wrap(
                       children: [
-                        Expanded(
-                            child: DecoratedBox(
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: SpookerColors.lightGray,
-                                      blurRadius: SpookerSize.m5,
-                                      spreadRadius: SpookerSize.m5,
-                                      offset: Offset(
-                                          SpookerSize.m5, SpookerSize.m5),
-                                    ),
-                                  ],
-                                ),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius:
-                                          SpookerBorders.borderRadiusRight,
-                                      color: SpookerColors.completeLight),
-                                  height: SpookerSize.m110,
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        height: SpookerSize.m30,
-                                      ),
-                                      Text(_event.date,
-                                          textAlign: TextAlign.center,
-                                          style:
-                                              SpookerFonts.s12MediumDarkBlue),
-                                      Text(_event.name,
-                                          textAlign: TextAlign.center,
-                                          style:
-                                              SpookerFonts.s24BoldBlueCommon),
-                                      Text(_event.place,
-                                          textAlign: TextAlign.center,
-                                          style: SpookerFonts
-                                              .s12RegularBlueCommon),
-                                    ],
-                                  ),
-                                ))),
+                        Column(
+                          children: [
+                            Text(_event.name,
+                                textAlign: TextAlign.center,
+                                style: SpookerFonts.s24BoldBlueCommon),
+                            Text(_event.date,
+                                textAlign: TextAlign.center,
+                                style: SpookerFonts.s14MediumDarkBlue),
+                            Text(_event.hour,
+                                textAlign: TextAlign.center,
+                                style: SpookerFonts.s14MediumDarkBlue),
+                            Text(_event.place,
+                                textAlign: TextAlign.center,
+                                style: SpookerFonts.s14RegularBlueCommon),
+                          ],
+                        ),
                       ],
-                    )
-                  ],
+                    ),
+                  ),
                 ),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: TagText(_event.userId),
-                )
+                getTagView()
               ],
             ),
           ),
         ],
       ),
     );
+  }
+
+  Widget getTagView() {
+    if (isTag) {
+      return Align(
+          alignment: Alignment.topCenter, child: TagText(_event.userName));
+    } else {
+      return SizedBox();
+    }
   }
 }

@@ -10,8 +10,9 @@ class ArtworkRepositoryImpl extends ArtworkRepository {
   final ArtworkDataSource _dataSource;
 
   @override
-  Future<void> createNewArtwork() async {}
-
+  Future<Result<void>> createNewArtwork(Artwork artwork) async {
+    return Result.guardFuture(() => _dataSource.createNewArtwork(artwork));
+  }
 
   @override
   Future<Result<List<Artwork>>> fetchArtworks() async {
@@ -19,14 +20,19 @@ class ArtworkRepositoryImpl extends ArtworkRepository {
   }
 
   @override
-  Future<void> deleteArtwork() {
-    // TODO: implement deleteArtwork
-    throw UnimplementedError();
+  Future<Result<void>> deleteArtwork(String artworkId) {
+    return Result.guardFuture(() => _dataSource.deleteNewArtwork(artworkId));
   }
 
   @override
   Future<Result<List<Artwork>>> fetchMyArtworks() {
     // TODO: implement fetchMyArtworks
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Result<void>> updateArtwork(Artwork artwork) {
+    // TODO: implement updateArtwork
     throw UnimplementedError();
   }
 }

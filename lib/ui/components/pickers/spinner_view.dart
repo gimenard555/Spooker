@@ -88,6 +88,6 @@ class OptionSelected extends ChangeNotifier {
 
   set option(String option) {
     _option = option;
-
+    notifyListeners();
   }
 }

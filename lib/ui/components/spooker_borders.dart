@@ -5,6 +5,8 @@ class SpookerBorders {
   static const Radius zeroRadius = Radius.circular(SpookerSize.zero);
   static const Radius m20Radius = Radius.circular(SpookerSize.m20);
   static const Radius m10Radius = Radius.circular(SpookerSize.m10);
+  static const Radius m30Radius = Radius.circular(SpookerSize.m30);
+
 
   static const BorderRadius borderRadiusLeft = const BorderRadius.only(
       topRight: zeroRadius,
@@ -19,8 +21,8 @@ class SpookerBorders {
       bottomRight: m20Radius);
 
   static const BorderRadius borderRadiusTop = const BorderRadius.only(
-    topRight: m10Radius,
-    topLeft: m10Radius,
+    topRight: m30Radius,
+    topLeft: m30Radius,
     bottomLeft: zeroRadius,
     bottomRight: zeroRadius,
   );

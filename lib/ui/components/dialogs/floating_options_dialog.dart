@@ -6,6 +6,7 @@ import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 
 import '../../../gen/assets.gen.dart';
+import '../../screens/artwork/new_artwork_screen.dart';
 import '../../screens/event/new_event_screen.dart';
 import '../../screens/reminder/new_reminder_screen.dart';
 
@@ -53,7 +54,7 @@ class OptionDialog extends HookConsumerWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => NewEventScreen()),
+                              builder: (context) => NewArtworkScreen()),
                         );
                       },
                       child: Row(

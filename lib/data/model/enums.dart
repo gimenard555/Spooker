@@ -14,3 +14,5 @@ enum Tags {
   PROTEST,
   ART
 }
+
+enum Privacy { ONLY_ME, EVERYBODY }
