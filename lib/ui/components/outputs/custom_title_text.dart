@@ -6,33 +6,25 @@ import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 
-typedef SelectedText = void Function();
-
+// ignore: must_be_immutable
 class CustomTextTitle extends HookConsumerWidget {
-  CustomTextTitle({required this.titleText, this.highlight = true, this.selectedText});
+  CustomTextTitle({required this.titleText, this.highlight = true});
 
   final String titleText;
   bool highlight = true;
-  SelectedText? selectedText;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InkWell(
-      onTap:(){
-        if(selectedText != null){
-          selectedText!();
-        }
-      },
-        child: Container(
-            child: Stack(
-      children: [
-        Container(
-          margin: EdgeInsets.only(top: SpookerSize.m10),
-          alignment: Alignment.center,
-          height: SpookerSize.m2,
-          decoration: getDecorationByStatement(),
-        ),
-        Align(
+    return Container(
+      child: Stack(
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: SpookerSize.m10),
+            alignment: Alignment.center,
+            height: SpookerSize.m2,
+            decoration: getDecorationByStatement(),
+          ),
+          Align(
             alignment: Alignment.topCenter,
             child: Container(
               color: SpookerColors.completeLight,
@@ -40,9 +32,11 @@ class CustomTextTitle extends HookConsumerWidget {
                 titleText.toUpperCase(),
                 style: getFontByStatement(),
               ),
-            ))
-      ],
-    )));
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   BoxDecoration getDecorationByStatement() {

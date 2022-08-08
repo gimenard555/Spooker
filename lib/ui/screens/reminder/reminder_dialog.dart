@@ -132,7 +132,7 @@ class ReminderDialog extends HookConsumerWidget {
                                     switch (type) {
                                       case ConfirmationType.DELETE:
                                         viewModel.deleteReminder(
-                                            _reminder.reminderId!);
+                                            _reminder.reminderId);
                                         Navigator.pop(context);
                                         break;
                                       case ConfirmationType.CANCEL:

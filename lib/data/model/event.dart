@@ -7,7 +7,7 @@ String eventToMap(Event data) => json.encode(data.toMap());
 
 class Event {
   Event(this._name, this._date, this._hour, this._tag, this._place,
-      {this.userId = ''});
+      {this.userId = '', this.eventId = '', this.userName = ''});
 
   String _name;
 
@@ -30,15 +30,14 @@ class Event {
   String _hour;
 
   String get hour => _hour;
+  String userName = '';
+  String eventId = '';
 
-  factory Event.fromMap(Map<String, dynamic> json) => Event(
-        json['name'],
-        json['date'],
-        json['hour'],
-        json['tags'],
-        json['place'],
-        userId: json['user'],
-      );
+  factory Event.fromMap(Map<String, dynamic> json,
+          {String username = ''}) =>
+      Event(
+          json['name'], json['date'], json['hour'], json['tags'], json['place'],
+          userId: json['user'], userName: username);
 
   Map<String, dynamic> toMap() => {
         'name': _name,

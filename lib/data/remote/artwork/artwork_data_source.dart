@@ -3,7 +3,11 @@ import '../../model/artwork.dart';
 abstract class ArtworkDataSource {
   Future<List<Artwork>> fetchArtworks();
 
-  Future<void> createNewArtwork();
+  Future<List<Artwork>> fetchMyArtworks();
 
-  Future<void> deleteNewArtwork();
+  Future<void> createNewArtwork(Artwork artwork);
+
+  Future<void> deleteNewArtwork(String artworkId);
+
+  Future<void> updateArtwork(Artwork artwork);
 }

@@ -12,6 +12,8 @@ class ReminderItem extends HookConsumerWidget {
   ReminderItem(this._reminder);
 
   final Reminder _reminder;
+  final isCheckedProvider =
+      ChangeNotifierProvider((ref) => CheckSelectedState());
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -54,8 +56,6 @@ class ReminderItem extends HookConsumerWidget {
     );
   }
 }
-
-final isCheckedProvider = ChangeNotifierProvider((ref) => CheckSelectedState());
 
 class CheckSelectedState extends ChangeNotifier {
   bool _checkState = false;

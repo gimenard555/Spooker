@@ -6,8 +6,8 @@ import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 
 import '../../../gen/assets.gen.dart';
+import '../../components/outputs/custom_pager_view.dart';
 import '../../components/outputs/custom_profile_background.dart';
-import '../../components/outputs/custom_title_text.dart';
 
 class ProfileScreen extends HookConsumerWidget {
   final String image =
@@ -21,22 +21,15 @@ class ProfileScreen extends HookConsumerWidget {
           child: Column(
             children: [
               CustomProfileBackground(
-                imageProfile: image,
-                screenName: "Profile",
-                name: "Jimena Rojas",
+                image,
+                "Profile",
+                "Jimena Rojas",
               ),
-              Container(
-                margin: EdgeInsets.all(SpookerSize.m20),
-                alignment: Alignment.center,
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: CustomTextTitle(
-                            titleText: "Artworks", highlight: true)),
-                    Expanded(
-                        child: CustomTextTitle(
-                            titleText: "Events", highlight: false))
-                  ],
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: SpookerSize.m20, vertical: SpookerSize.m20),
+                  child: CustomPagerView(),
                 ),
               ),
             ],

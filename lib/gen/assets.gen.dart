@@ -38,6 +38,9 @@ class $AssetsImagesGen {
   AssetGenImage get backButton =>
       const AssetGenImage('assets/images/back_button.png');
 
+  /// File path: assets/images/camera.png
+  AssetGenImage get camera => const AssetGenImage('assets/images/camera.png');
+
   /// File path: assets/images/configuration.png
   AssetGenImage get configuration =>
       const AssetGenImage('assets/images/configuration.png');
@@ -46,6 +49,10 @@ class $AssetsImagesGen {
   AssetGenImage get customFloating =>
       const AssetGenImage('assets/images/custom_floating.png');
 
+  /// File path: assets/images/empty_image_icon.png
+  AssetGenImage get emptyImageIcon =>
+      const AssetGenImage('assets/images/empty_image_icon.png');
+
   /// File path: assets/images/empty_logo.png
   AssetGenImage get emptyLogo =>
       const AssetGenImage('assets/images/empty_logo.png');
@@ -53,6 +60,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/error_logo.png
   AssetGenImage get errorLogo =>
       const AssetGenImage('assets/images/error_logo.png');
+
+  /// File path: assets/images/gallery.png
+  AssetGenImage get gallery => const AssetGenImage('assets/images/gallery.png');
 
   /// File path: assets/images/google_icon.png
   AssetGenImage get googleIcon =>
@@ -80,6 +90,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/splash_logo.png
   AssetGenImage get splashLogo =>
       const AssetGenImage('assets/images/splash_logo.png');
+
+  /// File path: assets/images/take-photo.png
+  AssetGenImage get takePhoto =>
+      const AssetGenImage('assets/images/take-photo.png');
 }
 
 class $AssetsSvgsGen {
@@ -226,7 +240,7 @@ class SvgGenImage {
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
       clipBehavior: clipBehavior,
-      cacheColorFilter: cacheColorFilter,
+      cacheColorFilter: cacheColorFilter
     );
   }
 

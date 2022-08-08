@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:spooker/data/model/reminder.dart';
 import 'package:spooker/data/remote/reminder/reminder_data_source.dart';
-import 'package:spooker/ui/utils/spooker_strings.dart';
 
 import '../FirestoreConstants.dart';
 
@@ -63,9 +62,8 @@ class ReminderDataSourceImpl extends ReminderDataSource {
         .collection(FirestoreConstants.reminderCollection)
         .doc(reminderId)
         .delete()
-        .then((querySnapshot) {
-      // ignore: invalid_return_type_for_catch_error
-    }).catchError((error) => print(SpookerErrorStrings.somethingIsWrong));
+        .then((querySnapshot) {})
+        .catchError((error) {});
   }
 
   @override
@@ -82,8 +80,7 @@ class ReminderDataSourceImpl extends ReminderDataSource {
         .collection(FirestoreConstants.reminderCollection)
         .doc(reminder.reminderId)
         .update(reminder.toMap())
-        .then((querySnapshot) {
-      // ignore: invalid_return_type_for_catch_error
-    }).catchError((error) => print(SpookerErrorStrings.somethingIsWrong));
+        .then((querySnapshot) {})
+        .catchError((error) {});
   }
 }

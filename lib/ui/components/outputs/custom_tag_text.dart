@@ -14,7 +14,7 @@ class TagText extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      alignment: Alignment.topCenter,
+      alignment: Alignment.center,
       padding: EdgeInsets.all(SpookerSize.m2),
       width: SpookerSize.m120,
       height: SpookerSize.m30,

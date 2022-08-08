@@ -10,14 +10,11 @@ import '../../utils/spooker_fonts.dart';
 import '../screen/main_curve_background.dart';
 
 class CustomProfileBackground extends StatelessWidget {
-  CustomProfileBackground(
-      {required this.imageProfile,
-      required this.screenName,
-      required this.name});
+  CustomProfileBackground(this._imageProfile, this._screenName, this._name);
 
-  final String imageProfile;
-  final String screenName;
-  final String name;
+  final String _imageProfile;
+  final String _screenName;
+  final String _name;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +48,7 @@ class CustomProfileBackground extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        screenName,
+                        _screenName,
                         textAlign: TextAlign.center,
                         style: SpookerFonts.s24BoldLight,
                       ),
@@ -70,7 +67,7 @@ class CustomProfileBackground extends StatelessWidget {
                           alignment: Alignment.center,
                           child: CircleAvatar(
                             radius: screenWidth * 0.2,
-                            backgroundImage: NetworkImage(this.imageProfile),
+                            backgroundImage: NetworkImage(this._imageProfile),
                           ),
                         ),
                       )
@@ -79,8 +76,9 @@ class CustomProfileBackground extends StatelessWidget {
             ],
           ),
           Container(
-            child: Text(name,
-                textAlign: TextAlign.center, style: SpookerFonts.s24BoldBlueCommon),
+            child: Text(_name,
+                textAlign: TextAlign.center,
+                style: SpookerFonts.s24BoldBlueCommon),
           ),
         ],
       ),

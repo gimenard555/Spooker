@@ -4,9 +4,11 @@ import '../../model/result.dart';
 abstract class ArtworkRepository {
   Future<Result<List<Artwork>>> fetchArtworks();
 
-  Future<void> createNewArtwork();
+  Future<Result<void>> createNewArtwork(Artwork artwork);
 
-  Future<void> deleteArtwork();
+  Future<Result<void>> deleteArtwork(String artworkId);
+
+  Future<Result<void>> updateArtwork(Artwork artwork);
 
   Future<Result<List<Artwork>>> fetchMyArtworks();
 }

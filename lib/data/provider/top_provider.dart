@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/data/local/app_shared_preferences.dart';
 import 'package:spooker/data/remote/artwork/artwork_data_source.dart';
@@ -25,6 +26,9 @@ final firebaseAuthProvider =
 final firebaseStoreProvider =
     Provider<FirebaseFirestore>((_) => FirebaseFirestore.instance);
 
+final firebaseStorageProvider =
+    Provider<FirebaseStorage>((_) => FirebaseStorage.instance);
+
 final preferencesProvider = Provider((ref) {
   return AppSharedPreferences();
 });
@@ -38,8 +42,9 @@ final eventDataSourceProvider = Provider<EventDataSource>((ref) =>
     EventDataSourceImpl(
         ref.read(firebaseStoreProvider), ref.read(firebaseAuthProvider)));
 
-final artworkDataSourceProvider = Provider<ArtworkDataSource>(
-    (ref) => ArtworkDataSourceImpl(ref.read(firebaseStoreProvider)));
+final artworkDataSourceProvider = Provider<ArtworkDataSource>((ref) =>
+    ArtworkDataSourceImpl(ref.read(firebaseStoreProvider),
+        ref.read(firebaseStorageProvider), ref.read(firebaseAuthProvider)));
 
 final reminderDataSourceProvider = Provider<ReminderDataSource>((ref) =>
     ReminderDataSourceImpl(
