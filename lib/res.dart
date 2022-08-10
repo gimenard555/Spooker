@@ -5,7 +5,6 @@ class Res {
   static const String artwork = "assets/images/artwork.png";
   static const String back_arrow = "assets/images/back_arrow.png";
   static const String back_button = "assets/images/back_button.png";
-  static const String back_button = "assets/svgs/back_button.svg";
   static const String camera = "assets/images/camera.png";
   static const String confetti_splash = "assets/animations/confetti_splash.json";
   static const String configuration = "assets/images/configuration.png";
@@ -26,11 +25,9 @@ class Res {
   static const String montserrat_regular = "assets/fonts/montserrat_regular.otf";
   static const String notifications = "assets/images/notifications.png";
   static const String paint = "assets/images/paint.png";
-  static const String paint = "assets/svgs/paint.svg";
   static const String painterz = "assets/fonts/painterz.ttf";
   static const String reminder = "assets/images/reminder.png";
   static const String splash_logo = "assets/images/splash_logo.png";
-  static const String splash_logo = "assets/svgs/splash_logo.svg";
   static const String spooker_back = "assets/animations/spooker_back.json";
   static const String take_photo = "assets/images/take-photo.png";
 }

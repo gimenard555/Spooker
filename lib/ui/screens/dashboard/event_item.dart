@@ -106,7 +106,7 @@ class EventItem extends HookConsumerWidget {
   Widget getTagView() {
     if (isTag) {
       return Align(
-          alignment: Alignment.topCenter, child: TagText(_event.userName));
+          alignment: Alignment.topCenter, child: TagText(_event.username));
     } else {
       return SizedBox();
     }

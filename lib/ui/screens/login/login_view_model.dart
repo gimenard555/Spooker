@@ -85,6 +85,16 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   Future<bool> isSomeoneSignIn() async {
-    return true;
+    var isSomeone = false;
+    await _repository.isSignedAny().then((value) {
+      if (value.isSuccess) {
+        value.ifSuccess((data) => isSomeone = data);
+        notifyListeners();
+      } else if (value.isFailure) {
+        value.ifFailure((data) => isSomeone = false);
+        notifyListeners();
+      }
+    });
+    return isSomeone;
   }
 }

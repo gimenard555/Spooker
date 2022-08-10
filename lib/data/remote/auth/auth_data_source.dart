@@ -8,4 +8,5 @@ abstract class AuthDataSource {
   Future<void> signOut();
   Future<bool> isSignedAny();
   Future<bool> createAccount(SpookerUser user);
+  Future<bool> isSomeoneSignIn();
 }

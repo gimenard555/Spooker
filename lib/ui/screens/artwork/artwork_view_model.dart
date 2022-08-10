@@ -65,7 +65,7 @@ class ArtworkViewModel extends ChangeNotifier {
   }
 
   Future<void> createNewArtwork() async {
-    return await _repository.createNewArtwork(getArtwork()).then((value) {
+    return await _repository.createNewArtwork(_createArtwork()).then((value) {
       if (value.isSuccess) {
         value.ifSuccess((flag) => _isSaved = true);
         notifyListeners();
@@ -78,11 +78,31 @@ class ArtworkViewModel extends ChangeNotifier {
     });
   }
 
-  Artwork getArtwork() {
-    return Artwork(_title, _file, _description, _privacy);
+  Future<void> deleteArtwork(String artworkId) async {
+    await _repository.deleteArtwork(artworkId).then((value) {
+      if (value.isSuccess) {
+        notifyListeners();
+      }
+    });
   }
 
-  void deleteArtwork() {}
+  Future<void> editArtwork(String artworkId) async {
+    await _repository
+        .updateArtwork(_createArtwork(artworkId: artworkId))
+        .then((value) {
+      if (value.isSuccess) {
+        value.ifSuccess((flag) => _isSaved = true);
+        notifyListeners();
+      } else if (value.isFailure) {
+        value.ifFailure((data) {
+          _isSaved = false;
+          notifyListeners();
+        });
+      }
+    });
+  }
 
-  void updateArtwork() {}
+  Artwork _createArtwork({String artworkId = ''}) {
+    return Artwork(title, _file, _description, _privacy, id: artworkId);
+  }
 }

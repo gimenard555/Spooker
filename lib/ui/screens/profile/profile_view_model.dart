@@ -1,8 +1,8 @@
-import 'dart:html';
-
 import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
 import '../../../data/model/artwork.dart';
+import '../../../data/model/event.dart';
 import '../../../data/model/result.dart';
 import '../../../data/provider/top_provider.dart';
 import '../../../data/repository/artwork/artwork_repository.dart';
@@ -26,15 +26,15 @@ class ProfileViewModel extends ChangeNotifier {
 
   Future<void> getMyArtworks() {
     return _artworkRepo
-        .fetchArtworks()
+        .fetchMyArtworks()
         .then((value) => _artworks = value)
         .whenComplete(notifyListeners);
   }
 
   Future<void> getMyEvents() {
-    return _artworkRepo
-        .fetchArtworks()
-        .then((value) => _artworks = value)
+    return _eventsRepo
+        .getMyEvents()
+        .then((value) => _events = value)
         .whenComplete(notifyListeners);
   }
 }

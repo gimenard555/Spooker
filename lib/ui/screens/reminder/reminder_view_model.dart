@@ -115,7 +115,7 @@ class ReminderViewModel extends ChangeNotifier {
   Reminder createReminder({String idReminder = ''}) {
     final finalDate = DateTime.now();
     return Reminder(_date, _title, _hour, true, finalDate, _place,
-        reminderId: idReminder);
+        id: idReminder);
   }
 
   void chargeReminderData(Reminder reminder) {
