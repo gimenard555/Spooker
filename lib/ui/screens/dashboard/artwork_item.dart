@@ -35,7 +35,7 @@ class ArtworkItem extends HookConsumerWidget {
           ),
           Container(
             alignment: Alignment.topCenter,
-            child: TagText(_artwork.username),
+            child: TagText('@${_artwork.username}'),
           ),
         ],
       ),

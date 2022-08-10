@@ -10,6 +10,10 @@ import '../../components/outputs/custom_pager_view.dart';
 import '../../components/outputs/custom_profile_background.dart';
 
 class ProfileScreen extends HookConsumerWidget {
+  ProfileScreen(this._isMyProfile);
+
+  final bool _isMyProfile;
+
   final String image =
       "https://media.istockphoto.com/photos/portrait-of-smiling-mixed-race-woman-looking-at-camera-picture-id1319763830?b=1&k=20&m=1319763830&s=170667a&w=0&h=wE44n9yP1nrefeqv5DCl5mE3ouU01FNNHeZPR0yDCWA=";
 
@@ -21,10 +25,7 @@ class ProfileScreen extends HookConsumerWidget {
           child: Column(
             children: [
               CustomProfileBackground(
-                image,
-                "Profile",
-                "Jimena Rojas",
-              ),
+                  image, "Profile", _isMyProfile),
               Expanded(
                 child: Container(
                   margin: EdgeInsets.symmetric(

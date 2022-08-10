@@ -31,6 +31,15 @@ class EventViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String _hour = '';
+
+  String get hour => _hour;
+
+  set hour(String text) {
+    _hour = text;
+    notifyListeners();
+  }
+
   String _place = '';
 
   String get place => _place;
@@ -41,6 +50,8 @@ class EventViewModel extends ChangeNotifier {
   }
 
   String _tag = '';
+
+  String get tag => _tag;
 
   set tag(String text) {
     _tag = text;
@@ -63,8 +74,36 @@ class EventViewModel extends ChangeNotifier {
   get isSaved => _isSaved;
 
   Future<void> createNewEvent() async {
-    var event = Event(_title, _date, "5:30", _tag, _place);
+    var event = _createEvent();
     return await _repository.createNewEvent(event).then((value) {
+      if (value.isSuccess) {
+        value.ifSuccess((flag) => _isSaved = true);
+        notifyListeners();
+      } else if (value.isFailure) {
+        value.ifFailure((data) {
+          _isSaved = false;
+          notifyListeners();
+        });
+      }
+    });
+  }
+
+  Future<void> deleteEvent(String eventId) async {
+    await _repository.deleteEvent(eventId).then((value) {
+      if (value.isSuccess) {
+        notifyListeners();
+      }
+    });
+  }
+
+  Event _createEvent({String idEvent = ''}) {
+    final finalDate = DateTime.now();
+    return Event(_title, _date, _hour, _tag, _place, finalDate,
+        eventId: idEvent);
+  }
+
+  Future<void> editEvent(String eventId) async {
+    await _repository.updateEvent(_createEvent(idEvent: eventId)).then((value) {
       if (value.isSuccess) {
         value.ifSuccess((flag) => _isSaved = true);
         notifyListeners();
