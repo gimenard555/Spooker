@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Reminder {
   Reminder(this._date, this._description, this._hour, this._isEvent,
       this._datetime, this._place,
-      {this.userId = '', this.reminderId = ''});
+      {this.userId = '', this.id = ''});
 
   String _date;
 
@@ -26,19 +26,16 @@ class Reminder {
   String get place => _place;
 
   String userId;
-  String reminderId;
+  String id;
 
-  factory Reminder.fromMap(Map<String, dynamic> json,
-          {String id = '', String name = ''}) =>
-      Reminder(
-          json['date'],
-          json['description'],
-          json['hour'],
-          json['is_event'],
-          (json['datetime'] as Timestamp).toDate(),
-          json['place'],
-          userId: json['user'],
-          reminderId: id);
+  factory Reminder.fromMap(Map<String, dynamic> json) => Reminder(
+      json['date'],
+      json['description'],
+      json['hour'],
+      json['is_event'],
+      (json['datetime'] as Timestamp).toDate(),
+      json['place'],
+      userId: json['user_id']);
 
   Map<String, dynamic> toMap() => {
         'date': _date,
@@ -47,7 +44,7 @@ class Reminder {
         'is_event': _isEvent,
         'datetime': _datetime,
         'place': _place,
-        'user': userId
+        'user_id': userId
       };
 
   factory Reminder.fromFirestore(DocumentSnapshot document) {

@@ -74,4 +74,22 @@ class AuthDataSourceImpl implements AuthDataSource {
     }
     return isAuthenticated;
   }
+
+  @override
+  Future<bool> isSomeoneSignIn() async {
+    var userId = '';
+    final currentUser = _firebaseAuth.currentUser;
+    if (currentUser != null) {
+      await _firebaseFirestore
+          .collection(FirestoreConstants.usersCollection)
+          .where(FirestoreConstants.email, isEqualTo: currentUser.email)
+          .get()
+          .then((querySnapshot) {
+        userId = querySnapshot.docs.first.id;
+      });
+      return userId.isNotEmpty;
+    } else {
+      return false;
+    }
+  }
 }

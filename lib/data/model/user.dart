@@ -19,7 +19,7 @@ class SpookerUser {
   factory SpookerUser.fromMap(Map<String, dynamic> json) => SpookerUser(
         json['birthdate'],
         json['email_address'],
-        json['profile_image'],
+        json['image_path'],
         json['name'],
         json['password'],
         json['username'],

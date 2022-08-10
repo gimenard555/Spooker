@@ -18,4 +18,19 @@ class EventRepositoryImpl extends EventRepository {
   Future<Result<void>> createNewEvent(Event event) {
     return Result.guardFuture(() => _dataSource.createNewEvent(event));
   }
+
+  @override
+  Future<Result<void>> deleteEvent(String eventId) {
+    return Result.guardFuture(() => _dataSource.deleteEvent(eventId));
+  }
+
+  @override
+  Future<Result<List<Event>>> getMyEvents() {
+    return Result.guardFuture(() => _dataSource.getMyEvents());
+  }
+
+  @override
+  Future<Result<void>> updateEvent(Event event) {
+    return Result.guardFuture(() => _dataSource.updateEvent(event));
+  }
 }

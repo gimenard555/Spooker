@@ -21,18 +21,17 @@ class ArtworkRepositoryImpl extends ArtworkRepository {
 
   @override
   Future<Result<void>> deleteArtwork(String artworkId) {
-    return Result.guardFuture(() => _dataSource.deleteNewArtwork(artworkId));
+    return Result.guardFuture(
+        () => _dataSource.deleteArtwork(artworkId));
   }
 
   @override
   Future<Result<List<Artwork>>> fetchMyArtworks() {
-    // TODO: implement fetchMyArtworks
-    throw UnimplementedError();
+    return Result.guardFuture(() => _dataSource.fetchMyArtworks());
   }
 
   @override
   Future<Result<void>> updateArtwork(Artwork artwork) {
-    // TODO: implement updateArtwork
-    throw UnimplementedError();
+    return Result.guardFuture(() => _dataSource.updateArtwork(artwork));
   }
 }

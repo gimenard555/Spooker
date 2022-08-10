@@ -7,5 +7,5 @@ class FirestoreConstants {
   static const usersCollection = 'user';
   static const reminderCollection = 'reminder';
   static const email = 'email_address';
-  static const user = 'user';
+  static const userId = 'user_id';
 }

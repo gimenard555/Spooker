@@ -7,7 +7,7 @@ String eventToMap(Event data) => json.encode(data.toMap());
 
 class Event {
   Event(this._name, this._date, this._hour, this._tag, this._place,
-      {this.userId = '', this.eventId = '', this.userName = ''});
+      {this.username = '', this.userId = '', this.eventId = ''});
 
   String _name;
 
@@ -30,14 +30,12 @@ class Event {
   String _hour;
 
   String get hour => _hour;
-  String userName = '';
+  String username = '';
   String eventId = '';
 
-  factory Event.fromMap(Map<String, dynamic> json,
-          {String username = ''}) =>
-      Event(
-          json['name'], json['date'], json['hour'], json['tags'], json['place'],
-          userId: json['user'], userName: username);
+  factory Event.fromMap(Map<String, dynamic> json) => Event(
+      json['name'], json['date'], json['hour'], json['tags'], json['place'],
+      username: json['username']);
 
   Map<String, dynamic> toMap() => {
         'name': _name,
@@ -45,7 +43,8 @@ class Event {
         'hour': _hour,
         'tags': _tag,
         'place': _place,
-        'user': userId
+        'user_id': userId,
+        'username': username
       };
 
   factory Event.fromFirestore(DocumentSnapshot document) {

@@ -13,26 +13,18 @@ class ReminderDataSourceImpl extends ReminderDataSource {
 
   @override
   Future<List<Reminder>> getReminders() async {
-    final currentUser = _firebaseAuth.currentUser;
-    var userId = '';
-    await _firebaseFirestore
-        .collection(FirestoreConstants.usersCollection)
-        .where(FirestoreConstants.email, isEqualTo: currentUser!.email)
-        .get()
-        .then((querySnapshot) {
-      userId = querySnapshot.docs.first.id;
-    });
+    var userId = await getUserId();
     var reminders = <Reminder>[];
     await _firebaseFirestore
         .collection(FirestoreConstants.reminderCollection)
-        .where(FirestoreConstants.user, isEqualTo: userId)
+        .where(FirestoreConstants.userId, isEqualTo: userId)
         .get()
         .then(
           (querySnapshot) => querySnapshot.docs.forEach(
             (element) {
-              reminders.add(
-                Reminder.fromMap(element.data(), id: element.id),
-              );
+              var reminder = Reminder.fromMap(element.data());
+              reminder.id = element.id;
+              reminders.add(reminder);
             },
           ),
         );
@@ -41,14 +33,7 @@ class ReminderDataSourceImpl extends ReminderDataSource {
 
   @override
   Future<void> createNewReminder(Reminder reminder) async {
-    final currentUser = _firebaseAuth.currentUser;
-    await _firebaseFirestore
-        .collection(FirestoreConstants.usersCollection)
-        .where(FirestoreConstants.email, isEqualTo: currentUser!.email)
-        .get()
-        .then((querySnapshot) {
-      reminder.userId = querySnapshot.docs.first.id;
-    });
+    reminder.userId = await getUserId();
     await _firebaseFirestore
         .collection(FirestoreConstants.reminderCollection)
         .add(reminder.toMap())
@@ -68,19 +53,25 @@ class ReminderDataSourceImpl extends ReminderDataSource {
 
   @override
   Future<void> updateReminder(Reminder reminder) async {
+    reminder.userId = await getUserId();
+    await _firebaseFirestore
+        .collection(FirestoreConstants.reminderCollection)
+        .doc(reminder.id)
+        .update(reminder.toMap())
+        .then((querySnapshot) {})
+        .catchError((error) {});
+  }
+
+  Future<String> getUserId() async {
+    var userId = '';
     final currentUser = _firebaseAuth.currentUser;
     await _firebaseFirestore
         .collection(FirestoreConstants.usersCollection)
         .where(FirestoreConstants.email, isEqualTo: currentUser!.email)
         .get()
         .then((querySnapshot) {
-      reminder.userId = querySnapshot.docs.first.id;
+      userId = querySnapshot.docs.first.id;
     });
-    await _firebaseFirestore
-        .collection(FirestoreConstants.reminderCollection)
-        .doc(reminder.reminderId)
-        .update(reminder.toMap())
-        .then((querySnapshot) {})
-        .catchError((error) {});
+    return userId;
   }
 }

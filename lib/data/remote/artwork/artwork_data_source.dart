@@ -7,7 +7,7 @@ abstract class ArtworkDataSource {
 
   Future<void> createNewArtwork(Artwork artwork);
 
-  Future<void> deleteNewArtwork(String artworkId);
+  Future<void> deleteArtwork(String artworkId);
 
   Future<void> updateArtwork(Artwork artwork);
 }

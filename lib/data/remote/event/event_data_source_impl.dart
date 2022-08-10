@@ -25,39 +25,81 @@ class EventDataSourceImpl extends EventDataSource {
     return events;
   }
 
-  Future<List<Event>> getListUserNameById(List<Event> events) async {
-    for(int i = 0; i<events.length; i++){
-      events[i].userName = await getUserNameById(events[i].userId);
-    }
-    return events;
-  }
-
-  Future<String> getUserNameById(String userId) async {
-    var username = '';
-    await _firestore
-        .collection(FirestoreConstants.usersCollection)
-        .doc(userId)
-        .get()
-        .then((querySnapshot) {
-      username = SpookerUser.fromMap(querySnapshot.data()!).name;
-    });
-    return username;
-  }
-
   @override
   Future<void> createNewEvent(Event event) async {
+    event.userId = await getUserId();
+    await _firestore
+        .collection(FirestoreConstants.eventsCollection)
+        .add(event.toMap())
+        .then((value) {})
+        .catchError((error) {});
+  }
+
+  Future<String> getUserId() async {
+    var userId = '';
     final currentUser = _firebaseAuth.currentUser;
     await _firestore
         .collection(FirestoreConstants.usersCollection)
         .where(FirestoreConstants.email, isEqualTo: currentUser!.email)
         .get()
         .then((querySnapshot) {
-      event.userId = querySnapshot.docs.first.id;
+      userId = querySnapshot.docs.first.id;
     });
+    return userId;
+  }
+
+  @override
+  Future<void> deleteEvent(String eventId) async {
     await _firestore
         .collection(FirestoreConstants.eventsCollection)
-        .add(event.toMap())
-        .then((value) {})
+        .doc(eventId)
+        .delete()
+        .then((querySnapshot) {})
         .catchError((error) {});
+  }
+
+  @override
+  Future<List<Event>> getMyEvents() async {
+    var userId = await getUserId();
+    var events = <Event>[];
+    await _firestore
+        .collection(FirestoreConstants.eventsCollection)
+        .where(FirestoreConstants.userId, isEqualTo: userId)
+        .get()
+        .then(
+          (querySnapshot) => querySnapshot.docs.forEach(
+            (element) {
+              var event = Event.fromMap(element.data());
+              event.eventId = element.id;
+              events.add(event);
+            },
+          ),
+        );
+    return events;
+  }
+
+  @override
+  Future<void> updateEvent(Event event) async {
+    event.userId = await getUserId();
+    event.username = await getUsername();
+    await _firestore
+        .collection(FirestoreConstants.eventsCollection)
+        .doc(event.eventId)
+        .update(event.toMap())
+        .then((querySnapshot) {})
+        .catchError((error) {});
+  }
+
+  Future<String> getUsername() async {
+    var username = '';
+    var userId = await getUserId();
+    await _firestore
+        .collection(FirestoreConstants.usersCollection)
+        .doc(userId)
+        .get()
+        .then((querySnapshot) {
+      username = SpookerUser.fromMap(querySnapshot.data()!).username;
+    });
+    return username;
   }
 }

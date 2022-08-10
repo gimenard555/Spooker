@@ -6,13 +6,14 @@ Artwork eventFromMap(String text) => Artwork.fromMap(json.decode(text));
 String eventToMap(Artwork data) => json.encode(data.toMap());
 
 class Artwork {
-  Artwork(this.name, this.imagePath, this.description, this.privacy);
+  Artwork(this.name, this.imagePath, this.description, this.privacy,
+      {this.username = '', this.userId = '', this.id = ''});
 
   String name;
   String imagePath;
   String description;
   String privacy;
-  String userName = '';
+  String username;
   String userId = '';
   String id = '';
 
@@ -21,7 +22,7 @@ class Artwork {
         json['image_path'],
         json['description'],
         json['privacy'],
-        // json['username'],
+        username: json['username'],
       );
 
   Map<String, dynamic> toMap() => {
@@ -30,6 +31,7 @@ class Artwork {
         'description': description,
         'privacy': privacy,
         'user_id': userId,
+        'username': username
       };
 
   factory Artwork.fromFirestore(DocumentSnapshot document) {

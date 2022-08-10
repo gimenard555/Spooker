@@ -3,7 +3,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
-import 'package:spooker/data/model/enums.dart';
 import 'package:spooker/ui/components/main_screen_extension.dart';
 import 'package:spooker/ui/screens/reminder/reminder_view_model.dart';
 
@@ -41,69 +40,83 @@ class NewReminderScreen extends HookConsumerWidget {
             children: [
               TopBarView(SpookerStrings.newReminder),
               Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
-                  alignment: Alignment.center,
-                  child: TextFormView(
-                    textController: _titleController,
-                    textHint: SpookerStrings.reminderTitle,
-                    errorMessage: '',
-                    isValidText: _viewModel.title.isNotEmpty,
-                  )),
+                margin: EdgeInsets.symmetric(
+                    horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+                alignment: Alignment.center,
+                child: TextFormView(
+                  textController: _titleController,
+                  textHint: SpookerStrings.reminderTitle,
+                  errorMessage: '',
+                  isValidText: _titleController.text.isNotEmpty ||
+                      _viewModel.title.isNotEmpty,
+                ),
+              ),
               Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
-                  alignment: Alignment.center,
-                  child: TextFormView(
-                      textController: _dateFieldController,
-                      textHint: SpookerStrings.reminderDate,
-                      errorMessage: '',
-                      isValidText: _viewModel.date.isNotEmpty,
-                      onTouchText: () {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        context.showDateDialog((date, dateTime) {
-                          _viewModel.date = date;
-                          _viewModel.selectedDate =
-                              DateFormat("yyyy-MM-dd").format(dateTime);
-                          _dateFieldController.text = date;
-                        });
-                      })),
+                margin: EdgeInsets.symmetric(
+                    horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+                alignment: Alignment.center,
+                child: TextFormView(
+                  textController: _dateFieldController,
+                  textHint: SpookerStrings.reminderDate,
+                  errorMessage: '',
+                  isValidText: _dateFieldController.text.isNotEmpty ||
+                      _viewModel.date.isNotEmpty,
+                  onTouchText: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    context.showDateDialog(
+                      (date, dateTime) {
+                        _viewModel.date = date;
+                        _viewModel.selectedDate =
+                            DateFormat("yyyy-MM-dd").format(dateTime);
+                        _dateFieldController.text = date;
+                      },
+                    );
+                  },
+                ),
+              ),
               Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
-                  alignment: Alignment.center,
-                  child: TextFormView(
-                      textController: _hourFieldController,
-                      textHint: SpookerStrings.reminderHour,
-                      errorMessage: '',
-                      isValidText: _viewModel.hour.isNotEmpty,
-                      onTouchText: () {
-                        FocusManager.instance.primaryFocus?.unfocus();
-                        _selectTime(context);
-                      })),
+                margin: EdgeInsets.symmetric(
+                    horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+                alignment: Alignment.center,
+                child: TextFormView(
+                  textController: _hourFieldController,
+                  textHint: SpookerStrings.reminderHour,
+                  errorMessage: '',
+                  isValidText: _hourFieldController.text.isNotEmpty ||
+                      _viewModel.hour.isNotEmpty,
+                  onTouchText: () {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    _selectTime(context);
+                  },
+                ),
+              ),
               Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
-                  alignment: Alignment.center,
-                  child: TextFormView(
-                    textController: _placeFieldController,
-                    textHint: SpookerStrings.reminderPlace,
-                    errorMessage: '',
-                    isValidText: _viewModel.place.isNotEmpty,
-                  )),
+                margin: EdgeInsets.symmetric(
+                    horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+                alignment: Alignment.center,
+                child: TextFormView(
+                  textController: _placeFieldController,
+                  textHint: SpookerStrings.reminderPlace,
+                  errorMessage: '',
+                  isValidText: _placeFieldController.text.isNotEmpty ||
+                      _viewModel.place.isNotEmpty,
+                ),
+              ),
               Container(
                 alignment: Alignment.center,
                 margin: EdgeInsets.symmetric(
                     horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
                 child: CommonButtonView(
                   SpookerColors.blueCommonTextColor,
-                  SpookerStrings.continueText,
+                  _getButtonTextByData(),
                   SpookerFonts.s14BoldLight,
                   () {
+                    _chargeViewModelData();
                     context.showLoading();
-                    editOrCreateByData(context);
+                    _editOrCreateByData(context);
                   },
-                  isAvailable: _viewModel.isDataCompleted(),
+                  isAvailable:
+                      _textControllers() || _viewModel.isDataCompleted(),
                 ),
               ),
             ],
@@ -137,6 +150,22 @@ class NewReminderScreen extends HookConsumerWidget {
     }
   }
 
+  void _chargeViewModelData() {
+    if (reminder != null && reminderId != null) {
+      _viewModel.title = _titleController.text;
+      _viewModel.date = _dateFieldController.text;
+      _viewModel.hour = _hourFieldController.text;
+      _viewModel.place = _placeFieldController.text;
+    }
+  }
+
+  bool _textControllers() {
+    return _titleController.text.isNotEmpty &&
+        _dateFieldController.text.isNotEmpty &&
+        _hourFieldController.text.isNotEmpty &&
+        _placeFieldController.text.isNotEmpty;
+  }
+
   void _initTextControllers() {
     if (reminder != null && reminderId != null) {
       _titleController = useTextEditingController(text: reminder!.description);
@@ -161,15 +190,15 @@ class NewReminderScreen extends HookConsumerWidget {
     });
   }
 
-  String? getButtonTextByData() {
+  String _getButtonTextByData() {
     if (reminder != null && reminderId != null) {
-      return SpookerStrings.continueText;
-    } else {
       return SpookerStrings.editText;
+    } else {
+      return SpookerStrings.continueText;
     }
   }
 
-  void editOrCreateByData(BuildContext context) {
+  void _editOrCreateByData(BuildContext context) {
     if (reminder != null && reminderId != null) {
       _viewModel
           .editReminder(reminderId!)

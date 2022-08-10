@@ -111,7 +111,7 @@ class DeleteConfirmationDialog extends HookConsumerWidget {
                                   vertical: SpookerSize.m5),
                               child: CommonButtonView(
                                 SpookerColors.spookerBlue,
-                                SpookerStrings.edit,
+                                SpookerStrings.cancel,
                                 SpookerFonts.s16BoldLight,
                                 () {
                                   _optionSelected(ConfirmationType.CANCEL);

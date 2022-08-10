@@ -6,7 +6,6 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/data/model/artwork.dart';
-import 'package:spooker/data/model/event.dart';
 import 'package:spooker/ui/components/dialogs/image_bottom_sheet.dart';
 import 'package:spooker/ui/components/main_screen_extension.dart';
 import 'package:spooker/ui/screens/artwork/artwork_view_model.dart';
@@ -15,6 +14,7 @@ import '../../../data/model/enums.dart';
 import '../../../gen/assets.gen.dart';
 import '../../components/Inputs/text_form_view.dart';
 import '../../components/buttons/common_button_view.dart';
+import '../../components/image/image.dart';
 import '../../components/pickers/spinner_view.dart';
 import '../../components/spooker_borders.dart';
 import '../../components/top_bar_view.dart';
@@ -76,7 +76,7 @@ class NewArtworkScreen extends HookConsumerWidget {
                         borderRadius: SpookerBorders.m30Border,
                         color: SpookerColors.completeLight,
                       ),
-                      child: getImage())),
+                      child: _getImage())),
               Container(
                   margin: EdgeInsets.symmetric(
                       horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
@@ -85,7 +85,8 @@ class NewArtworkScreen extends HookConsumerWidget {
                     textController: _titleController,
                     textHint: SpookerStrings.artworkTitle,
                     errorMessage: '',
-                    isValidText: _viewModel.title.isNotEmpty,
+                    isValidText: _titleController.text.isNotEmpty ||
+                        _viewModel.title.isNotEmpty,
                   )),
               Container(
                   margin: EdgeInsets.symmetric(
@@ -95,7 +96,8 @@ class NewArtworkScreen extends HookConsumerWidget {
                     textController: _descriptionFieldController,
                     textHint: SpookerStrings.artworkDescription,
                     errorMessage: '',
-                    isValidText: _viewModel.description.isNotEmpty,
+                    isValidText: _descriptionFieldController.text.isNotEmpty ||
+                        _viewModel.description.isNotEmpty,
                   )),
               Container(
                 margin: EdgeInsets.symmetric(
@@ -115,16 +117,15 @@ class NewArtworkScreen extends HookConsumerWidget {
                     horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
                 child: CommonButtonView(
                   SpookerColors.blueCommonTextColor,
-                  SpookerStrings.continueText,
+                  getButtonTextByData(),
                   SpookerFonts.s14BoldLight,
                   () {
+                    _chargeViewModelData();
                     context.showLoading();
-                    _viewModel
-                        .createNewArtwork()
-                        .whenComplete(() => {_manageState(context)});
-                    // editOrCreateByData(context);
+                    editOrCreateByData(context);
                   },
-                  isAvailable: _viewModel.isDataCompleted(),
+                  isAvailable:
+                      _textControllers() || _viewModel.isDataCompleted(),
                 ),
               ),
             ],
@@ -154,24 +155,45 @@ class NewArtworkScreen extends HookConsumerWidget {
   }
 
   Future<void> _initCameraFlow(BuildContext context) async {
-    await availableCameras().then((value) => Navigator.push(
+    await availableCameras().then(
+      (value) => Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => CameraScreen(value.first, (file) {
-                  _viewModel.file = file.path;
-                }))));
+          builder: (context) => CameraScreen(
+            value.first,
+            (file) {
+              _saveArtworkImage(file);
+            },
+          ),
+        ),
+      ),
+    );
   }
 
-  Widget getImage() {
-    if (_viewModel.file.isNotEmpty) {
+  void _saveArtworkImage(XFile file) {
+    if (artwork != null && artworkId != null) {
+      artwork!.imagePath = '';
+    }
+    _viewModel.file = file.path;
+  }
+
+  Widget _getImage() {
+    if (artwork != null && artworkId != null && artwork!.imagePath.isNotEmpty) {
       return ClipRRect(
-          borderRadius: SpookerBorders.m30Border,
-          child: Image.file(
-            File(_viewModel.file),
-            fit: BoxFit.fill,
-          ));
+        borderRadius: SpookerBorders.m30Border,
+        child: networkImage(artwork!.imagePath, fit: BoxFit.cover),
+      );
     } else {
-      return Assets.images.emptyImageIcon.image();
+      if (_viewModel.file.isNotEmpty) {
+        return ClipRRect(
+            borderRadius: SpookerBorders.m30Border,
+            child: Image.file(
+              File(_viewModel.file),
+              fit: BoxFit.cover,
+            ));
+      } else {
+        return Assets.images.emptyImageIcon.image();
+      }
     }
   }
 
@@ -189,6 +211,41 @@ class NewArtworkScreen extends HookConsumerWidget {
       Navigator.pop(context);
     } else {
       context.showErrorDialog(SpookerErrorStrings.dialogWrong);
+    }
+  }
+
+  String getButtonTextByData() {
+    if (artwork != null && artworkId != null) {
+      return SpookerStrings.editText;
+    } else {
+      return SpookerStrings.continueText;
+    }
+  }
+
+  void editOrCreateByData(BuildContext context) {
+    if (artwork != null && artworkId != null) {
+      _viewModel
+          .editArtwork(artworkId!)
+          .whenComplete(() => {_manageState(context)});
+    } else {
+      _viewModel.createNewArtwork().whenComplete(() => {_manageState(context)});
+    }
+  }
+
+  bool _textControllers() {
+    if (artwork != null && artworkId != null) {
+      return _titleController.text.isNotEmpty &&
+          _descriptionFieldController.text.isNotEmpty &&
+          artwork!.imagePath.isNotEmpty;
+    } else {
+      return false;
+    }
+  }
+
+  void _chargeViewModelData() {
+    if (artwork != null && artworkId != null) {
+      _viewModel.title = _titleController.text;
+      _viewModel.description = _descriptionFieldController.text;
     }
   }
 }

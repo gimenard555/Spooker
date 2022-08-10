@@ -5,26 +5,26 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/components/main_screen_extension.dart';
 import 'package:spooker/ui/screens/artwork/user_artwork_item.dart';
+import 'package:spooker/ui/screens/profile/profile_view_model.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 
 import '../../components/loading/container_with_loading.dart';
 import '../../components/outputs/empty_view.dart';
 import '../../loading_state_view_model.dart';
 import '../../utils/spooker_strings.dart';
-import '../dashboard/dashboard_view_model.dart';
 
 class UserArtworkPageView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.read(dashboardViewModelProvider);
+    final viewModel = ref.read(profileViewModel);
     final artworks =
-        ref.watch(dashboardViewModelProvider.select((value) => value.artworks));
+        ref.watch(profileViewModel.select((value) => value.artworks));
 
     final snapshot = useFuture(
       useMemoized(() {
         return ref
             .read(loadingStateProvider)
-            .whileLoading(() => viewModel.fetchArtworks());
+            .whileLoading(() => viewModel.getMyArtworks());
       }, [artworks?.toString()]),
     );
 
@@ -41,7 +41,7 @@ class UserArtworkPageView extends HookConsumerWidget {
                 width: double.infinity,
                 child: RefreshIndicator(
                   onRefresh: () async {
-                    viewModel.fetchArtworks();
+                    viewModel.getMyArtworks();
                   },
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

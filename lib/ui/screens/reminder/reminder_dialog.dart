@@ -132,7 +132,7 @@ class ReminderDialog extends HookConsumerWidget {
                                     switch (type) {
                                       case ConfirmationType.DELETE:
                                         viewModel.deleteReminder(
-                                            _reminder.reminderId);
+                                            _reminder.id);
                                         Navigator.pop(context);
                                         break;
                                       case ConfirmationType.CANCEL:
@@ -161,7 +161,7 @@ class ReminderDialog extends HookConsumerWidget {
                                     MaterialPageRoute(
                                         builder: (context) => NewReminderScreen(
                                               reminder: _reminder,
-                                              reminderId: _reminder.reminderId,
+                                              reminderId: _reminder.id,
                                             )),
                                   );
                                 },

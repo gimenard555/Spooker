@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
+import 'package:spooker/ui/utils/spooker_strings.dart';
 
 import '../../screens/artwork/user_artwork_page_view.dart';
 import '../../screens/event/user_event_page_view.dart';
 import 'custom_title_text.dart';
 
 class CustomPagerView extends HookConsumerWidget {
-  final List<String> _options = ["Artworks", "Events"];
+  final List<String> _options = [
+    SpookerStrings.artworksText,
+    SpookerStrings.eventsText
+  ];
   final ScrollController _controller = ScrollController();
 
   @override

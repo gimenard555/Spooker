@@ -55,6 +55,7 @@ class SpookerStrings {
   static const selectFromYourGallery = 'Select from your gallery';
   static const yourArtworkImage = 'Your Artwork Image';
   static const artwork = 'Artwork';
+  static const cancel = 'Cancel';
 }
 
 @immutable
