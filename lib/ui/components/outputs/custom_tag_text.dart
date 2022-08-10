@@ -22,7 +22,7 @@ class TagText extends HookConsumerWidget {
           color: SpookerColors.spookerBlue,
           borderRadius: SpookerBorders.borderTag),
       child: Text(
-        "@$_tagText",
+        "$_tagText",
         style: SpookerFonts.s12MediumLightGray,
         textAlign: TextAlign.center,
       ),

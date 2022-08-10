@@ -32,56 +32,56 @@ class TextFormView extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-       TextFormField(
-            onTap: () {
-              if (onTouchText != null) {
-                onTouchText!();
-              }
-            },
-            obscureText: this.isPassword ??= false,
-            enableSuggestions: this.isPassword ??= true,
-            autocorrect: this.isPassword ??= true,
-            autofocus: this.autofocus ??= false,
-            decoration: InputDecoration(
-              labelText: this.textHint,
-              labelStyle: TextStyle(
-                  color: getDecorationByError(errorMessage, isValidText)),
-              fillColor: SpookerColors.completeLight,
-              filled: true,
-              focusedBorder: OutlineInputBorder(
-                borderRadius: SpookerBorders.m30Border,
-                borderSide: BorderSide(
-                  color: getDecorationByError(errorMessage, isValidText),
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: SpookerBorders.m30Border,
-                borderSide: BorderSide(
-                  color: getDecorationByError(errorMessage, isValidText),
-                  width: SpookerSize.m3,
-                ),
+        TextFormField(
+          onTap: () {
+            if (onTouchText != null) {
+              onTouchText!();
+            }
+          },
+          obscureText: this.isPassword ??= false,
+          enableSuggestions: this.isPassword ??= true,
+          autocorrect: this.isPassword ??= true,
+          autofocus: this.autofocus ??= false,
+          decoration: InputDecoration(
+            labelText: this.textHint,
+            labelStyle: TextStyle(
+                color: getDecorationByError(errorMessage, isValidText)),
+            fillColor: SpookerColors.completeLight,
+            filled: true,
+            focusedBorder: OutlineInputBorder(
+              borderRadius: SpookerBorders.m30Border,
+              borderSide: BorderSide(
+                color: getDecorationByError(errorMessage, isValidText),
               ),
             ),
-            style: getTextStyleByText(errorMessage, isValidText),
-            controller: textController,
+            enabledBorder: OutlineInputBorder(
+              borderRadius: SpookerBorders.m30Border,
+              borderSide: BorderSide(
+                color: getDecorationByError(errorMessage, isValidText),
+                width: SpookerSize.m3,
+              ),
+            ),
           ),
+          style: getTextStyleByText(errorMessage, isValidText),
+          controller: textController,
+        ),
         SizedBox(height: SpookerSize.m8),
         Visibility(
-            visible: getAvailable(errorMessage),
-            child: Row(
-              children: [
-                Assets.svgs.alertIcon
-                    .svg(height: SpookerSize.m14, width: SpookerSize.m14),
-                SizedBox(width: SpookerSize.m8),
-                Align(
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      getErrorMessage(),
-                      textAlign: TextAlign.center,
-                      style: SpookerFonts.s16RegularRed,
-                    )),
-              ],
-            ))
+          visible: getAvailable(errorMessage),
+          child: Row(
+            children: [
+              Assets.images.backArrow.image(),
+              SizedBox(width: SpookerSize.m8),
+              Align(
+                  alignment: Alignment.topCenter,
+                  child: Text(
+                    getErrorMessage(),
+                    textAlign: TextAlign.center,
+                    style: SpookerFonts.s16RegularRed,
+                  )),
+            ],
+          ),
+        )
       ],
     );
   }

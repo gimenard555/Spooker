@@ -52,7 +52,7 @@ class DashboardScreen extends HookConsumerWidget {
             child: CustomTopBar(() {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfileScreen()),
+                MaterialPageRoute(builder: (context) => ProfileScreen(true)),
               );
             }, () {
               Navigator.push(

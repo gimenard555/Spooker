@@ -8,8 +8,6 @@
 // ignore_for_file: directives_ordering,unnecessary_import
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter/services.dart';
 
 class $AssetsAnimationsGen {
   const $AssetsAnimationsGen();
@@ -19,6 +17,22 @@ class $AssetsAnimationsGen {
 
   /// File path: assets/animations/spooker_back.json
   String get spookerBack => 'assets/animations/spooker_back.json';
+}
+
+class $AssetsFontsGen {
+  const $AssetsFontsGen();
+
+  /// File path: assets/fonts/montserrat_bold.otf
+  String get montserratBold => 'assets/fonts/montserrat_bold.otf';
+
+  /// File path: assets/fonts/montserrat_medium.otf
+  String get montserratMedium => 'assets/fonts/montserrat_medium.otf';
+
+  /// File path: assets/fonts/montserrat_regular.otf
+  String get montserratRegular => 'assets/fonts/montserrat_regular.otf';
+
+  /// File path: assets/fonts/painterz.ttf
+  String get painterz => 'assets/fonts/painterz.ttf';
 }
 
 class $AssetsImagesGen {
@@ -96,44 +110,12 @@ class $AssetsImagesGen {
       const AssetGenImage('assets/images/take-photo.png');
 }
 
-class $AssetsSvgsGen {
-  const $AssetsSvgsGen();
-
-  /// File path: assets/svgs/alert_icon.svg
-  SvgGenImage get alertIcon => const SvgGenImage('assets/svgs/alert_icon.svg');
-
-  /// File path: assets/svgs/back_button.svg
-  SvgGenImage get backButton =>
-      const SvgGenImage('assets/svgs/back_button.svg');
-
-  /// File path: assets/svgs/error_icon.svg
-  SvgGenImage get errorIcon => const SvgGenImage('assets/svgs/error_icon.svg');
-
-  /// File path: assets/svgs/light_logo.svg
-  SvgGenImage get lightLogo => const SvgGenImage('assets/svgs/light_logo.svg');
-
-  /// File path: assets/svgs/login_background.svg
-  SvgGenImage get loginBackground =>
-      const SvgGenImage('assets/svgs/login_background.svg');
-
-  /// File path: assets/svgs/main_background.svg
-  SvgGenImage get mainBackground =>
-      const SvgGenImage('assets/svgs/main_background.svg');
-
-  /// File path: assets/svgs/paint.svg
-  SvgGenImage get paint => const SvgGenImage('assets/svgs/paint.svg');
-
-  /// File path: assets/svgs/splash_logo.svg
-  SvgGenImage get splashLogo =>
-      const SvgGenImage('assets/svgs/splash_logo.svg');
-}
-
 class Assets {
   Assets._();
 
   static const $AssetsAnimationsGen animations = $AssetsAnimationsGen();
+  static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
-  static const $AssetsSvgsGen svgs = $AssetsSvgsGen();
 }
 
 class AssetGenImage {
@@ -197,52 +179,4 @@ class AssetGenImage {
   String get path => _assetName;
 
   String get keyName => _assetName;
-}
-
-class SvgGenImage {
-  const SvgGenImage(this._assetName);
-
-  final String _assetName;
-
-  SvgPicture svg({
-    Key? key,
-    bool matchTextDirection = false,
-    AssetBundle? bundle,
-    String? package,
-    double? width,
-    double? height,
-    BoxFit fit = BoxFit.contain,
-    AlignmentGeometry alignment = Alignment.center,
-    bool allowDrawingOutsideViewBox = false,
-    WidgetBuilder? placeholderBuilder,
-    Color? color,
-    BlendMode colorBlendMode = BlendMode.srcIn,
-    String? semanticsLabel,
-    bool excludeFromSemantics = false,
-    Clip clipBehavior = Clip.hardEdge,
-    bool cacheColorFilter = false,
-    SvgTheme? theme,
-  }) {
-    return SvgPicture.asset(
-      _assetName,
-      key: key,
-      matchTextDirection: matchTextDirection,
-      bundle: bundle,
-      package: package,
-      width: width,
-      height: height,
-      fit: fit,
-      alignment: alignment,
-      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
-      placeholderBuilder: placeholderBuilder,
-      color: color,
-      colorBlendMode: colorBlendMode,
-      semanticsLabel: semanticsLabel,
-      excludeFromSemantics: excludeFromSemantics,
-      clipBehavior: clipBehavior,
-      cacheColorFilter: cacheColorFilter
-    );
-  }
-
-  String get path => _assetName;
 }

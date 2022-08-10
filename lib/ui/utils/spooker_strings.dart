@@ -26,6 +26,7 @@ class SpookerStrings {
   static const dateSelectionButtonText = 'Select date';
   static const artworksText = 'Artworks';
   static const eventsText = 'Events';
+  static const event = 'Event';
   static const continueText = 'Continue';
   static const editText = 'Edit';
   static const spookerExit = 'X';
@@ -55,6 +56,7 @@ class SpookerStrings {
   static const selectFromYourGallery = 'Select from your gallery';
   static const yourArtworkImage = 'Your Artwork Image';
   static const artwork = 'Artwork';
+  static const profile = 'Profile';
   static const cancel = 'Cancel';
 }
 

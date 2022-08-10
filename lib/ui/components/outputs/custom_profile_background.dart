@@ -4,17 +4,18 @@ import 'package:flutter/rendering.dart';
 import 'package:spooker/ui/components/spooker_borders.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
+import 'package:spooker/ui/utils/spooker_strings.dart';
 
 import '../../../gen/assets.gen.dart';
 import '../../utils/spooker_fonts.dart';
 import '../screen/main_curve_background.dart';
 
 class CustomProfileBackground extends StatelessWidget {
-  CustomProfileBackground(this._imageProfile, this._screenName, this._name);
+  CustomProfileBackground(this._imageProfile, this._name, this._isMyProfile);
 
   final String _imageProfile;
-  final String _screenName;
   final String _name;
+  final bool _isMyProfile;
 
   @override
   Widget build(BuildContext context) {
@@ -43,36 +44,47 @@ class CustomProfileBackground extends StatelessWidget {
                 ),
               ),
               Container(
-                  alignment: Alignment.topCenter,
-                  margin: EdgeInsets.only(top: SpookerSize.m10),
-                  child: Column(
-                    children: [
-                      Text(
-                        _screenName,
-                        textAlign: TextAlign.center,
-                        style: SpookerFonts.s24BoldLight,
+                alignment: Alignment.topCenter,
+                margin: EdgeInsets.only(top: SpookerSize.m10),
+                child: Column(
+                  children: [
+                    Text(
+                      SpookerStrings.profile,
+                      textAlign: TextAlign.center,
+                      style: SpookerFonts.s24BoldLight,
+                    ),
+                    SizedBox(
+                      height: SpookerSize.m20,
+                    ),
+                    Container(
+                      width: screenWidth * 0.4,
+                      height: screenWidth * 0.4,
+                      decoration: BoxDecoration(
+                        borderRadius: SpookerBorders.m200Border,
+                        gradient: SpookerColors.rightGradient,
                       ),
-                      SizedBox(
-                        height: SpookerSize.m20,
+                      child: Container(
+                        margin: EdgeInsets.all(SpookerSize.m5),
+                        alignment: Alignment.center,
+                        child: CircleAvatar(
+                          radius: screenWidth * 0.2,
+                          backgroundImage: NetworkImage(this._imageProfile),
+                        ),
                       ),
-                      Container(
-                        width: screenWidth * 0.4,
-                        height: screenWidth * 0.4,
-                        decoration: BoxDecoration(
-                          borderRadius: SpookerBorders.m200Border,
-                          gradient: SpookerColors.rightGradient,
-                        ),
-                        child: Container(
-                          margin: EdgeInsets.all(SpookerSize.m5),
-                          alignment: Alignment.center,
-                          child: CircleAvatar(
-                            radius: screenWidth * 0.2,
-                            backgroundImage: NetworkImage(this._imageProfile),
-                          ),
-                        ),
-                      )
-                    ],
-                  )),
+                    )
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  margin: EdgeInsets.all(SpookerSize.m10),
+                  alignment: Alignment.topRight,
+                  child: Assets.images.backArrow.image(),
+                ),
+              ),
             ],
           ),
           Container(

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:spooker/data/model/event.dart';
 import 'package:spooker/data/model/reminder.dart';
 import 'package:spooker/ui/components/spooker_borders.dart';
-import 'package:spooker/ui/screens/reminder/reminder_dialog.dart';
+import 'package:spooker/ui/screens/reminder/reminder_detail_dialog.dart';
 import 'package:spooker/ui/components/dialogs/spooker_loading_dialog.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import '../../data/model/enums.dart';
+import '../screens/event/event_detail_dialog.dart';
 import 'dialogs/delete_confirmation_dialog.dart';
 import 'dialogs/floating_options_dialog.dart';
 import 'dialogs/image_bottom_sheet.dart';
@@ -55,7 +57,7 @@ extension MainScreen on BuildContext {
         context: this,
         barrierDismissible: false,
         builder: (_) {
-          return ReminderDialog(reminder);
+          return ReminderDetailDialog(reminder);
         });
   }
 
@@ -77,6 +79,15 @@ extension MainScreen on BuildContext {
         barrierColor: SpookerColors.optionsBackground,
         builder: (_) {
           return ImageBottomSheet(optionSelected);
+        });
+  }
+
+  void showEventDetail(Event event) {
+    showDialog(
+        context: this,
+        barrierDismissible: false,
+        builder: (_) {
+          return EventDetailDialog(event);
         });
   }
 }

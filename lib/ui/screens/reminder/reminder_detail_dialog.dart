@@ -15,8 +15,8 @@ import '../../components/outputs/custom_tag_text.dart';
 import '../../components/spooker_borders.dart';
 import 'new_reminder_screen.dart';
 
-class ReminderDialog extends HookConsumerWidget {
-  ReminderDialog(this._reminder);
+class ReminderDetailDialog extends HookConsumerWidget {
+  ReminderDetailDialog(this._reminder);
 
   final Reminder _reminder;
 
@@ -131,8 +131,7 @@ class ReminderDialog extends HookConsumerWidget {
                                       SpookerStrings.reminder, (type) {
                                     switch (type) {
                                       case ConfirmationType.DELETE:
-                                        viewModel.deleteReminder(
-                                            _reminder.id);
+                                        viewModel.deleteReminder(_reminder.id);
                                         Navigator.pop(context);
                                         break;
                                       case ConfirmationType.CANCEL:
