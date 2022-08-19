@@ -1,37 +1,41 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../remote/FirestoreConstants.dart';
+
 SpookerUser userFromMap(String text) => SpookerUser.fromMap(json.decode(text));
 
 String userToMap(SpookerUser data) => json.encode(data.toMap());
 
 class SpookerUser {
-  SpookerUser(this.birthdate, this.email_address, this.image_path, this.name,
-      this.password, this.username);
+  SpookerUser(this.birthdate, this.emailAddress, this.image, this.name,
+      this.password, this.username,
+      {this.id = ''});
 
   String username;
   String password;
   String birthdate;
-  String email_address;
-  String image_path;
+  String emailAddress;
+  String image;
   String name;
+  String id;
 
   factory SpookerUser.fromMap(Map<String, dynamic> json) => SpookerUser(
-        json['birthdate'],
-        json['email_address'],
-        json['image_path'],
-        json['name'],
-        json['password'],
-        json['username'],
+        json[FirestoreConstants.birthdate],
+        json[FirestoreConstants.email],
+        json[FirestoreConstants.imagePath],
+        json[FirestoreConstants.name],
+        json[FirestoreConstants.password],
+        json[FirestoreConstants.username],
       );
 
   Map<String, dynamic> toMap() => {
-        'birthdate': birthdate,
-        'email_address': email_address,
-        'image_path': image_path,
-        'name': name,
-        'password': password,
-        'username': username,
+        FirestoreConstants.birthdate: birthdate,
+        FirestoreConstants.email: emailAddress,
+        FirestoreConstants.imagePath: image,
+        FirestoreConstants.name: name,
+        FirestoreConstants.password: password,
+        FirestoreConstants.username: username,
       };
 
   factory SpookerUser.fromFirestore(DocumentSnapshot document) {

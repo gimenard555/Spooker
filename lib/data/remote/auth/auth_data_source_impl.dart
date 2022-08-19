@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:spooker/data/remote/auth/auth_data_source.dart';
 
+import '../../local/app_shared_preferences.dart';
 import '../../model/user.dart';
 import '../FirestoreConstants.dart';
 
 class AuthDataSourceImpl implements AuthDataSource {
-  AuthDataSourceImpl(this._firebaseAuth, this._firebaseFirestore);
+  AuthDataSourceImpl(
+      this._firebaseAuth, this._firebaseFirestore, this._preferences);
 
   final FirebaseAuth _firebaseAuth;
   final FirebaseFirestore _firebaseFirestore;
+  final AppSharedPreferences _preferences;
 
   @override
   Future<User?> googleSignIn() async {
@@ -25,7 +28,20 @@ class AuthDataSourceImpl implements AuthDataSource {
     final credential = await _firebaseAuth.signInWithCredential(authCredential);
     final currentUser = _firebaseAuth.currentUser;
     assert(credential.user?.uid == currentUser?.uid);
+    await _saveUserLocal();
     return credential.user;
+  }
+
+  Future<void> _saveUserLocal() async {
+    final prefs = await _preferences.getInstance();
+    final myUser = await getMyUserInfo();
+    prefs.setString(FirestoreConstants.birthdate, myUser.birthdate);
+    prefs.setString(FirestoreConstants.email, myUser.emailAddress);
+    prefs.setString(FirestoreConstants.imagePath, myUser.image);
+    prefs.setString(FirestoreConstants.name, myUser.name);
+    prefs.setString(FirestoreConstants.password, myUser.password);
+    prefs.setString(FirestoreConstants.username, myUser.username);
+    prefs.setString(FirestoreConstants.userId, myUser.id);
   }
 
   @override
@@ -41,16 +57,13 @@ class AuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<User> signIn(String email, String password) async {
-    try {
-      UserCredential credential;
-      credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      final currentUser = _firebaseAuth.currentUser;
-      assert(credential.user?.uid == currentUser?.uid);
-      return credential.user!;
-    } on FirebaseAuthException catch (e) {
-      throw Exception(e);
-    }
+    UserCredential credential;
+    credential = await FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
+    final currentUser = _firebaseAuth.currentUser;
+    assert(credential.user?.uid == currentUser?.uid);
+    await _saveUserLocal();
+    return credential.user!;
   }
 
   @override
@@ -61,17 +74,13 @@ class AuthDataSourceImpl implements AuthDataSource {
   @override
   Future<bool> createAccount(SpookerUser user) async {
     var isAuthenticated = false;
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: user.email_address, password: user.password);
-      await _firebaseFirestore
-          .collection(FirestoreConstants.usersCollection)
-          .add(user.toMap())
-          .then((value) => {isAuthenticated = true});
-    } on FirebaseAuthException catch (e) {
-      isAuthenticated = false;
-      throw Exception(e);
-    }
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: user.emailAddress, password: user.password);
+    await _firebaseFirestore
+        .collection(FirestoreConstants.usersCollection)
+        .add(user.toMap())
+        .then((value) => {isAuthenticated = true});
+    await _saveUserLocal();
     return isAuthenticated;
   }
 
@@ -91,5 +100,20 @@ class AuthDataSourceImpl implements AuthDataSource {
     } else {
       return false;
     }
+  }
+
+  @override
+  Future<SpookerUser> getMyUserInfo() async {
+    late SpookerUser user;
+    final currentUser = _firebaseAuth.currentUser;
+    await _firebaseFirestore
+        .collection(FirestoreConstants.usersCollection)
+        .where(FirestoreConstants.email, isEqualTo: currentUser!.email)
+        .get()
+        .then((querySnapshot) {
+      user = SpookerUser.fromMap(querySnapshot.docs.first.data());
+      user.id = querySnapshot.docs.first.id;
+    });
+    return user;
   }
 }

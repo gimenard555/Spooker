@@ -9,4 +9,5 @@ abstract class AuthDataSource {
   Future<bool> isSignedAny();
   Future<bool> createAccount(SpookerUser user);
   Future<bool> isSomeoneSignIn();
+  Future<SpookerUser> getMyUserInfo();
 }

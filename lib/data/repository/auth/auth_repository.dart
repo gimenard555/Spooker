@@ -10,4 +10,5 @@ abstract class AuthRepository {
   Future<Result<bool>> isSignedAny();
   Future<Result<bool>> createAccount(SpookerUser user);
   Future<Result<bool>> getCurrentUser();
+  Future<Result<SpookerUser>> getCurrentUserData();
 }

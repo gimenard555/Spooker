@@ -1,16 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:spooker/data/model/event.dart';
+import 'package:spooker/data/model/reminder.dart';
 import 'package:spooker/data/model/user.dart';
 import 'package:spooker/data/remote/event/event_data_source.dart';
 
 import '../FirestoreConstants.dart';
+import '../reminder/reminder_data_source.dart';
 
 class EventDataSourceImpl extends EventDataSource {
-  EventDataSourceImpl(this._firestore, this._firebaseAuth);
+  EventDataSourceImpl(this._firestore, this._firebaseAuth, this._dataSource);
 
   final FirebaseFirestore _firestore;
   final FirebaseAuth _firebaseAuth;
+  final ReminderDataSource _dataSource;
 
   @override
   Future<List<Event>> getEvents() async {
@@ -28,6 +31,8 @@ class EventDataSourceImpl extends EventDataSource {
   @override
   Future<void> createNewEvent(Event event) async {
     event.userId = await getUserId();
+    event.username = await getUsername();
+    await _dataSource.createNewReminder(Reminder.fromEvent(event));
     await _firestore
         .collection(FirestoreConstants.eventsCollection)
         .add(event.toMap())

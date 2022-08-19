@@ -56,7 +56,7 @@ class SplashScreen extends HookConsumerWidget {
               Text(
                 SpookerStrings.spookerAppName,
                 textAlign: TextAlign.center,
-                style: SpookerFonts.titleFirst,
+                style: SpookerFonts.s96PainterzDarkBlue,
               ),
             ],
           ),

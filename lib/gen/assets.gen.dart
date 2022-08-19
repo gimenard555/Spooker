@@ -101,6 +101,10 @@ class $AssetsImagesGen {
   AssetGenImage get reminder =>
       const AssetGenImage('assets/images/reminder.png');
 
+  /// File path: assets/images/settings.png
+  AssetGenImage get settings =>
+      const AssetGenImage('assets/images/settings.png');
+
   /// File path: assets/images/splash_logo.png
   AssetGenImage get splashLogo =>
       const AssetGenImage('assets/images/splash_logo.png');

@@ -6,6 +6,14 @@ class FirestoreConstants {
   static const artworksCollection = 'artwork';
   static const usersCollection = 'user';
   static const reminderCollection = 'reminder';
-  static const email = 'email_address';
   static const userId = 'user_id';
+
+  //User constants
+  static const birthdate = 'birthdate';
+  static const email = 'email_address';
+  static const imagePath = 'image_path';
+  static const password = 'password';
+  static const username = 'username';
+  static const name = 'name';
+  static const id = 'userId';
 }
