@@ -35,12 +35,12 @@ final preferencesProvider = Provider((ref) {
 
 //DataSources
 final authDataSourceProvider = Provider<AuthDataSource>((ref) =>
-    AuthDataSourceImpl(
-        ref.read(firebaseAuthProvider), ref.read(firebaseStoreProvider)));
+    AuthDataSourceImpl(ref.read(firebaseAuthProvider),
+        ref.read(firebaseStoreProvider), ref.read(preferencesProvider)));
 
 final eventDataSourceProvider = Provider<EventDataSource>((ref) =>
-    EventDataSourceImpl(
-        ref.read(firebaseStoreProvider), ref.read(firebaseAuthProvider)));
+    EventDataSourceImpl(ref.read(firebaseStoreProvider),
+        ref.read(firebaseAuthProvider), ref.read(reminderDataSourceProvider)));
 
 final artworkDataSourceProvider = Provider<ArtworkDataSource>((ref) =>
     ArtworkDataSourceImpl(ref.read(firebaseStoreProvider),

@@ -7,6 +7,7 @@ import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 
 import '../../../gen/assets.gen.dart';
+import '../../screens/profile/profile_settings_screen.dart';
 import '../../utils/spooker_fonts.dart';
 import '../screen/main_curve_background.dart';
 
@@ -75,16 +76,7 @@ class CustomProfileBackground extends StatelessWidget {
                   ],
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Container(
-                  margin: EdgeInsets.all(SpookerSize.m10),
-                  alignment: Alignment.topRight,
-                  child: Assets.images.backArrow.image(),
-                ),
-              ),
+              getSettingsByFlag(context),
             ],
           ),
           Container(
@@ -95,5 +87,25 @@ class CustomProfileBackground extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget getSettingsByFlag(BuildContext context) {
+    if (_isMyProfile) {
+      return InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProfileSettingsScreen()),
+          );
+        },
+        child: Container(
+          margin: EdgeInsets.all(SpookerSize.m10),
+          alignment: Alignment.topRight,
+          child: Assets.images.settings.image(),
+        ),
+      );
+    } else {
+      return SizedBox();
+    }
   }
 }

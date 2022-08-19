@@ -41,4 +41,9 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<Result<bool>> getCurrentUser() {
     return Result.guardFuture(() => _dataSource.isSomeoneSignIn());
   }
+
+  @override
+  Future<Result<SpookerUser>> getCurrentUserData() {
+    return Result.guardFuture(() => _dataSource.getMyUserInfo());
+  }
 }

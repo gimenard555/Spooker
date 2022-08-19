@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:spooker/data/model/artwork.dart';
 import 'package:spooker/ui/components/dialogs/image_bottom_sheet.dart';
 import 'package:spooker/ui/components/main_screen_extension.dart';
@@ -57,13 +58,7 @@ class NewArtworkScreen extends HookConsumerWidget {
               InkWell(
                   onTap: () {
                     context.showPhotoOptions((option) {
-                      switch (option) {
-                        case ImageType.CAMERA:
-                          _initCameraFlow(context);
-                          break;
-                        case ImageType.GALLERY:
-                          break;
-                      }
+                      getImageByFlow(option, context);
                     });
                   },
                   child: Container(
@@ -154,20 +149,24 @@ class NewArtworkScreen extends HookConsumerWidget {
     });
   }
 
-  Future<void> _initCameraFlow(BuildContext context) async {
-    await availableCameras().then(
-      (value) => Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => CameraScreen(
-            value.first,
-            (file) {
-              _saveArtworkImage(file);
-            },
-          ),
-        ),
-      ),
-    );
+  void getImageByFlow(ImageType type, BuildContext context) async {
+    var source;
+    switch (type) {
+      case ImageType.CAMERA:
+        source = ImageSource.camera;
+        break;
+      case ImageType.GALLERY:
+        source = ImageSource.gallery;
+        break;
+    }
+    XFile? pickedFile = await ImagePicker().pickImage(
+        source: source,
+        maxWidth: SpookerSize.m1800,
+        maxHeight: SpookerSize.m1800,
+        imageQuality: SpookerSize.m100.toInt());
+    if (pickedFile != null) {
+      _saveArtworkImage(pickedFile);
+    }
   }
 
   void _saveArtworkImage(XFile file) {

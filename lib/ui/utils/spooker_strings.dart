@@ -19,6 +19,9 @@ class SpookerStrings {
   static const usernameText = 'Username';
   static const birthdateText = 'Birthdate';
   static const passwordText = 'Password';
+  static const currentPassword = 'Current password';
+  static const newPassword = 'New password';
+  static const repeatNewPassword = 'Repeat new password';
   static const confirmPasswordText = 'Confirm Password';
   static const GoogleButtonText = 'Sign in with Google';
   static const ContinueButtonText = 'Continue';
@@ -28,6 +31,8 @@ class SpookerStrings {
   static const eventsText = 'Events';
   static const event = 'Event';
   static const continueText = 'Continue';
+  static const updatePassword = 'Update Password';
+  static const logOut = 'Logout';
   static const editText = 'Edit';
   static const spookerExit = 'X';
   static const newSpooker = 'New Spooker';

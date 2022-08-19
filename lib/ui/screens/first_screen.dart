@@ -44,7 +44,7 @@ class FirstScreen extends HookConsumerWidget {
                           Text(
                             SpookerStrings.spookerAppName,
                             textAlign: TextAlign.center,
-                            style: SpookerFonts.titleFirst,
+                            style: SpookerFonts.s96PainterzDarkBlue,
                           ),
                           SizedBox(
                             height: SpookerSize.m8,

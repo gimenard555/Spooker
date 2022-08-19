@@ -8,7 +8,6 @@ import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 
-import '../../../data/model/enums.dart';
 import '../../components/buttons/common_button_view.dart';
 import '../../utils/spooker_colors.dart';
 import '../dashboard/dashboard_screen.dart';

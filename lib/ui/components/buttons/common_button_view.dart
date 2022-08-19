@@ -24,7 +24,7 @@ class CommonButtonView extends HookConsumerWidget {
     return Container(
       height: SpookerSize.m60,
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(vertical: SpookerSize.m20, horizontal: 0),
+      margin: EdgeInsets.symmetric(vertical: SpookerSize.m10, horizontal: 0),
       child: ElevatedButton(
         onPressed: () {
           pressed();
@@ -34,7 +34,8 @@ class CommonButtonView extends HookConsumerWidget {
           style: getTextFontByAvailable(),
         ),
         style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(getBackgroundByAvailable()),
+            backgroundColor:
+                MaterialStateProperty.all<Color>(getBackgroundByAvailable()),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
               borderRadius: SpookerBorders.m30Border,

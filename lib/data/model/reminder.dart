@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'event.dart';
+
 class Reminder {
   Reminder(this._date, this._description, this._hour, this._isEvent,
       this._datetime, this._place,
@@ -46,6 +48,10 @@ class Reminder {
         'place': _place,
         'user_id': userId
       };
+
+  factory Reminder.fromEvent(Event event) => Reminder(
+      event.date, event.name, event.hour, true, event.datetime, event.place,
+      userId: event.userId);
 
   factory Reminder.fromFirestore(DocumentSnapshot document) {
     var doc = document.data()!;
