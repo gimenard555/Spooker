@@ -24,8 +24,20 @@ class LoginViewModel extends ChangeNotifier {
 
   bool get isDataComplete => _isDataComplete;
 
+  bool _isRecoveryEmail = false;
+
+  bool get isRecoveryEmail => _isRecoveryEmail;
+
+  bool _isRecoverySuccess = false;
+
+  bool get isRecoverySuccess => _isRecoverySuccess;
+
   String _password = '';
   String _email = '';
+  String _recoveryEmail = '';
+  String? _recoveryErrorMessage;
+
+  String? get recoveryErrorMessage => _recoveryErrorMessage;
 
   //Data
   User? _user;
@@ -58,6 +70,18 @@ class LoginViewModel extends ChangeNotifier {
     validateForm();
   }
 
+  void validateRecoveryEmail(String text) {
+    _recoveryEmail = text;
+    _recoveryErrorMessage = text.validateErrorText(TextType.IS_EMAIL);
+    if (_recoveryErrorMessage!.isNotEmpty) {
+      _isRecoveryEmail = false;
+      notifyListeners();
+    } else {
+      _isRecoveryEmail = true;
+      notifyListeners();
+    }
+  }
+
   //Final data validation
   void validateForm() {
     if (_email.isNotEmpty && _password.isNotEmpty) {
@@ -84,6 +108,21 @@ class LoginViewModel extends ChangeNotifier {
     });
   }
 
+  Future<void> googleSignIn() async {
+    return await _repository.googleSignIn().then((user) {
+      if (user.isSuccess) {
+        _loginError = '';
+        user.ifSuccess((data) => {_user = data});
+        notifyListeners();
+      } else if (user.isFailure) {
+        user.ifFailure((data) {
+          _loginError = data.message;
+          notifyListeners();
+        });
+      }
+    });
+  }
+
   Future<bool> isSomeoneSignIn() async {
     var isSomeone = false;
     await _repository.isSignedAny().then((value) {
@@ -96,5 +135,17 @@ class LoginViewModel extends ChangeNotifier {
       }
     });
     return isSomeone;
+  }
+
+  Future<void> recoverPassword() async {
+    await _repository.resetMyPassword(_recoveryEmail).then((value) {
+      if (value.isSuccess) {
+        _isRecoverySuccess = true;
+        notifyListeners();
+      } else if (value.isFailure) {
+        _isRecoverySuccess = false;
+        notifyListeners();
+      }
+    });
   }
 }

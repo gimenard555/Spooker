@@ -12,27 +12,27 @@ import '../../components/outputs/custom_profile_background.dart';
 
 // ignore: must_be_immutable
 class ProfileScreen extends HookConsumerWidget {
-  ProfileScreen(this._isMyProfile);
+  ProfileScreen({this.profileId = ''});
 
   late ProfileViewModel _viewModel;
-  final bool _isMyProfile;
+  final String profileId;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     _viewModel = ref.watch(profileViewModel);
-    _viewModel.getMyProfile();
+    _viewModel.getProfile(profileId: profileId);
     return Scaffold(
       body: SafeArea(
         child: Container(
           child: Column(
             children: [
               CustomProfileBackground(_viewModel.user?.image ?? '',
-                  _viewModel.user?.username ?? '', _isMyProfile),
+                  _viewModel.user?.username ?? '', profileId.isEmpty),
               Expanded(
                 child: Container(
                   margin: EdgeInsets.symmetric(
                       horizontal: SpookerSize.m20, vertical: SpookerSize.m20),
-                  child: CustomPagerView(),
+                  child: CustomPagerView(profileId: profileId),
                 ),
               ),
             ],

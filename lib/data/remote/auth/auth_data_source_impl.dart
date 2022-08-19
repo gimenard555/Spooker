@@ -1,8 +1,10 @@
+import 'package:encrypt/encrypt.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:spooker/data/remote/auth/auth_data_source.dart';
+import 'package:spooker/ui/utils/spooker_strings.dart';
 
 import '../../local/app_shared_preferences.dart';
 import '../../model/user.dart';
@@ -20,7 +22,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   Future<User?> googleSignIn() async {
     final account = await GoogleSignIn().signIn();
     if (account == null) {
-      return throw StateError('User cancel signIn');
+      return throw StateError(SpookerStrings.googleStateError);
     }
     final auth = await account.authentication;
     final AuthCredential authCredential = GoogleAuthProvider.credential(
@@ -46,20 +48,15 @@ class AuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<void> signOut() {
-    return GoogleSignIn()
-        .signOut()
-        .then((_) => _firebaseAuth.signOut())
-        .catchError((error) {
-      debugPrint(error.toString());
-      throw error;
-    });
+    return _firebaseAuth.signOut();
   }
 
   @override
   Future<User> signIn(String email, String password) async {
     UserCredential credential;
+    final pass = _getEncryptedPassword(password);
     credential = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
+        .signInWithEmailAndPassword(email: email, password: pass);
     final currentUser = _firebaseAuth.currentUser;
     assert(credential.user?.uid == currentUser?.uid);
     await _saveUserLocal();
@@ -74,6 +71,7 @@ class AuthDataSourceImpl implements AuthDataSource {
   @override
   Future<bool> createAccount(SpookerUser user) async {
     var isAuthenticated = false;
+    user.password = _getEncryptedPassword(user.password);
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: user.emailAddress, password: user.password);
     await _firebaseFirestore
@@ -115,5 +113,50 @@ class AuthDataSourceImpl implements AuthDataSource {
       user.id = querySnapshot.docs.first.id;
     });
     return user;
+  }
+
+  @override
+  Future<void> resetMyPassword(String email) async {
+    await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  }
+
+  @override
+  Future<void> updateMyPassword(String lastPassword, String newPassword) async {
+    final databaseUser = await getMyUserInfo();
+    final currentUser = _firebaseAuth.currentUser;
+    if (databaseUser.password == lastPassword) {
+      databaseUser.password = newPassword;
+      await currentUser!.updatePassword(newPassword);
+    }
+  }
+
+  @override
+  Future<SpookerUser> getUserInfo(String profileId) async {
+    late SpookerUser user;
+    await _firebaseFirestore
+        .collection(FirestoreConstants.usersCollection)
+        .doc(profileId)
+        .get()
+        .then((querySnapshot) {
+      user = SpookerUser.fromMap(querySnapshot.data()!);
+      user.id = querySnapshot.id;
+    });
+    return user;
+  }
+
+  String _getEncryptedPassword(String password) {
+    final key = Key.fromUtf8(FirestoreConstants.authKeyEnc);
+    final iv = IV.fromLength(FirestoreConstants.authKeyEncSize);
+    final encrypter = Encrypter(AES(key));
+    final encrypted = encrypter.encrypt(password, iv: iv);
+    return encrypted.base64;
+  }
+
+  String _getDecryptedPassword(String encrypt) {
+    final key = Key.fromUtf8(FirestoreConstants.authKeyEnc);
+    final iv = IV.fromLength(FirestoreConstants.authKeyEncSize);
+    final encrypter = Encrypter(AES(key));
+    final decrypted = encrypter.decrypt64(encrypt, iv: iv);
+    return decrypted;
   }
 }

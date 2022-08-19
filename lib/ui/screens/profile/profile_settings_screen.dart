@@ -3,7 +3,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/components/image/image.dart';
+import 'package:spooker/ui/components/main_screen_extension.dart';
 import 'package:spooker/ui/components/top_bar_view.dart';
+import 'package:spooker/ui/screens/first_screen.dart';
 import 'package:spooker/ui/screens/profile/profile_view_model.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 
@@ -24,7 +26,7 @@ class ProfileSettingsScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     _viewModel = ref.watch(profileViewModel);
-    _viewModel.getMyProfile();
+    _viewModel.getProfile();
     final screenWidth = MediaQuery.of(context).size.width;
     _initControllers();
     return Scaffold(
@@ -127,7 +129,12 @@ class ProfileSettingsScreen extends HookConsumerWidget {
                   SpookerColors.blueCommonTextColor,
                   SpookerStrings.logOut,
                   SpookerFonts.s16BoldLight,
-                  () {},
+                  () {
+                    context.showLoading();
+                    _viewModel
+                        .logOut()
+                        .whenComplete(() => {_manageLogOutState(context)});
+                  },
                 ),
               ),
             ],
@@ -135,6 +142,18 @@ class ProfileSettingsScreen extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  void _manageLogOutState(BuildContext context) {
+    Navigator.pop(context);
+    if (_viewModel.isLogOut) {
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (BuildContext context) => FirstScreen()),
+          (Route<dynamic> route) => false);
+    } else {
+      context.showErrorDialog(SpookerErrorStrings.dialogWrong);
+    }
   }
 
   void _initControllers() {

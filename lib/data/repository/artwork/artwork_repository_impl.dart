@@ -21,8 +21,7 @@ class ArtworkRepositoryImpl extends ArtworkRepository {
 
   @override
   Future<Result<void>> deleteArtwork(String artworkId) {
-    return Result.guardFuture(
-        () => _dataSource.deleteArtwork(artworkId));
+    return Result.guardFuture(() => _dataSource.deleteArtwork(artworkId));
   }
 
   @override
@@ -33,5 +32,10 @@ class ArtworkRepositoryImpl extends ArtworkRepository {
   @override
   Future<Result<void>> updateArtwork(Artwork artwork) {
     return Result.guardFuture(() => _dataSource.updateArtwork(artwork));
+  }
+
+  @override
+  Future<Result<List<Artwork>>> fetchUserArtworks(String userId) {
+    return Result.guardFuture(() => _dataSource.fetchUserArtworks(userId));
   }
 }

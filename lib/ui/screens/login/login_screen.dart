@@ -6,6 +6,7 @@ import 'package:spooker/ui/components/buttons/main_button_view.dart';
 import 'package:spooker/ui/components/main_screen_extension.dart';
 import 'package:spooker/ui/components/screen/authentication_background_screen.dart';
 import 'package:spooker/ui/screens/login/login_view_model.dart';
+import 'package:spooker/ui/screens/login/recover_password_screen.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
@@ -69,7 +70,8 @@ class LoginScreen extends HookConsumerWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => DashboardScreen()),
+                MaterialPageRoute(
+                    builder: (context) => RecoverPasswordScreen()),
               );
             },
             child: Text(
@@ -89,7 +91,7 @@ class LoginScreen extends HookConsumerWidget {
               context.showLoading();
               _viewModel.signIn().whenComplete(() => {_manageState(context)});
             },
-          )),
+          ),),
     ], SpookerStrings.signInText));
   }
 

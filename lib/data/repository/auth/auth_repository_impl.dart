@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:spooker/data/model/result.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:spooker/data/remote/auth/auth_data_source.dart';
@@ -45,5 +44,14 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Result<SpookerUser>> getCurrentUserData() {
     return Result.guardFuture(() => _dataSource.getMyUserInfo());
+  }
+
+  Future<Result<SpookerUser>> getOtherUserData(String profileId) {
+    return Result.guardFuture(() => _dataSource.getUserInfo(profileId));
+  }
+
+  @override
+  Future<Result<void>> resetMyPassword(String email) {
+    return Result.guardFuture(() => _dataSource.resetMyPassword(email));
   }
 }

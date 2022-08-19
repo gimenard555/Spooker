@@ -10,4 +10,6 @@ abstract class EventDataSource {
   Future<void> deleteEvent(String eventId);
 
   Future<void> updateEvent(Event event);
+
+  Future<List<Event>> getUserEvents(String userId);
 }

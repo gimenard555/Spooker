@@ -34,35 +34,80 @@ class ProfileViewModel extends ChangeNotifier {
 
   String myImage = '';
 
-  Future<void> getMyArtworks() {
-    return _artworkRepo
-        .fetchMyArtworks()
-        .then((value) => _artworks = value)
-        .whenComplete(notifyListeners);
+  bool _isSignOut = false;
+
+  bool get isLogOut => _isSignOut;
+
+  Future<void> getArtworks({String userId = ''}) {
+    if (userId.isEmpty) {
+      return _artworkRepo
+          .fetchMyArtworks()
+          .then((value) => _artworks = value)
+          .whenComplete(notifyListeners);
+    } else {
+      return _artworkRepo
+          .fetchUserArtworks(userId)
+          .then((value) => _artworks = value)
+          .whenComplete(notifyListeners);
+    }
   }
 
-  Future<void> getMyEvents() {
-    return _eventsRepo
-        .getMyEvents()
-        .then((value) => _events = value)
-        .whenComplete(notifyListeners);
+  Future<void> getEvents({String userId = ''}) {
+    if (userId.isEmpty) {
+      return _eventsRepo
+          .getMyEvents()
+          .then((value) => _events = value)
+          .whenComplete(notifyListeners);
+    } else {
+      return _eventsRepo
+          .fetchUserEvents(userId)
+          .then((value) => _events = value)
+          .whenComplete(notifyListeners);
+    }
   }
 
-  Future<void> getMyProfile() async {
-    await _repository.getCurrentUserData().then((value) {
+  Future<void> getProfile({String profileId = ''}) async {
+    if (profileId.isEmpty) {
+      await _repository.getCurrentUserData().then((value) {
+        if (value.isSuccess) {
+          value.ifSuccess((data) => _user = data);
+          notifyListeners();
+        } else if (value.isFailure) {
+          value.ifFailure((data) {
+            _user = null;
+            notifyListeners();
+          });
+        }
+      });
+    } else {
+      await _repository.getOtherUserData(profileId).then((value) {
+        if (value.isSuccess) {
+          value.ifSuccess((data) => _user = data);
+          notifyListeners();
+        } else if (value.isFailure) {
+          value.ifFailure((data) {
+            _user = null;
+            notifyListeners();
+          });
+        }
+      });
+    }
+  }
+
+  Future<void> updatePassword() async {}
+
+  Future<void> logOut() async {
+    await _repository.signOut().then((value) {
       if (value.isSuccess) {
-        value.ifSuccess((data) => _user = data);
+        _isSignOut = true;
+        _user = null;
         notifyListeners();
       } else if (value.isFailure) {
         value.ifFailure((data) {
-          _user = null;
+          _isSignOut = false;
           notifyListeners();
         });
       }
     });
   }
-
-  Future<void> updatePassword() async {}
-
-  Future<void> updateUsername() async {}
 }

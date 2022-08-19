@@ -1,12 +1,11 @@
-import 'package:flutter/widgets.dart';
-
-@immutable
 class FirestoreConstants {
   static const eventsCollection = 'event';
   static const artworksCollection = 'artwork';
   static const usersCollection = 'user';
   static const reminderCollection = 'reminder';
   static const userId = 'user_id';
+  static const authKeyEnc = '********NegraLyanna1987*********';
+  static const authKeyEncSize = 16;
 
   //User constants
   static const birthdate = 'birthdate';
@@ -16,4 +15,15 @@ class FirestoreConstants {
   static const username = 'username';
   static const name = 'name';
   static const id = 'userId';
+
+  //artwork constants
+  static const description = 'description';
+  static const privacy = 'privacy';
+
+  //events constants
+  static const date = 'date';
+  static const hour = 'hour';
+  static const tags = 'tags';
+  static const place = 'place';
+  static const datetime = 'datetime';
 }

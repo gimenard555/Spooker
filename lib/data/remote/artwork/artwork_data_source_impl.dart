@@ -18,7 +18,8 @@ class ArtworkDataSourceImpl extends ArtworkDataSource {
 
   @override
   Future<void> createNewArtwork(Artwork artwork) async {
-    final artworkRef = _storage.ref().child('${artwork.name.trim()}.jpg');
+    final artworkRef =
+        _storage.ref().child('${artwork.name.replaceAll(' ', '')}.jpg');
     File file = File(artwork.imagePath);
     await artworkRef.putFile(file);
     var url = await artworkRef.getDownloadURL();
@@ -136,5 +137,24 @@ class ArtworkDataSourceImpl extends ArtworkDataSource {
       username = SpookerUser.fromMap(querySnapshot.data()!).username;
     });
     return username;
+  }
+
+  @override
+  Future<List<Artwork>> fetchUserArtworks(String userId) async {
+    var artworks = <Artwork>[];
+    await _firestore
+        .collection(FirestoreConstants.artworksCollection)
+        .where(FirestoreConstants.userId, isEqualTo: userId)
+        .get()
+        .then(
+          (querySnapshot) => querySnapshot.docs.forEach(
+            (element) {
+              artworks.add(
+                Artwork.fromMap(element.data()),
+              );
+            },
+          ),
+        );
+    return artworks;
   }
 }

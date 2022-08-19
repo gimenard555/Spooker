@@ -11,4 +11,6 @@ abstract class EventRepository {
   Future<Result<void>> deleteEvent(String eventId);
 
   Future<Result<void>> updateEvent(Event event);
+
+  Future<Result<List<Event>>> fetchUserEvents(String userId);
 }

@@ -131,17 +131,17 @@ class CreateAccountViewModel extends ChangeNotifier {
 
   Future<void> createAccount() async {
     var user =
-        SpookerUser(_birthdate, _email, "", _username, "1223456", _username);
+        SpookerUser(_birthdate, _email, "", _username, _password, _username);
     return await _repository.createAccount(user).then((value) {
-          if (value.isSuccess) {
-            value.ifSuccess((flag) => _isAuthenticated = flag);
-            notifyListeners();
-          } else if (value.isFailure) {
-            value.ifFailure((data){
-              _isAuthenticated = false;
-              notifyListeners();
-            });
-          }
+      if (value.isSuccess) {
+        value.ifSuccess((flag) => _isAuthenticated = flag);
+        notifyListeners();
+      } else if (value.isFailure) {
+        value.ifFailure((data) {
+          _isAuthenticated = false;
+          notifyListeners();
         });
+      }
+    });
   }
 }

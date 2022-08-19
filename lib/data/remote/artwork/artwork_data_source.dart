@@ -10,4 +10,6 @@ abstract class ArtworkDataSource {
   Future<void> deleteArtwork(String artworkId);
 
   Future<void> updateArtwork(Artwork artwork);
+
+  Future<List<Artwork>> fetchUserArtworks(String userId);
 }

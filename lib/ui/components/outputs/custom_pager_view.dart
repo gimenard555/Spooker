@@ -10,6 +10,10 @@ import '../../screens/event/user_event_page_view.dart';
 import 'custom_title_text.dart';
 
 class CustomPagerView extends HookConsumerWidget {
+  CustomPagerView({this.profileId = ''});
+
+  final String profileId;
+
   final List<String> _options = [
     SpookerStrings.artworksText,
     SpookerStrings.eventsText
@@ -61,7 +65,7 @@ class CustomPagerView extends HookConsumerWidget {
                     scrollDirection: Axis.horizontal,
                     children: [
                       Container(
-                        child: UserArtworkPageView(),
+                        child: UserArtworkPageView(profileId: profileId),
                         height: constraints.maxHeight,
                         width: constraints.maxWidth,
                       ),
@@ -70,7 +74,7 @@ class CustomPagerView extends HookConsumerWidget {
                         color: Colors.black,
                       ),
                       Container(
-                        child: UserEventPageView(),
+                        child: UserEventPageView(profileId: profileId),
                         height: constraints.maxHeight,
                         width: constraints.maxWidth,
                       ),

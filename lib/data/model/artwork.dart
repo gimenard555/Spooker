@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../remote/FirestoreConstants.dart';
+
 Artwork eventFromMap(String text) => Artwork.fromMap(json.decode(text));
 
 String eventToMap(Artwork data) => json.encode(data.toMap());
@@ -18,20 +20,21 @@ class Artwork {
   String id = '';
 
   factory Artwork.fromMap(Map<String, dynamic> json) => Artwork(
-        json['name'],
-        json['image_path'],
-        json['description'],
-        json['privacy'],
-        username: json['username'],
+        json[FirestoreConstants.name],
+        json[FirestoreConstants.imagePath],
+        json[FirestoreConstants.description],
+        json[FirestoreConstants.privacy],
+        username: json[FirestoreConstants.username],
+        userId: json[FirestoreConstants.userId],
       );
 
   Map<String, dynamic> toMap() => {
-        'name': name,
-        'image_path': imagePath,
-        'description': description,
-        'privacy': privacy,
-        'user_id': userId,
-        'username': username
+        FirestoreConstants.name: name,
+        FirestoreConstants.imagePath: imagePath,
+        FirestoreConstants.description: description,
+        FirestoreConstants.privacy: privacy,
+        FirestoreConstants.userId: userId,
+        FirestoreConstants.username: username
       };
 
   factory Artwork.fromFirestore(DocumentSnapshot document) {

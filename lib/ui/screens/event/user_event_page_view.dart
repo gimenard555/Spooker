@@ -9,11 +9,14 @@ import '../../components/loading/container_with_loading.dart';
 import '../../components/outputs/empty_view.dart';
 import '../../loading_state_view_model.dart';
 import '../../utils/spooker_strings.dart';
-import '../dashboard/dashboard_view_model.dart';
 import '../dashboard/event_item.dart';
 import '../profile/profile_view_model.dart';
 
 class UserEventPageView extends HookConsumerWidget {
+  UserEventPageView({this.profileId = ''});
+
+  final String profileId;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.read(profileViewModel);
@@ -23,7 +26,7 @@ class UserEventPageView extends HookConsumerWidget {
       useMemoized(() {
         return ref
             .read(loadingStateProvider)
-            .whileLoading(() => viewModel.getMyEvents());
+            .whileLoading(() => viewModel.getEvents(userId: profileId));
       }, [events?.toString()]),
     );
 
@@ -40,7 +43,7 @@ class UserEventPageView extends HookConsumerWidget {
                 width: double.infinity,
                 child: RefreshIndicator(
                   onRefresh: () async {
-                    viewModel.getMyEvents();
+                    viewModel.getEvents(userId: profileId);
                   },
                   child: ListView.builder(
                     scrollDirection: Axis.vertical,

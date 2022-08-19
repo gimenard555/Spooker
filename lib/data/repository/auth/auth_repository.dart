@@ -5,10 +5,20 @@ import '../../model/user.dart';
 
 abstract class AuthRepository {
   Future<Result<User>> signIn(String email, String password);
+
   Future<Result<User?>> googleSignIn();
+
   Future<Result<void>> signOut();
+
   Future<Result<bool>> isSignedAny();
+
   Future<Result<bool>> createAccount(SpookerUser user);
+
   Future<Result<bool>> getCurrentUser();
+
   Future<Result<SpookerUser>> getCurrentUserData();
+
+  Future<Result<SpookerUser>> getOtherUserData(String profileId);
+
+  Future<Result<void>> resetMyPassword(String email);
 }

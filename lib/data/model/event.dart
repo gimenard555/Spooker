@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../remote/FirestoreConstants.dart';
+
 Event eventFromMap(String text) => Event.fromMap(json.decode(text));
 
 String eventToMap(Event data) => json.encode(data.toMap());
@@ -39,23 +41,24 @@ class Event {
   String eventId = '';
 
   factory Event.fromMap(Map<String, dynamic> json) => Event(
-      json['name'],
-      json['date'],
-      json['hour'],
-      json['tags'],
-      json['place'],
-      (json['datetime'] as Timestamp).toDate(),
-      username: json['username']);
+      json[FirestoreConstants.name],
+      json[FirestoreConstants.date],
+      json[FirestoreConstants.hour],
+      json[FirestoreConstants.tags],
+      json[FirestoreConstants.place],
+      (json[FirestoreConstants.datetime] as Timestamp).toDate(),
+      username: json[FirestoreConstants.username],
+      userId: json[FirestoreConstants.userId]);
 
   Map<String, dynamic> toMap() => {
-        'name': _name,
-        'date': _date,
-        'hour': _hour,
-        'tags': _tag,
-        'place': _place,
-        'user_id': userId,
-        'username': username,
-        'datetime': datetime
+        FirestoreConstants.name: _name,
+        FirestoreConstants.date: _date,
+        FirestoreConstants.hour: _hour,
+        FirestoreConstants.tags: _tag,
+        FirestoreConstants.place: _place,
+        FirestoreConstants.userId: userId,
+        FirestoreConstants.username: username,
+        FirestoreConstants.datetime: datetime
       };
 
   factory Event.fromFirestore(DocumentSnapshot document) {

@@ -1,6 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/rendering.dart';
-
 enum AppErrorType {
   Network,
   Bad_Request,
@@ -14,19 +11,19 @@ enum AppErrorType {
 }
 
 class AppError {
-  late String message;
-  late AppErrorType type;
+  String message = '';
+  AppErrorType type;
   static const userNotFound = 'user-not-found';
   static const passwordWrong = 'wrong-password';
 
-  AppError(Exception? error) {
+  AppError(Exception? error,
+      {this.message = '', this.type = AppErrorType.Bad_Request}) {
     var message = '';
     if (error.toString().contains(']')) {
       var getMessage = error.toString().split('] ');
       message = getMessage[1];
     }
     type = AppErrorType.Unknown;
-    debugPrint('Error: $message');
     message = message;
   }
 }

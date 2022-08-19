@@ -11,4 +11,6 @@ abstract class ArtworkRepository {
   Future<Result<void>> updateArtwork(Artwork artwork);
 
   Future<Result<List<Artwork>>> fetchMyArtworks();
+
+  Future<Result<List<Artwork>>> fetchUserArtworks(String userId);
 }

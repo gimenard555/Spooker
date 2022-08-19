@@ -77,68 +77,78 @@ class ArtworkDetail extends HookConsumerWidget {
                 style: SpookerFonts.s14RegularDarkBlue,
               ),
             ),
-            Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(
-                        top: SpookerSize.m20,
-                        bottom: SpookerSize.m20,
-                        left: SpookerSize.m20,
-                        right: SpookerSize.m10),
-                    child: CommonButtonView(
-                      SpookerColors.noAvailableColor,
-                      SpookerStrings.delete,
-                      SpookerFonts.s16BoldLight,
-                      () {
-                        context.showDeleteWarning(SpookerStrings.artwork,
-                            (type) {
-                          switch (type) {
-                            case ConfirmationType.DELETE:
-                              _viewModel.deleteArtwork(_artwork.id);
-                              Navigator.pop(context);
-                              break;
-                            case ConfirmationType.CANCEL:
-                              Navigator.pop(context);
-                              break;
-                          }
-                        });
-                      },
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(
-                        top: SpookerSize.m20,
-                        bottom: SpookerSize.m20,
-                        left: SpookerSize.m10,
-                        right: SpookerSize.m20),
-                    child: CommonButtonView(
-                      SpookerColors.spookerBlue,
-                      SpookerStrings.edit,
-                      SpookerFonts.s16BoldLight,
-                      () {
-                        Navigator.pop(context);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => NewArtworkScreen(
-                                    artwork: _artwork,
-                                    artworkId: _artwork.id,
-                                  )),
-                        );
-                      },
-                    ),
-                  ),
-                )
-              ],
-            )
+            _getOptions(context),
           ],
         ),
       ),
     );
+  }
+
+  Widget _getOptions(BuildContext context) {
+    if (_artwork.id.isNotEmpty) {
+      return Row(
+        children: [
+          Expanded(
+            child: Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(
+                  top: SpookerSize.m20,
+                  bottom: SpookerSize.m20,
+                  left: SpookerSize.m20,
+                  right: SpookerSize.m10),
+              child: CommonButtonView(
+                SpookerColors.noAvailableColor,
+                SpookerStrings.delete,
+                SpookerFonts.s16BoldLight,
+                () {
+                  context.showDeleteWarning(SpookerStrings.artwork, (type) {
+                    switch (type) {
+                      case ConfirmationType.DELETE:
+                        _viewModel.deleteArtwork(_artwork.id);
+                        Navigator.pop(context);
+                        break;
+                      case ConfirmationType.CANCEL:
+                        Navigator.pop(context);
+                        break;
+                    }
+                  });
+                },
+              ),
+            ),
+          ),
+          Expanded(
+            child: Container(
+              alignment: Alignment.center,
+              margin: EdgeInsets.only(
+                  top: SpookerSize.m20,
+                  bottom: SpookerSize.m20,
+                  left: SpookerSize.m10,
+                  right: SpookerSize.m20),
+              child: CommonButtonView(
+                SpookerColors.spookerBlue,
+                SpookerStrings.edit,
+                SpookerFonts.s16BoldLight,
+                () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NewArtworkScreen(
+                        artwork: _artwork,
+                        artworkId: _artwork.id,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          )
+        ],
+      );
+    } else {
+      return SizedBox(
+        height: SpookerSize.m60,
+      );
+    }
   }
 }

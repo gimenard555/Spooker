@@ -15,6 +15,7 @@ class TopBarView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final screenHeight = MediaQuery.of(context).size.height;
+
     return Stack(
       children: [
         Container(

@@ -10,12 +10,15 @@ class SpookerStrings {
       'Create your personal account so you can know new friends';
   static const welcomeSignInText =
       'Enter in your account and share your artworks with friends';
+  static const forgotPassword = 'Forgot Password';
+  static const forgotPasswordText = 'Enter your email to recover your password';
   static const loginText = 'Login';
   static const signInText = 'Sign In';
   static const signInGoogleText = 'Sign in with Google';
   static const signUpText = 'Create Your Account';
   static const emailAddressText = 'Email Address';
   static const passwordForgotten = 'Forgot your password?';
+  static const backToLogin = 'Back to sign in';
   static const usernameText = 'Username';
   static const birthdateText = 'Birthdate';
   static const passwordText = 'Password';
@@ -63,6 +66,7 @@ class SpookerStrings {
   static const artwork = 'Artwork';
   static const profile = 'Profile';
   static const cancel = 'Cancel';
+  static const googleStateError = 'User cancel signIn';
 }
 
 @immutable

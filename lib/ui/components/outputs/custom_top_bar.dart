@@ -7,6 +7,7 @@ import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 
+import '../../screens/profile/profile_view_model.dart';
 import '../spooker_borders.dart';
 
 typedef GoToProfile = void Function();
@@ -15,6 +16,7 @@ typedef GoToReminder = void Function();
 
 typedef GoStartMySpooker = void Function();
 
+// ignore: must_be_immutable
 class CustomTopBar extends HookConsumerWidget {
   CustomTopBar(this._goToProfile, this._goToReminder);
 
@@ -23,6 +25,8 @@ class CustomTopBar extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final _viewModel = ref.watch(profileViewModel);
+    _viewModel.getProfile();
     return Container(
       height: SpookerSize.m60,
       width: double.infinity,
@@ -46,14 +50,13 @@ class CustomTopBar extends HookConsumerWidget {
                     height: SpookerSize.m50,
                     child: CircleAvatar(
                       radius: SpookerSize.m20,
-                      backgroundImage: NetworkImage(
-                        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHw%3D&w=1000&q=80",
-                      ),
+                      backgroundImage:
+                          NetworkImage(_viewModel.user?.image ?? ''),
                     )),
               ),
               Container(
                 margin: EdgeInsets.all(SpookerSize.m5),
-                child: Text("Jimenard Rojas Duarte",
+                child: Text(_viewModel.user!.name,
                     style: SpookerFonts.s18RegularBlueCommon),
               ),
               Expanded(child: SizedBox()),

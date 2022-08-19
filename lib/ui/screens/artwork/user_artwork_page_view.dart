@@ -14,6 +14,10 @@ import '../../loading_state_view_model.dart';
 import '../../utils/spooker_strings.dart';
 
 class UserArtworkPageView extends HookConsumerWidget {
+  UserArtworkPageView({this.profileId = ''});
+
+  final String profileId;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.read(profileViewModel);
@@ -24,7 +28,7 @@ class UserArtworkPageView extends HookConsumerWidget {
       useMemoized(() {
         return ref
             .read(loadingStateProvider)
-            .whileLoading(() => viewModel.getMyArtworks());
+            .whileLoading(() => viewModel.getArtworks(userId: profileId));
       }, [artworks?.toString()]),
     );
 
@@ -41,7 +45,7 @@ class UserArtworkPageView extends HookConsumerWidget {
                 width: double.infinity,
                 child: RefreshIndicator(
                   onRefresh: () async {
-                    viewModel.getMyArtworks();
+                    viewModel.getArtworks(userId: profileId);
                   },
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

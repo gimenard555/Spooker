@@ -22,6 +22,7 @@ class EventDataSourceImpl extends EventDataSource {
           (querySnapshot) => querySnapshot.docs.forEach(
             (element) {
               events.add(Event.fromMap(element.data()));
+
             },
           ),
         );
@@ -106,5 +107,22 @@ class EventDataSourceImpl extends EventDataSource {
       username = SpookerUser.fromMap(querySnapshot.data()!).username;
     });
     return username;
+  }
+
+  @override
+  Future<List<Event>> getUserEvents(String userId) async {
+    var events = <Event>[];
+    await _firestore
+        .collection(FirestoreConstants.eventsCollection)
+        .where(FirestoreConstants.userId, isEqualTo: userId)
+        .get()
+        .then(
+          (querySnapshot) => querySnapshot.docs.forEach(
+            (element) {
+              events.add(Event.fromMap(element.data()));
+            },
+          ),
+        );
+    return events;
   }
 }
