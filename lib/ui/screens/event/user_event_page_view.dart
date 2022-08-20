@@ -13,7 +13,7 @@ import '../dashboard/event_item.dart';
 import '../profile/profile_view_model.dart';
 
 class UserEventPageView extends HookConsumerWidget {
-  UserEventPageView({this.profileId = ''});
+  UserEventPageView({this.profileId = SpookerStrings.EMPTY});
 
   final String profileId;
 
@@ -36,7 +36,7 @@ class UserEventPageView extends HookConsumerWidget {
           ? SizedBox()
           : events!.when(success: (data) {
               if (data.isEmpty) {
-                return EmptyView();
+                return EmptyView(SpookerStrings.eventsText.toLowerCase());
               }
               return Container(
                 height: double.infinity,
@@ -56,8 +56,8 @@ class UserEventPageView extends HookConsumerWidget {
               );
             }, failure: (e) {
               context.showErrorDialog(SpookerErrorStrings.dialogWrong);
-              return EmptyView();
-            }),
+              return EmptyView(SpookerStrings.eventsText.toLowerCase(),);
+            },),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:spooker/data/model/event.dart';
 import 'package:spooker/ui/components/main_screen_extension.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
@@ -39,18 +40,20 @@ class NewEventScreen extends HookConsumerWidget {
           reverse: true,
           child: Column(
             children: [
-              TopBarView(SpookerStrings.newArtwork),
+              TopBarView(SpookerStrings.newEvent),
               Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
-                  alignment: Alignment.center,
-                  child: TextFormView(
-                    textController: _titleController,
-                    textHint: SpookerStrings.eventTitle,
-                    errorMessage: '',
-                    isValidText: _titleController.text.isNotEmpty ||
-                        _viewModel.title.isNotEmpty,
-                  )),
+                margin: EdgeInsets.symmetric(
+                    horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+                alignment: Alignment.center,
+                child: TextFormView(
+                  textController: _titleController,
+                  textHint: SpookerStrings.eventTitle,
+                  errorMessage: '',
+                  isValidText: _titleController.text.isNotEmpty ||
+                      _viewModel.title.isNotEmpty,
+                  isCapitalize: true,
+                ),
+              ),
               Container(
                 margin: EdgeInsets.symmetric(
                     horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
@@ -65,8 +68,11 @@ class NewEventScreen extends HookConsumerWidget {
                     FocusManager.instance.primaryFocus?.unfocus();
                     context.showDateDialog((date, dateTime) {
                       _viewModel.date = date;
+                      _viewModel.selectedDate =
+                          DateFormat(SpookerStrings.dateTimeFormat)
+                              .format(dateTime);
                       _dateFieldController.text = date;
-                    });
+                    }, firstDateAge: 0, lastDateAge: 1);
                   },
                 ),
               ),
@@ -96,6 +102,7 @@ class NewEventScreen extends HookConsumerWidget {
                   errorMessage: '',
                   isValidText: _placeFieldController.text.isNotEmpty ||
                       _viewModel.place.isNotEmpty,
+                  isCapitalize: true,
                 ),
               ),
               Container(
@@ -148,6 +155,26 @@ class NewEventScreen extends HookConsumerWidget {
       context: context,
       initialTime: TimeOfDay.now(),
       initialEntryMode: TimePickerEntryMode.dial,
+      builder: (context, child) {
+        return Theme(
+            data: ThemeData(
+              timePickerTheme: TimePickerThemeData(
+                  dialBackgroundColor: SpookerColors.lightSpookerBlue,
+                  hourMinuteColor: SpookerColors.lightSpookerBlue,
+                  dayPeriodTextStyle: SpookerFonts.s14BoldBlueCommon),
+              textTheme: TextTheme(
+                overline: SpookerFonts.s14BoldBlueCommon,
+                headline2: SpookerFonts.s24BoldBlueCommon,
+              ),
+              colorScheme:
+                  ColorScheme.light(primary: SpookerColors.blueCommonTextColor),
+              textButtonTheme: TextButtonThemeData(
+                  style: ButtonStyle(
+                      textStyle: MaterialStateProperty.all<TextStyle>(
+                          SpookerFonts.s14BoldBlueCommon))),
+            ),
+            child: child!);
+      },
     );
     if (timeOfDay != null) {
       MaterialLocalizations localizations = MaterialLocalizations.of(context);

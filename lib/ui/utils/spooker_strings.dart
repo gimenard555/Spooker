@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 
 @immutable
 class SpookerStrings {
-  static const emptyString = '';
   static const spookerAppName = 'Spooker';
   static const firstScreenText =
       'Start sharing your artworks with your friends';
@@ -20,6 +19,7 @@ class SpookerStrings {
   static const passwordForgotten = 'Forgot your password?';
   static const backToLogin = 'Back to sign in';
   static const usernameText = 'Username';
+  static const nameText = 'Your whole name';
   static const birthdateText = 'Birthdate';
   static const passwordText = 'Password';
   static const currentPassword = 'Current password';
@@ -41,6 +41,7 @@ class SpookerStrings {
   static const newSpooker = 'New Spooker';
   static const newArtwork = 'New Artwork';
   static const newReminder = 'New Reminder';
+  static const newEvent = 'New Event';
   static const eventTitle = 'Event Title';
   static const eventDate = 'Event Date';
   static const eventPlace = 'Event Place';
@@ -52,7 +53,8 @@ class SpookerStrings {
   static const reminderPlace = 'Reminder Place (Optional)';
   static const tagType = 'Tag Type';
   static const privacyType = 'Privacy Type';
-  static const emptySpooker = 'There are no live spookers right now';
+  static const emptyView = 'There are no';
+  static const rightNow = 'right now';
   static const reminders = 'Reminders';
   static const reminder = 'Reminder';
   static const delete = 'Delete';
@@ -66,18 +68,18 @@ class SpookerStrings {
   static const artwork = 'Artwork';
   static const profile = 'Profile';
   static const cancel = 'Cancel';
+  static const EMPTY = '';
   static const googleStateError = 'User cancel signIn';
+  static const dateFormat = 'dd MMMM yyyy';
+  static const dateTimeFormat = 'yyyy-MM-dd';
+  static const lastDateFormat = 'yyyy-MM-dd hh:mm a';
 }
 
 @immutable
 class SpookerErrorStrings {
   static const error = 'ERROR';
   static const emailErrorText = 'Enter a valid email address';
-  static const passwordErrorText = "Enter a valid password\n"
-      "Minimum 1 Upper case\n"
-      "Minimum 1 lowercase\n"
-      "Minimum 1 Numeric Number\n"
-      "Minimum 1 Special Character\n";
+  static const passwordErrorText = 'Enter a valid password \n Minimum 1 Upper case \n Minimum 1 lowercase \n Minimum 1 Numeric Number \n Minimum 1 Special Character';
   static const dateErrorText = 'Enter a valid date';
   static const passwordMatch = 'Passwords do not match';
   static const somethingIsWrong = 'something is wrong';

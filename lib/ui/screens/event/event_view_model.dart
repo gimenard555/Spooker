@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:spooker/data/model/event.dart';
 import 'package:spooker/data/provider/top_provider.dart';
 
 import '../../../data/repository/event/event_repository.dart';
+import '../../utils/spooker_strings.dart';
 
 final eventViewModel = ChangeNotifierProvider(
     (ref) => EventViewModel(ref.read(eventRepositoryProvider)));
@@ -58,6 +60,8 @@ class EventViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  String selectedDate = SpookerStrings.EMPTY;
+
   bool isDataCompleted() {
     if (_title.isNotEmpty &&
         _date.isNotEmpty &&
@@ -97,8 +101,8 @@ class EventViewModel extends ChangeNotifier {
   }
 
   Event _createEvent({String idEvent = ''}) {
-    final finalDate = DateTime.now();
-    return Event(_title, _date, _hour, _tag, _place, finalDate,
+    DateFormat format = DateFormat(SpookerStrings.lastDateFormat);
+    return Event(_title, _date, _hour, _tag, _place, format.parse('$selectedDate $hour'),
         eventId: idEvent);
   }
 

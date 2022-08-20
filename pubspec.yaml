@@ -90,6 +90,7 @@ flutter:
     - assets/fonts/montserrat_regular.otf
     - assets/fonts/painterz.ttf
     - assets/images/add.png
+    - assets/images/alert.png
     - assets/images/artwork.png
     - assets/images/back_arrow.png
     - assets/images/back_button.png

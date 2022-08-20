@@ -46,9 +46,10 @@ class NewReminderScreen extends HookConsumerWidget {
                 child: TextFormView(
                   textController: _titleController,
                   textHint: SpookerStrings.reminderTitle,
-                  errorMessage: '',
+                  errorMessage: SpookerStrings.EMPTY,
                   isValidText: _titleController.text.isNotEmpty ||
                       _viewModel.title.isNotEmpty,
+                  isCapitalize: true,
                 ),
               ),
               Container(
@@ -58,19 +59,18 @@ class NewReminderScreen extends HookConsumerWidget {
                 child: TextFormView(
                   textController: _dateFieldController,
                   textHint: SpookerStrings.reminderDate,
-                  errorMessage: '',
+                  errorMessage: SpookerStrings.EMPTY,
                   isValidText: _dateFieldController.text.isNotEmpty ||
                       _viewModel.date.isNotEmpty,
                   onTouchText: () {
                     FocusManager.instance.primaryFocus?.unfocus();
-                    context.showDateDialog(
-                      (date, dateTime) {
-                        _viewModel.date = date;
-                        _viewModel.selectedDate =
-                            DateFormat("yyyy-MM-dd").format(dateTime);
-                        _dateFieldController.text = date;
-                      },
-                    );
+                    context.showDateDialog((date, dateTime) {
+                      _viewModel.date = date;
+                      _viewModel.selectedDate =
+                          DateFormat(SpookerStrings.dateTimeFormat)
+                              .format(dateTime);
+                      _dateFieldController.text = date;
+                    }, firstDateAge: 0, lastDateAge: 1);
                   },
                 ),
               ),
@@ -81,11 +81,12 @@ class NewReminderScreen extends HookConsumerWidget {
                 child: TextFormView(
                   textController: _hourFieldController,
                   textHint: SpookerStrings.reminderHour,
-                  errorMessage: '',
+                  errorMessage: SpookerStrings.EMPTY,
                   isValidText: _hourFieldController.text.isNotEmpty ||
                       _viewModel.hour.isNotEmpty,
                   onTouchText: () {
                     FocusManager.instance.primaryFocus?.unfocus();
+
                     _selectTime(context);
                   },
                 ),
@@ -97,9 +98,10 @@ class NewReminderScreen extends HookConsumerWidget {
                 child: TextFormView(
                   textController: _placeFieldController,
                   textHint: SpookerStrings.reminderPlace,
-                  errorMessage: '',
+                  errorMessage: SpookerStrings.EMPTY,
                   isValidText: _placeFieldController.text.isNotEmpty ||
                       _viewModel.place.isNotEmpty,
+                  isCapitalize: true,
                 ),
               ),
               Container(
@@ -131,6 +133,26 @@ class NewReminderScreen extends HookConsumerWidget {
       context: context,
       initialTime: TimeOfDay.now(),
       initialEntryMode: TimePickerEntryMode.dial,
+      builder: (context, child) {
+        return Theme(
+            data: ThemeData(
+              timePickerTheme: TimePickerThemeData(
+                  dialBackgroundColor: SpookerColors.lightSpookerBlue,
+                  hourMinuteColor: SpookerColors.lightSpookerBlue,
+                  dayPeriodTextStyle: SpookerFonts.s14BoldBlueCommon),
+              textTheme: TextTheme(
+                overline: SpookerFonts.s14BoldBlueCommon,
+                headline2: SpookerFonts.s24BoldBlueCommon,
+              ),
+              colorScheme:
+                  ColorScheme.light(primary: SpookerColors.blueCommonTextColor),
+              textButtonTheme: TextButtonThemeData(
+                  style: ButtonStyle(
+                      textStyle: MaterialStateProperty.all<TextStyle>(
+                          SpookerFonts.s14BoldBlueCommon))),
+            ),
+            child: child!);
+      },
     );
     if (timeOfDay != null) {
       MaterialLocalizations localizations = MaterialLocalizations.of(context);

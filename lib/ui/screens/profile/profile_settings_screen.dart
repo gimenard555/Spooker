@@ -82,7 +82,7 @@ class ProfileSettingsScreen extends HookConsumerWidget {
                 child: TextFormView(
                   textController: _currentPassword,
                   textHint: SpookerStrings.currentPassword,
-                  errorMessage: SpookerStrings.emptyString,
+                  errorMessage: SpookerStrings.EMPTY,
                   isValidText: false,
                   isPassword: true,
                 ),
@@ -94,7 +94,7 @@ class ProfileSettingsScreen extends HookConsumerWidget {
                 child: TextFormView(
                   textController: _newPassword,
                   textHint: SpookerStrings.newPassword,
-                  errorMessage: SpookerStrings.emptyString,
+                  errorMessage: SpookerStrings.EMPTY,
                   isValidText: false,
                   isPassword: true,
                 ),
@@ -106,7 +106,7 @@ class ProfileSettingsScreen extends HookConsumerWidget {
                 child: TextFormView(
                   textController: _repeatPassword,
                   textHint: SpookerStrings.repeatNewPassword,
-                  errorMessage: SpookerStrings.emptyString,
+                  errorMessage: SpookerStrings.EMPTY,
                   isValidText: false,
                   isPassword: true,
                 ),

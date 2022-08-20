@@ -23,7 +23,6 @@ import '../../utils/spooker_colors.dart';
 import '../../utils/spooker_fonts.dart';
 import '../../utils/spooker_sizes.dart';
 import '../../utils/spooker_strings.dart';
-import '../camera/CameraScreen.dart';
 
 // ignore: must_be_immutable
 class NewArtworkScreen extends HookConsumerWidget {
@@ -42,12 +41,6 @@ class NewArtworkScreen extends HookConsumerWidget {
     _viewModel = ref.watch(artworkViewModel);
     _initTextControllers();
     screenWidth = MediaQuery.of(context).size.width;
-    _viewModel.privacy = Privacy.values
-        .map<String>((text) {
-          return text.name;
-        })
-        .toList()
-        .first;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -73,38 +66,46 @@ class NewArtworkScreen extends HookConsumerWidget {
                       ),
                       child: _getImage())),
               Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
-                  alignment: Alignment.center,
-                  child: TextFormView(
-                    textController: _titleController,
-                    textHint: SpookerStrings.artworkTitle,
-                    errorMessage: '',
-                    isValidText: _titleController.text.isNotEmpty ||
-                        _viewModel.title.isNotEmpty,
-                  )),
+                margin: EdgeInsets.symmetric(
+                    horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+                alignment: Alignment.center,
+                child: TextFormView(
+                  textController: _titleController,
+                  textHint: SpookerStrings.artworkTitle,
+                  errorMessage: '',
+                  isValidText: _titleController.text.isNotEmpty ||
+                      _viewModel.title.isNotEmpty,
+                  isCapitalize: true,
+                ),
+              ),
               Container(
-                  margin: EdgeInsets.symmetric(
-                      horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
-                  alignment: Alignment.center,
-                  child: TextFormView(
-                    textController: _descriptionFieldController,
-                    textHint: SpookerStrings.artworkDescription,
-                    errorMessage: '',
-                    isValidText: _descriptionFieldController.text.isNotEmpty ||
-                        _viewModel.description.isNotEmpty,
-                  )),
+                margin: EdgeInsets.symmetric(
+                    horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+                alignment: Alignment.center,
+                child: TextFormView(
+                  textController: _descriptionFieldController,
+                  textHint: SpookerStrings.artworkDescription,
+                  errorMessage: '',
+                  isValidText: _descriptionFieldController.text.isNotEmpty ||
+                      _viewModel.description.isNotEmpty,
+                  isCapitalize: true,
+                ),
+              ),
               Container(
                 margin: EdgeInsets.symmetric(
                     horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
                 alignment: Alignment.center,
                 child: SpinnerView(
-                    SpookerStrings.privacyType,
-                    Privacy.values.map<String>((text) {
-                      return text.name;
-                    }).toList(), (value) {
-                  _viewModel.privacy = value;
-                }),
+                  SpookerStrings.privacyType,
+                  Privacy.values.map<String>(
+                    (text) {
+                      return text.name.replaceAll('_', ' ');
+                    },
+                  ).toList(),
+                  (value) {
+                    _viewModel.privacy = value;
+                  },
+                ),
               ),
               Container(
                 alignment: Alignment.center,
@@ -185,11 +186,12 @@ class NewArtworkScreen extends HookConsumerWidget {
     } else {
       if (_viewModel.file.isNotEmpty) {
         return ClipRRect(
-            borderRadius: SpookerBorders.m30Border,
-            child: Image.file(
-              File(_viewModel.file),
-              fit: BoxFit.cover,
-            ));
+          borderRadius: SpookerBorders.m30Border,
+          child: Image.file(
+            File(_viewModel.file),
+            fit: BoxFit.cover,
+          ),
+        );
       } else {
         return Assets.images.emptyImageIcon.image();
       }

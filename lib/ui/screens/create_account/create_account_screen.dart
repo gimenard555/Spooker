@@ -21,6 +21,7 @@ class CreateAccountScreen extends HookConsumerWidget {
   late TextEditingController _passwordFieldController;
   late TextEditingController _confirmPasswordFieldController;
   late TextEditingController _birthdateFieldController;
+  late TextEditingController _wholeNameController;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,70 +30,91 @@ class CreateAccountScreen extends HookConsumerWidget {
     return Scaffold(
       body: AuthenticationBackground([
         Container(
-            margin: EdgeInsets.all(SpookerSize.m20),
-            alignment: Alignment.topCenter,
-            child: Text(
-              SpookerStrings.welcomeSignUpText,
-              textAlign: TextAlign.center,
-              style: SpookerFonts.s16BoldBlueCommon,
-            )),
+          margin: EdgeInsets.all(SpookerSize.m20),
+          alignment: Alignment.topCenter,
+          child: Text(
+            SpookerStrings.welcomeSignUpText,
+            textAlign: TextAlign.center,
+            style: SpookerFonts.s16BoldBlueCommon,
+          ),
+        ),
         Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
-            alignment: Alignment.center,
-            child: TextFormView(
-              textController: _emailFieldController,
-              textHint: SpookerStrings.emailAddressText,
-              errorMessage: _viewModel.errorEmailMessage,
-              isValidText: _viewModel.isValidEmail(),
-            )),
+          margin: EdgeInsets.symmetric(
+              horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+          alignment: Alignment.center,
+          child: TextFormView(
+            textController: _emailFieldController,
+            textHint: SpookerStrings.emailAddressText,
+            errorMessage: _viewModel.errorEmailMessage,
+            isValidText: _viewModel.isValidEmail(),
+          ),
+        ),
         Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
-            alignment: Alignment.center,
-            child: TextFormView(
-              textController: _usernameFieldController,
-              textHint: SpookerStrings.usernameText,
-              errorMessage: _viewModel.errorUsernameMessage,
-              isValidText: _viewModel.isValidUsername(),
-            )),
+          margin: EdgeInsets.symmetric(
+              horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+          alignment: Alignment.center,
+          child: TextFormView(
+            textController: _wholeNameController,
+            textHint: SpookerStrings.nameText,
+            errorMessage: SpookerStrings.EMPTY,
+            isValidText: _viewModel.isWholeName,
+            isCapitalize: true,
+          ),
+        ),
         Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
-            alignment: Alignment.center,
-            child: TextFormView(
-              textController: _birthdateFieldController,
-              textHint: SpookerStrings.birthdateText,
-              errorMessage: '',
-              isValidText: _viewModel.birthdate.isNotEmpty,
-              onTouchText: () {
-                FocusManager.instance.primaryFocus?.unfocus();
-                context.showDateDialog((date, dateTime) {
-                  _viewModel.saveBirthdate(date);
-                  _birthdateFieldController.text = date;
-                });
-              },
-            )),
+          margin: EdgeInsets.symmetric(
+              horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+          alignment: Alignment.center,
+          child: TextFormView(
+            textController: _usernameFieldController,
+            textHint: SpookerStrings.usernameText,
+            errorMessage: _viewModel.errorUsernameMessage,
+            isValidText: _viewModel.isValidUsername(),
+            isCapitalize: true,
+          ),
+        ),
         Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
-            alignment: Alignment.center,
-            child: TextFormView(
-              textController: _passwordFieldController,
-              textHint: SpookerStrings.passwordText,
-              errorMessage: _viewModel.errorPasswordMessage,
-              isValidText: _viewModel.isValidPassword(),
-            )),
+          margin: EdgeInsets.symmetric(
+              horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+          alignment: Alignment.center,
+          child: TextFormView(
+            textController: _birthdateFieldController,
+            textHint: SpookerStrings.birthdateText,
+            errorMessage: SpookerStrings.EMPTY,
+            isValidText: _viewModel.birthdate.isNotEmpty,
+            onTouchText: () {
+              FocusManager.instance.primaryFocus?.unfocus();
+              context.showDateDialog((date, dateTime) {
+                _viewModel.saveBirthdate(date);
+                _birthdateFieldController.text = date;
+              }, isBefore: true, firstDateAge: 18, lastDateAge: 14);
+            },
+          ),
+        ),
         Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
-            alignment: Alignment.center,
-            child: TextFormView(
-              textController: _confirmPasswordFieldController,
-              textHint: SpookerStrings.confirmPasswordText,
-              errorMessage: _viewModel.errorConfirmedPasswordMessage,
-              isValidText: _viewModel.isValidConfirmedPass(),
-            )),
+          margin: EdgeInsets.symmetric(
+              horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+          alignment: Alignment.center,
+          child: TextFormView(
+            textController: _passwordFieldController,
+            textHint: SpookerStrings.passwordText,
+            errorMessage: _viewModel.errorPasswordMessage,
+            isValidText: _viewModel.isValidPassword(),
+            isPassword: true,
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.symmetric(
+              horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
+          alignment: Alignment.center,
+          child: TextFormView(
+            textController: _confirmPasswordFieldController,
+            textHint: SpookerStrings.confirmPasswordText,
+            errorMessage: _viewModel.errorConfirmedPasswordMessage,
+            isValidText: _viewModel.isValidConfirmedPass(),
+            isPassword: true,
+          ),
+        ),
         Container(
           alignment: Alignment.center,
           margin: EdgeInsets.symmetric(
@@ -129,38 +151,36 @@ class CreateAccountScreen extends HookConsumerWidget {
   void _initAllTextEditing() {
     _emailFieldController =
         useTextEditingController.fromValue(TextEditingValue.empty);
-    _emailFieldController.addListener(_manageEmailChanges);
+    _emailFieldController.addListener(() {
+      _viewModel.isEmailAvaliable(_emailFieldController.text);
+    });
+
+    _wholeNameController =
+        useTextEditingController.fromValue(TextEditingValue.empty);
+    _wholeNameController.addListener(() {
+      _viewModel.wholeName = _wholeNameController.text;
+    });
 
     _usernameFieldController =
         useTextEditingController.fromValue(TextEditingValue.empty);
-    _usernameFieldController.addListener(_manageUsernameChanges);
+    _usernameFieldController.addListener(() {
+      _viewModel.isUsernameAvaliable(_usernameFieldController.text);
+    });
 
     _birthdateFieldController =
         useTextEditingController.fromValue(TextEditingValue.empty);
 
     _passwordFieldController =
         useTextEditingController.fromValue(TextEditingValue.empty);
-    _passwordFieldController.addListener(_managePasswordChanges);
+    _passwordFieldController.addListener(() {
+      _viewModel.isPasswordAvaliable(_passwordFieldController.text);
+    });
 
     _confirmPasswordFieldController =
         useTextEditingController.fromValue(TextEditingValue.empty);
-    _confirmPasswordFieldController.addListener(_manageConfirmPasswordChanges);
-  }
-
-  void _manageEmailChanges() {
-    _viewModel.isEmailAvaliable(_emailFieldController.text);
-  }
-
-  void _manageUsernameChanges() {
-    _viewModel.isUsernameAvaliable(_usernameFieldController.text);
-  }
-
-  void _managePasswordChanges() {
-    _viewModel.isPasswordAvaliable(_passwordFieldController.text);
-  }
-
-  void _manageConfirmPasswordChanges() {
-    _viewModel
-        .isConfirmedPasswordAvaliable(_confirmPasswordFieldController.text);
+    _confirmPasswordFieldController.addListener(() {
+      _viewModel
+          .isConfirmedPasswordAvaliable(_confirmPasswordFieldController.text);
+    });
   }
 }

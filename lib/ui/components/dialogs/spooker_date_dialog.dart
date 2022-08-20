@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:spooker/ui/components/spooker_borders.dart';
@@ -8,15 +9,19 @@ import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
 import '../../../data/model/enums.dart';
+import '../../utils/spooker_numbers.dart';
 import '../buttons/common_button_view.dart';
 
 typedef OnDateSelected = void Function(String date, DateTime dateTime);
 
 class SpookerDateDialog extends HookConsumerWidget {
-  SpookerDateDialog(this.onDateSelected, {this.hasLimit = false});
+  SpookerDateDialog(this.onDateSelected, this.isBefore,
+      {this.firstDateAge = 0, this.lastDateAge = 0});
 
   final OnDateSelected onDateSelected;
-  final bool hasLimit;
+  final bool isBefore;
+  final int firstDateAge;
+  final int lastDateAge;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -72,17 +77,28 @@ class SpookerDateDialog extends HookConsumerWidget {
               ),
               Container(
                 margin: EdgeInsets.symmetric(
-                    horizontal: SpookerSize.m20, vertical: SpookerSize.m5),
-                child: CalendarDatePicker(
-                  initialDate: DateTime.now(),
-                  firstDate: DateTime.now().add(Duration(days: -5114)),
-                  lastDate: getLastDate(),
-                  onDateChanged: (DateTime selectedDate) {
-                    var textDate =
-                        DateFormat('dd MMMM yyyy').format(selectedDate);
-                    dateSelected.selectDate(textDate);
-                    onDateSelected(textDate, selectedDate);
-                  },
+                    horizontal: SpookerSize.m10, vertical: SpookerSize.m5),
+                child: Theme(
+                  data: ThemeData(
+                    colorScheme:
+                        ColorScheme.light(primary: SpookerColors.darkBlue),
+                    textTheme: TextTheme(
+                      caption: SpookerFonts.s14RegularDark,
+                      bodyText1: SpookerFonts.s14RegularDark,
+                      subtitle2: SpookerFonts.s16RegularDarkBlue,
+                    ),
+                  ),
+                  child: CalendarDatePicker(
+                    initialDate: getCurrentDate(),
+                    firstDate: getDate(firstDateAge),
+                    lastDate: getDate(lastDateAge),
+                    onDateChanged: (DateTime selectedDate) {
+                      var textDate = DateFormat(SpookerStrings.dateFormat)
+                          .format(selectedDate);
+                      dateSelected.selectDate(textDate);
+                      onDateSelected(textDate, selectedDate);
+                    },
+                  ),
                 ),
               ),
               Container(
@@ -105,11 +121,24 @@ class SpookerDateDialog extends HookConsumerWidget {
     );
   }
 
-  DateTime getLastDate() {
-    if (hasLimit) {
+  DateTime getDate(int years) {
+    if (years.isEqual(SpookerNumbers.zero)) {
       return DateTime.now();
+    }
+    if (isBefore) {
+      return DateTime.now()
+          .subtract(Duration(days: years * SpookerNumbers.daysOnYear));
     } else {
-      return DateTime.now().add(Duration(days: 365));
+      return DateTime.now()
+          .add(Duration(days: years * SpookerNumbers.daysOnYear));
+    }
+  }
+
+  DateTime getCurrentDate() {
+    if (isBefore) {
+      return getDate(lastDateAge);
+    } else {
+      return getDate(firstDateAge);
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/ui/utils/spooker_colors.dart';
 import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
+import 'package:spooker/ui/utils/spooker_strings.dart';
 
 import '../../../gen/assets.gen.dart';
 import '../spooker_borders.dart';
@@ -20,7 +21,6 @@ class SpinnerView extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final optionSelected = ref.watch(onOptionSelectedProvider);
-    optionSelected.option = _itemsName[0];
     return Row(
       children: [
         Expanded(
@@ -56,7 +56,7 @@ class SpinnerView extends HookConsumerWidget {
             underline: Container(
               height: SpookerSize.zero,
             ),
-            value: optionSelected.option,
+            value: getFirstValue(optionSelected.option),
             onChanged: (newValue) {
               optionSelected.option = newValue!;
               _onOptionSelected(newValue);
@@ -66,7 +66,7 @@ class SpinnerView extends HookConsumerWidget {
                 value: value,
                 child: Text(
                   value,
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.left,
                   style: SpookerFonts.s14RegularDark,
                 ),
               );
@@ -76,13 +76,21 @@ class SpinnerView extends HookConsumerWidget {
       ],
     );
   }
+
+  String getFirstValue(String text) {
+    if (text.isEmpty) {
+      return _itemsName[0];
+    } else {
+      return text;
+    }
+  }
 }
 
 final onOptionSelectedProvider =
     ChangeNotifierProvider((ref) => OptionSelected());
 
 class OptionSelected extends ChangeNotifier {
-  String _option = '';
+  String _option = SpookerStrings.EMPTY;
 
   String get option => _option;
 

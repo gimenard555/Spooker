@@ -73,7 +73,7 @@ class DashboardScreen extends HookConsumerWidget {
               ? SizedBox()
               : artworks!.when(success: (data) {
                   if (data.isEmpty) {
-                    return EmptyView();
+                    return EmptyView(SpookerStrings.artworksText.toLowerCase());
                   }
                   return Container(
                     height: SpookerSize.m200,
@@ -93,7 +93,7 @@ class DashboardScreen extends HookConsumerWidget {
                   );
                 }, failure: (e) {
                   context.showErrorDialog(SpookerErrorStrings.dialogWrong);
-                  return EmptyView();
+                  return EmptyView(SpookerStrings.artworksText.toLowerCase());
                 }),
         ),
         Container(
@@ -110,7 +110,7 @@ class DashboardScreen extends HookConsumerWidget {
                 ? SizedBox()
                 : events!.when(success: (data) {
                     if (data.isEmpty) {
-                      return EmptyView();
+                      return EmptyView(SpookerStrings.eventsText.toLowerCase());
                     }
                     return Container(
                       padding: EdgeInsets.all(SpookerSize.m10),
@@ -131,7 +131,7 @@ class DashboardScreen extends HookConsumerWidget {
                     );
                   }, failure: (e) {
                     context.showErrorDialog(SpookerErrorStrings.dialogWrong);
-                    return EmptyView();
+                    return EmptyView(SpookerStrings.eventsText.toLowerCase());
                   }),
           ),
         )

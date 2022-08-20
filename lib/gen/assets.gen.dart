@@ -41,6 +41,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/add.png
   AssetGenImage get add => const AssetGenImage('assets/images/add.png');
 
+  /// File path: assets/images/alert.png
+  AssetGenImage get alert => const AssetGenImage('assets/images/alert.png');
+
   /// File path: assets/images/artwork.png
   AssetGenImage get artwork => const AssetGenImage('assets/images/artwork.png');
 

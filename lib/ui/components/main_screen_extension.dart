@@ -33,61 +33,73 @@ extension MainScreen on BuildContext {
     );
   }
 
-  void showDateDialog(OnDateSelected dateSelected) {
+  void showDateDialog(OnDateSelected dateSelected,
+      {bool isBefore = false, int firstDateAge = 0, int lastDateAge = 0}) {
     showDialog(
-        context: this,
-        barrierDismissible: false,
-        builder: (_) {
-          return SpookerDateDialog(dateSelected);
-        });
+      context: this,
+      barrierDismissible: false,
+      builder: (_) {
+        return SpookerDateDialog(
+          dateSelected,
+          isBefore,
+          firstDateAge: firstDateAge,
+          lastDateAge: lastDateAge,
+        );
+      },
+    );
   }
 
   void showOptions() {
     showDialog(
-        context: this,
-        barrierDismissible: true,
-        barrierColor: SpookerColors.optionsBackground,
-        builder: (_) {
-          return OptionDialog();
-        });
+      context: this,
+      barrierDismissible: true,
+      barrierColor: SpookerColors.optionsBackground,
+      builder: (_) {
+        return OptionDialog();
+      },
+    );
   }
 
   void showReminderDetail(Reminder reminder) {
     showDialog(
-        context: this,
-        barrierDismissible: false,
-        builder: (_) {
-          return ReminderDetailDialog(reminder);
-        });
+      context: this,
+      barrierDismissible: false,
+      builder: (_) {
+        return ReminderDetailDialog(reminder);
+      },
+    );
   }
 
   void showDeleteWarning(
       String deletedObject, DeleteConfirmationOptionSelected option) {
     showDialog(
-        context: this,
-        barrierDismissible: false,
-        builder: (_) {
-          return DeleteConfirmationDialog(deletedObject, option);
-        });
+      context: this,
+      barrierDismissible: false,
+      builder: (_) {
+        return DeleteConfirmationDialog(deletedObject, option);
+      },
+    );
   }
 
   void showPhotoOptions(ImageOptionSelected optionSelected) {
     showModalBottomSheet(
-        context: this,
-        shape: RoundedRectangleBorder(borderRadius: SpookerBorders.m30Border),
-        backgroundColor: SpookerColors.transparent,
-        barrierColor: SpookerColors.optionsBackground,
-        builder: (_) {
-          return ImageBottomSheet(optionSelected);
-        });
+      context: this,
+      shape: RoundedRectangleBorder(borderRadius: SpookerBorders.m30Border),
+      backgroundColor: SpookerColors.transparent,
+      barrierColor: SpookerColors.optionsBackground,
+      builder: (_) {
+        return ImageBottomSheet(optionSelected);
+      },
+    );
   }
 
   void showEventDetail(Event event) {
     showDialog(
-        context: this,
-        barrierDismissible: false,
-        builder: (_) {
-          return EventDetailDialog(event);
-        });
+      context: this,
+      barrierDismissible: false,
+      builder: (_) {
+        return EventDetailDialog(event);
+      },
+    );
   }
 }

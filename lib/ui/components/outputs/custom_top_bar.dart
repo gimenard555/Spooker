@@ -8,6 +8,7 @@ import 'package:spooker/ui/utils/spooker_fonts.dart';
 import 'package:spooker/ui/utils/spooker_sizes.dart';
 
 import '../../screens/profile/profile_view_model.dart';
+import '../../utils/spooker_strings.dart';
 import '../spooker_borders.dart';
 
 typedef GoToProfile = void Function();
@@ -56,7 +57,7 @@ class CustomTopBar extends HookConsumerWidget {
               ),
               Container(
                 margin: EdgeInsets.all(SpookerSize.m5),
-                child: Text(_viewModel.user!.name,
+                child: Text(_viewModel.user?.name ?? SpookerStrings.EMPTY,
                     style: SpookerFonts.s18RegularBlueCommon),
               ),
               Expanded(child: SizedBox()),

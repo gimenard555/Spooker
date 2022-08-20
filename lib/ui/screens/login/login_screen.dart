@@ -59,7 +59,7 @@ class LoginScreen extends HookConsumerWidget {
           child: TextFormView(
             textController: _passwordFieldController,
             textHint: SpookerStrings.passwordText,
-            errorMessage: SpookerStrings.emptyString,
+            errorMessage: SpookerStrings.EMPTY,
             isValidText: _viewModel.isValidPass(),
             isPassword: true,
           )),

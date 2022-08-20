@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:get/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:spooker/data/model/user.dart';
 import 'package:spooker/ui/utils/spooker_strings.dart';
@@ -17,21 +18,36 @@ class CreateAccountViewModel extends ChangeNotifier {
   final AuthRepository _repository;
 
   ///Validations
-  String _email = '';
+  String _email = SpookerStrings.EMPTY;
   String? _errorEmailMessage;
+
+  String _wholeName = SpookerStrings.EMPTY;
+  bool _isWholeName = false;
+
+  bool get isWholeName => _isWholeName;
+
+  set wholeName(String name) {
+    _wholeName = name;
+    if (_wholeName.isNotEmpty) {
+      _isWholeName = true;
+    } else {
+      _isWholeName = false;
+    }
+    notifyListeners();
+  }
 
   String? get errorEmailMessage => _errorEmailMessage;
 
-  String _username = '';
+  String _username = SpookerStrings.EMPTY;
   String? _errorUsernameMessage;
 
   String? get errorUsernameMessage => _errorUsernameMessage;
 
-  String _birthdate = '';
+  String _birthdate = SpookerStrings.EMPTY;
 
   String get birthdate => _birthdate;
 
-  String _password = '';
+  String _password = SpookerStrings.EMPTY;
   String? _errorPasswordMessage;
 
   String? get errorPasswordMessage => _errorPasswordMessage;
@@ -104,7 +120,7 @@ class CreateAccountViewModel extends ChangeNotifier {
     if (_password != text) {
       _errorConfirmedPasswordMessage = SpookerErrorStrings.passwordMatch;
     } else {
-      _errorConfirmedPasswordMessage = '';
+      _errorConfirmedPasswordMessage = SpookerStrings.EMPTY;
     }
     notifyListeners();
   }
@@ -119,10 +135,13 @@ class CreateAccountViewModel extends ChangeNotifier {
   }
 
   bool isDataCompleted() {
-    if (_username.isNotEmpty &&
+    if (_isWholeName &&
+        _username.isNotEmpty &&
         _email.isNotEmpty &&
         _password.isNotEmpty &&
-        _birthdate.isNotEmpty) {
+        _birthdate.isNotEmpty &&
+        (_errorConfirmedPasswordMessage == null ||
+            _errorConfirmedPasswordMessage!.isEmpty)) {
       return true;
     } else {
       return false;

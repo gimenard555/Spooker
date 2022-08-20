@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:spooker/data/provider/top_provider.dart';
 
 import '../../../data/model/reminder.dart';
 import '../../../data/model/result.dart';
 import '../../../data/repository/reminder/reminder_repository.dart';
+import '../../utils/spooker_strings.dart';
 
 final reminderViewModelProvider = ChangeNotifierProvider(
     (ref) => ReminderViewModel(ref.read(reminderRepositoryProvider)));
@@ -12,7 +14,7 @@ final reminderViewModelProvider = ChangeNotifierProvider(
 class ReminderViewModel extends ChangeNotifier {
   ReminderViewModel(this._repository);
 
-  String _title = '';
+  String _title = SpookerStrings.EMPTY;
 
   String get title => _title;
 
@@ -21,16 +23,18 @@ class ReminderViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _date = '';
+  String _date = SpookerStrings.EMPTY;
 
   String get date => _date;
+
+  DateTime dateTime = DateTime.now();
 
   set date(String text) {
     _date = text;
     notifyListeners();
   }
 
-  String _hour = '';
+  String _hour = SpookerStrings.EMPTY;
 
   String get hour => _hour;
 
@@ -39,7 +43,7 @@ class ReminderViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _place = '';
+  String _place = SpookerStrings.EMPTY;
 
   String get place => _place;
 
@@ -48,7 +52,7 @@ class ReminderViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  String selectedDate = '';
+  String selectedDate = SpookerStrings.EMPTY;
 
   final ReminderRepository _repository;
   Result<List<Reminder>>? _reminders;
@@ -112,9 +116,10 @@ class ReminderViewModel extends ChangeNotifier {
     });
   }
 
-  Reminder createReminder({String idReminder = ''}) {
-    final finalDate = DateTime.now();
-    return Reminder(_date, _title, _hour, true, finalDate, _place,
+  Reminder createReminder({String idReminder = SpookerStrings.EMPTY}) {
+    DateFormat format = DateFormat(SpookerStrings.lastDateFormat);
+    return Reminder(
+        _date, _title, _hour, true, format.parse('$selectedDate $hour'), _place,
         id: idReminder);
   }
 

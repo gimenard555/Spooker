@@ -38,7 +38,7 @@ class UserArtworkPageView extends HookConsumerWidget {
           ? SizedBox()
           : artworks!.when(success: (data) {
               if (data.isEmpty) {
-                return EmptyView();
+                return EmptyView(SpookerStrings.artworksText.toLowerCase());
               }
               return Container(
                 height: double.infinity,
@@ -62,7 +62,7 @@ class UserArtworkPageView extends HookConsumerWidget {
               );
             }, failure: (e) {
               context.showErrorDialog(SpookerErrorStrings.dialogWrong);
-              return EmptyView();
+              return EmptyView(SpookerStrings.artworksText.toLowerCase());
             }),
     );
   }

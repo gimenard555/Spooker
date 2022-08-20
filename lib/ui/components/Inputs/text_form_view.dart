@@ -18,7 +18,8 @@ class TextFormView extends HookConsumerWidget {
       required this.isValidText,
       this.autofocus,
       this.isPassword,
-      this.onTouchText});
+      this.onTouchText,
+      this.isCapitalize = false});
 
   final TextEditingController textController;
   final String textHint;
@@ -26,6 +27,7 @@ class TextFormView extends HookConsumerWidget {
   final String? errorMessage;
   bool? isPassword = false;
   bool? autofocus = false;
+  bool isCapitalize = false;
   WhenPressTextForm? onTouchText;
 
   @override
@@ -38,6 +40,7 @@ class TextFormView extends HookConsumerWidget {
               onTouchText!();
             }
           },
+          textCapitalization: _getCapitalizeByFlag(),
           obscureText: this.isPassword ??= false,
           enableSuggestions: this.isPassword ??= true,
           autocorrect: this.isPassword ??= true,
@@ -70,15 +73,18 @@ class TextFormView extends HookConsumerWidget {
           visible: getAvailable(errorMessage),
           child: Row(
             children: [
-              Assets.images.backArrow.image(),
-              SizedBox(width: SpookerSize.m8),
-              Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    getErrorMessage(),
-                    textAlign: TextAlign.center,
-                    style: SpookerFonts.s16RegularRed,
-                  )),
+              Container(
+                child: Assets.images.alert.image(),
+              ),
+              SizedBox(width: SpookerSize.m20),
+              Container(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  getErrorMessage(),
+                  textAlign: TextAlign.left,
+                  style: SpookerFonts.s16RegularRed,
+                ),
+              ),
             ],
           ),
         )
@@ -88,7 +94,7 @@ class TextFormView extends HookConsumerWidget {
 
   String getErrorMessage() {
     if (this.errorMessage == null) {
-      return SpookerStrings.emptyString;
+      return SpookerStrings.EMPTY;
     } else {
       return errorMessage!;
     }
@@ -127,6 +133,14 @@ class TextFormView extends HookConsumerWidget {
       } else {
         return SpookerFonts.s14RegularDark;
       }
+    }
+  }
+
+  TextCapitalization _getCapitalizeByFlag() {
+    if (isCapitalize) {
+      return TextCapitalization.sentences;
+    } else {
+      return TextCapitalization.none;
     }
   }
 }

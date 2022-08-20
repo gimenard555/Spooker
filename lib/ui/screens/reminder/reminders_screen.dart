@@ -42,12 +42,13 @@ class RemindersScreen extends HookConsumerWidget {
                     ? Container(
                         alignment: Alignment.center,
                         child: Wrap(children: [
-                          EmptyView(),
+                          EmptyView(SpookerStrings.reminders.toLowerCase()),
                         ]),
                       )
                     : reminders!.when(success: (data) {
                         if (data.isEmpty) {
-                          return EmptyView();
+                          return EmptyView(
+                              SpookerStrings.reminders.toLowerCase());
                         }
                         return Container(
                           child: RefreshIndicator(
@@ -66,7 +67,8 @@ class RemindersScreen extends HookConsumerWidget {
                       }, failure: (e) {
                         context
                             .showErrorDialog(SpookerErrorStrings.dialogWrong);
-                        return EmptyView();
+                        return EmptyView(
+                            SpookerStrings.reminders.toLowerCase());
                       }),
               ),
             ),
