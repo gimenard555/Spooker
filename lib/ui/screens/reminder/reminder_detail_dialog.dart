@@ -11,7 +11,6 @@ import '../../utils/spooker_colors.dart';
 import '../../utils/spooker_fonts.dart';
 import '../../utils/spooker_sizes.dart';
 import '../../utils/spooker_strings.dart';
-import '../../components/outputs/custom_tag_text.dart';
 import '../../components/spooker_borders.dart';
 import 'new_reminder_screen.dart';
 
@@ -77,7 +76,7 @@ class ReminderDetailDialog extends HookConsumerWidget {
                           horizontal: SpookerSize.m20,
                         ),
                         child: Text(
-                          'BY @${_reminder.userId}',
+                          'BY @${_reminder.username}',
                           textAlign: TextAlign.center,
                           style: SpookerFonts.s16BoldBlueCommon,
                         ),
@@ -172,9 +171,9 @@ class ReminderDetailDialog extends HookConsumerWidget {
                     ],
                   ),
                 ),
-                Container(
+                /*Container(
                     alignment: Alignment.topCenter,
-                    child: TagText(_reminder.description)),
+                    child: TagText(_reminder.description),),*/
               ],
             ),
           ],

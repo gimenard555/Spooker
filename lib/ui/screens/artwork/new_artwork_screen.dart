@@ -99,7 +99,7 @@ class NewArtworkScreen extends HookConsumerWidget {
                   SpookerStrings.privacyType,
                   Privacy.values.map<String>(
                     (text) {
-                      return text.name.replaceAll('_', ' ');
+                      return text.name;
                     },
                   ).toList(),
                   (value) {

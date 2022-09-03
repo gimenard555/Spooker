@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:spooker/data/model/reminder.dart';
 import 'package:spooker/data/remote/reminder/reminder_data_source.dart';
 
+import '../../model/user.dart';
 import '../FirestoreConstants.dart';
 
 class ReminderDataSourceImpl extends ReminderDataSource {
@@ -34,6 +35,7 @@ class ReminderDataSourceImpl extends ReminderDataSource {
   @override
   Future<void> createNewReminder(Reminder reminder) async {
     reminder.userId = await getUserId();
+    reminder.username = await getUsername();
     await _firebaseFirestore
         .collection(FirestoreConstants.reminderCollection)
         .add(reminder.toMap())
@@ -73,5 +75,18 @@ class ReminderDataSourceImpl extends ReminderDataSource {
       userId = querySnapshot.docs.first.id;
     });
     return userId;
+  }
+
+  Future<String> getUsername() async {
+    var username = '';
+    var userId = await getUserId();
+    await _firebaseFirestore
+        .collection(FirestoreConstants.usersCollection)
+        .doc(userId)
+        .get()
+        .then((querySnapshot) {
+      username = SpookerUser.fromMap(querySnapshot.data()!).username;
+    });
+    return username;
   }
 }

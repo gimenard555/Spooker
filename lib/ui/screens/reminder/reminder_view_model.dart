@@ -119,7 +119,7 @@ class ReminderViewModel extends ChangeNotifier {
   Reminder createReminder({String idReminder = SpookerStrings.EMPTY}) {
     DateFormat format = DateFormat(SpookerStrings.lastDateFormat);
     return Reminder(
-        _date, _title, _hour, true, format.parse('$selectedDate $hour'), _place,
+        _date, _title, _hour, false, format.parse('$selectedDate $hour'), _place,
         id: idReminder);
   }
 

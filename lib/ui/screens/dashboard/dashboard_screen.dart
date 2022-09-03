@@ -1,3 +1,4 @@
+import 'package:agora_rtc_engine/rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -15,6 +16,7 @@ import '../../utils/spooker_colors.dart';
 import '../../utils/spooker_sizes.dart';
 import '../profile/profile_screen.dart';
 import '../reminder/reminders_screen.dart';
+import '../spooker/video_call_screen.dart';
 import 'artwork_item.dart';
 import 'dashboard_view_model.dart';
 
@@ -47,19 +49,31 @@ class DashboardScreen extends HookConsumerWidget {
       body: SafeArea(
           child: Column(children: [
         Container(
-            margin: EdgeInsets.symmetric(
-                horizontal: SpookerSize.m10, vertical: SpookerSize.m5),
-            child: CustomTopBar(() {
+          margin: EdgeInsets.symmetric(
+              horizontal: SpookerSize.m10, vertical: SpookerSize.m5),
+          child: CustomTopBar(
+            () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ProfileScreen()),
               );
-            }, () {
+            },
+            () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => RemindersScreen()),
               );
-            })),
+            },
+            () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => VideoCallScreen(
+                        'spooker_test', ClientRole.Audience)),
+              );
+            },
+          ),
+        ),
         Container(
           margin: EdgeInsets.symmetric(
               horizontal: SpookerSize.m20, vertical: SpookerSize.m10),

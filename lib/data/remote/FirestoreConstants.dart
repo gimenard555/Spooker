@@ -26,4 +26,7 @@ class FirestoreConstants {
   static const tags = 'tags';
   static const place = 'place';
   static const datetime = 'datetime';
+
+  //Reminders constants
+  static const isEvent = 'is_event';
 }

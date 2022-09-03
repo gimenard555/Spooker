@@ -73,13 +73,17 @@ class SpookerStrings {
   static const dateFormat = 'dd MMMM yyyy';
   static const dateTimeFormat = 'yyyy-MM-dd';
   static const lastDateFormat = 'yyyy-MM-dd hh:mm a';
+  static const VideoCallAppId = '47d1ad3ef3184c429d5f1b6ba6d5c1f5';
+  static const VideoCallToken =
+      '007eJxTYFhavodrzuNNGVMe8nBeyMn8zR351HmvaJfyJOlMKYtNV+crMJiYpxgmphinphkbWpgkmxhZppimGSaZJSWapZgmG6aZ3i4QTo4+JJLs6K/BwsgAgSA+D0NxQX5+dmpRfElqcQkDAwBkbSN0';
 }
 
 @immutable
 class SpookerErrorStrings {
   static const error = 'ERROR';
   static const emailErrorText = 'Enter a valid email address';
-  static const passwordErrorText = 'Enter a valid password \n Minimum 1 Upper case \n Minimum 1 lowercase \n Minimum 1 Numeric Number \n Minimum 1 Special Character';
+  static const passwordErrorText =
+      'Enter a valid password \n Minimum 1 Upper case \n Minimum 1 lowercase \n Minimum 1 Numeric Number \n Minimum 1 Special Character';
   static const dateErrorText = 'Enter a valid date';
   static const passwordMatch = 'Passwords do not match';
   static const somethingIsWrong = 'something is wrong';

@@ -82,6 +82,7 @@ flutter_gen:
 
 # The following section is specific to Flutter.
 flutter:
+  uses-material-design: true
   assets:
     - assets/animations/confetti_splash.json
     - assets/animations/spooker_back.json

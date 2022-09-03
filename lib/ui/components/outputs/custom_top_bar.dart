@@ -19,10 +19,11 @@ typedef GoStartMySpooker = void Function();
 
 // ignore: must_be_immutable
 class CustomTopBar extends HookConsumerWidget {
-  CustomTopBar(this._goToProfile, this._goToReminder);
+  CustomTopBar(this._goToProfile, this._goToReminder, this._goToSpooker);
 
   final GoToProfile _goToProfile;
   final GoToReminder _goToReminder;
+  final GoStartMySpooker _goToSpooker;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -66,12 +67,19 @@ class CustomTopBar extends HookConsumerWidget {
                   _goToReminder();
                 },
                 child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: SpookerSize.m10),
-                    child: Assets.images.notifications.image()),
-              ),
-              Container(
                   margin: EdgeInsets.symmetric(horizontal: SpookerSize.m10),
-                  child: Assets.images.configuration.image()),
+                  child: Assets.images.notifications.image(),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  _goToSpooker();
+                },
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: SpookerSize.m10),
+                  child: Assets.images.configuration.image(),
+                ),
+              )
             ],
           ),
         ),
